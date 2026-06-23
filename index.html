@@ -1256,9 +1256,6 @@ async function initGame() {
     }
     showTitleScreen();
 }
-    showTitleScreen();
-}
-
 window.onload = async function() {
     try { await initGame(); }
     catch(e) { document.getElementById('main-content').innerHTML = '<h2 style="color:red;">Startup Error</h2><pre>' + e.message + '\n' + e.stack + '</pre>'; }
