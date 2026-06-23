@@ -1,0 +1,279 @@
+{
+  "nameFamilies": [
+    "Abe", "Akiyama", "Arai", "Asano", "Baba", "Chiba", "Date", "Doi", "Endō", "Fujii",
+    "Gotō", "Hara", "Hayashi", "Hirai", "Honda", "Ichikawa", "Ishida", "Itō", "Kanō",
+    "Katō", "Kikuchi", "Kobayashi", "Kondō", "Kudō", "Kurihara", "Matsuda", "Miura",
+    "Miyamoto", "Mori", "Nagai", "Nakamura", "Nanbu", "Narita", "Niwa", "Ogawa", "Ōta",
+    "Ōtomo", "Sakai", "Sasaki", "Satake", "Shiba", "Shimazu", "Sugiyama", "Takahashi",
+    "Takeda", "Tamaki", "Tanaka", "Tōdō", "Uchida", "Uesugi", "Usami", "Yamada",
+    "Yamamoto", "Yokoyama", "Watanabe", "Saitō", "Kojima", "Aoki", "Inoue", "Matsuoka",
+    "Fukuda", "Morita", "Suzuki", "Kimura", "Nishimura", "Kawasaki", "Hasegawa", "Sakamoto",
+    "Shimizu", "Andō", "Maruyama", "Nakano", "Okano", "Takenaka", "Ōishi", "Yamaguchi",
+    "Matsumoto", "Ikeda", "Moriyama", "Hoshino", "Tamura", "Ōno", "Yoshikawa", "Kumagai",
+    "Noguchi", "Akagi", "Kiryu", "Isayama"
+  ],
+  "givenMale": [
+    "Akihiko", "Danjirō", "Eiji", "Fumio", "Genzō", "Haruo", "Hidemasa", "Ichirō",
+    "Jirō", "Katsuo", "Kenji", "Kiyoshi", "Magoichi", "Masahiro", "Mitsunari",
+    "Naomasa", "Noboru", "Rikichi", "Saburō", "Sanjūrō", "Shinji", "Shōichi",
+    "Tadashi", "Takeo", "Tarō", "Tetsuya", "Tomiichi", "Yoshio", "Yūki", "Zenbei",
+    "Gorō", "Shichirō", "Kurō", "Jūrō", "Hachirō", "Rokurō", "Shirō", "Kazuo",
+    "Mikio", "Isamu", "Takashi", "Akira", "Hideo", "Sadao", "Toshio", "Nobuo",
+    "Manabu", "Hiroshi", "Osamu", "Yutaka", "Seiji", "Tsuneo", "Katsurō", "Hideki",
+    "Tadashi", "Yasunori", "Masayoshi", "Hiroki", "Shunsuke", "Takaaki", "Kōichi",
+    "Yūdai", "Ryōta", "Shōta", "Kenta", "Yoshiki", "Kōsuke", "Kazuki", "Daichi",
+    "Takahiro", "Masanobu", "Tomohiro", "Shigeki"
+  ],
+  "givenFemale": [
+    "Akemi", "Ayako", "Chieko", "Etsuko", "Fumiko", "Hanako", "Harue", "Hiroko",
+    "Kaede", "Kikue", "Koharu", "Matsue", "Midori", "Miyuki", "Natsuko", "Osuzu",
+    "Reiko", "Sachiko", "Shizuko", "Takara", "Tamaki", "Tomoko", "Umeko", "Yoshiko",
+    "Yuki", "Yuriko", "Kazuko", "Setsuko", "Michiko", "Yōko", "Keiko", "Teruko",
+    "Noriko", "Junko", "Ritsuko", "Masako", "Naoko", "Yasuko", "Kumiko", "Mayumi",
+    "Satomi", "Emiko", "Yūko", "Sayuri", "Atsuko", "Mamiko", "Kaori", "Mariko",
+    "Rin", "Sakura", "Himari", "Yui", "Nagisa", "Shiori", "Aoi", "Asuka",
+    "Mei", "Suzu", "Rina", "Yuna", "Chiharu", "Tomoe", "Mitsuko", "Kimiko",
+    "Yoshie", "Kayo", "Kazue", "Fujiko", "Tokiko", "Chiyo", "Natsue", "Sumiko"
+  ],
+  "professions": {
+    "peasant":    { "category": "commoner", "wages": 5,  "baseLocation": "village",    "scheduleType": "farmer" },
+    "farmer":     { "category": "commoner", "wages": 5,  "baseLocation": "village",    "scheduleType": "farmer" },
+    "fisherman":  { "category": "commoner", "wages": 7,  "baseLocation": "village",    "scheduleType": "fisherman" },
+    "woodcutter": { "category": "commoner", "wages": 6,  "baseLocation": "village",    "scheduleType": "laborer" },
+    "charcoal_burner": { "category": "commoner", "wages": 6, "baseLocation": "village","scheduleType": "laborer" },
+    "merchant":   { "category": "merchant", "wages": 20, "baseLocation": "town",       "scheduleType": "shopkeeper" },
+    "peddler":    { "category": "merchant", "wages": 10, "baseLocation": "town",       "scheduleType": "traveler" },
+    "innkeeper":  { "category": "merchant", "wages": 15, "baseLocation": "town",       "scheduleType": "shopkeeper" },
+    "blacksmith": { "category": "artisan",  "wages": 18, "baseLocation": "town",       "scheduleType": "shopkeeper" },
+    "carpenter":  { "category": "artisan",  "wages": 16, "baseLocation": "town",       "scheduleType": "laborer" },
+    "potter":     { "category": "artisan",  "wages": 14, "baseLocation": "town",       "scheduleType": "shopkeeper" },
+    "weaver":     { "category": "artisan",  "wages": 12, "baseLocation": "town",       "scheduleType": "shopkeeper" },
+    "lacquerer":  { "category": "artisan",  "wages": 16, "baseLocation": "town",       "scheduleType": "shopkeeper" },
+    "paper_maker":{ "category": "artisan",  "wages": 14, "baseLocation": "village",    "scheduleType": "shopkeeper" },
+    "stonemason": { "category": "artisan",  "wages": 15, "baseLocation": "town",       "scheduleType": "laborer" },
+    "priest":     { "category": "religious","wages": 3,  "baseLocation": "village",    "scheduleType": "temple" },
+    "monk":       { "category": "religious","wages": 3,  "baseLocation": "village",    "scheduleType": "temple" },
+    "nun":        { "category": "religious","wages": 2,  "baseLocation": "village",    "scheduleType": "temple" },
+    "shrine_maiden": { "category": "religious","wages": 4,"baseLocation": "village",   "scheduleType": "temple" },
+    "samurai":    { "category": "samurai",  "wages": 40, "baseLocation": "town",       "scheduleType": "samurai" },
+    "ashigaru":   { "category": "samurai",  "wages": 15, "baseLocation": "town",       "scheduleType": "samurai" },
+    "ronin":      { "category": "samurai",  "wages": 10, "baseLocation": "town",       "scheduleType": "wanderer" },
+    "bandit":     { "category": "outlaw",   "wages": 0,  "baseLocation": "wilderness", "scheduleType": "bandit" },
+    "scout":      { "category": "outlaw",   "wages": 5,  "baseLocation": "wilderness", "scheduleType": "scout" },
+    "entertainer":{ "category": "commoner", "wages": 12, "baseLocation": "town",       "scheduleType": "traveler" },
+    "beggar":     { "category": "commoner", "wages": 0,  "baseLocation": "village",    "scheduleType": "wanderer" },
+    "headman":    { "category": "commoner", "wages": 20, "baseLocation": "village",    "scheduleType": "official" },
+    "doctor":     { "category": "scholar",  "wages": 25, "baseLocation": "town",       "scheduleType": "shopkeeper" },
+    "astrologer": { "category": "scholar",  "wages": 15, "baseLocation": "town",       "scheduleType": "shopkeeper" },
+    "calligrapher":{ "category": "scholar", "wages": 18, "baseLocation": "town",       "scheduleType": "shopkeeper" }
+  },
+  "personalityTraits": {
+    "brave":    { "aggression": 0.7, "fear": 0.2, "greed": 0.4, "loyalty": 0.8 },
+    "cowardly": { "aggression": 0.1, "fear": 0.9, "greed": 0.3, "loyalty": 0.4 },
+    "greedy":   { "aggression": 0.4, "fear": 0.5, "greed": 0.9, "loyalty": 0.3 },
+    "loyal":    { "aggression": 0.3, "fear": 0.4, "greed": 0.2, "loyalty": 0.95 },
+    "generous": { "aggression": 0.2, "fear": 0.5, "greed": 0.1, "loyalty": 0.7 },
+    "cruel":    { "aggression": 0.8, "fear": 0.3, "greed": 0.6, "loyalty": 0.2 },
+    "kind":     { "aggression": 0.2, "fear": 0.4, "greed": 0.2, "loyalty": 0.8 },
+    "sly":      { "aggression": 0.5, "fear": 0.4, "greed": 0.7, "loyalty": 0.3 },
+    "stoic":    { "aggression": 0.3, "fear": 0.3, "greed": 0.3, "loyalty": 0.9 },
+    "volatile": { "aggression": 0.9, "fear": 0.2, "greed": 0.4, "loyalty": 0.5 }
+  },
+  ,
+  "schedules": {
+    "farmer": [
+      { "start": 20, "end": 5, "location": "home", "activity": "sleep" },
+      { "start": 5, "end": 12, "location": "fields", "activity": "work" },
+      { "start": 12, "end": 13, "location": "home", "activity": "eat" },
+      { "start": 13, "end": 18, "location": "fields", "activity": "work" },
+      { "start": 18, "end": 20, "location": "village_square", "activity": "social" }
+    ],
+    "fisherman": [
+      { "start": 20, "end": 4, "location": "home", "activity": "sleep" },
+      { "start": 4, "end": 11, "location": "sea", "activity": "work" },
+      { "start": 11, "end": 12, "location": "home", "activity": "eat" },
+      { "start": 12, "end": 17, "location": "shore", "activity": "work" },
+      { "start": 17, "end": 20, "location": "village_square", "activity": "social" }
+    ],
+    "laborer": [
+      { "start": 21, "end": 6, "location": "home", "activity": "sleep" },
+      { "start": 6, "end": 12, "location": "worksite", "activity": "work" },
+      { "start": 12, "end": 13, "location": "home", "activity": "eat" },
+      { "start": 13, "end": 18, "location": "worksite", "activity": "work" },
+      { "start": 18, "end": 21, "location": "inn", "activity": "social" }
+    ],
+    "shopkeeper": [
+      { "start": 22, "end": 6, "location": "home", "activity": "sleep" },
+      { "start": 6, "end": 12, "location": "shop", "activity": "work" },
+      { "start": 12, "end": 13, "location": "home", "activity": "eat" },
+      { "start": 13, "end": 18, "location": "shop", "activity": "work" },
+      { "start": 18, "end": 22, "location": "market", "activity": "social" }
+    ],
+    "traveler": [
+      { "start": 22, "end": 6, "location": "inn", "activity": "sleep" },
+      { "start": 6, "end": 18, "location": "road", "activity": "travel" },
+      { "start": 18, "end": 22, "location": "inn", "activity": "social" }
+    ],
+    "temple": [
+      { "start": 21, "end": 5, "location": "temple", "activity": "sleep" },
+      { "start": 5, "end": 7, "location": "temple", "activity": "worship" },
+      { "start": 7, "end": 12, "location": "temple", "activity": "work" },
+      { "start": 12, "end": 13, "location": "temple", "activity": "eat" },
+      { "start": 13, "end": 18, "location": "village", "activity": "social" },
+      { "start": 18, "end": 21, "location": "temple", "activity": "worship" }
+    ],
+    "samurai": [
+      { "start": 22, "end": 5, "location": "barracks", "activity": "sleep" },
+      { "start": 5, "end": 8, "location": "training_ground", "activity": "train" },
+      { "start": 8, "end": 12, "location": "castle", "activity": "work" },
+      { "start": 12, "end": 13, "location": "barracks", "activity": "eat" },
+      { "start": 13, "end": 18, "location": "castle", "activity": "work" },
+      { "start": 18, "end": 22, "location": "inn", "activity": "social" }
+    ],
+    "wanderer": [
+      { "start": 22, "end": 6, "location": "camp", "activity": "sleep" },
+      { "start": 6, "end": 20, "location": "wilderness", "activity": "roam" },
+      { "start": 20, "end": 22, "location": "tavern", "activity": "social" }
+    ],
+    "bandit": [
+      { "start": 22, "end": 6, "location": "camp", "activity": "sleep" },
+      { "start": 6, "end": 20, "location": "wilderness", "activity": "roam" },
+      { "start": 20, "end": 22, "location": "tavern", "activity": "social" }
+    ],
+    "scout": [
+      { "start": 22, "end": 4, "location": "camp", "activity": "sleep" },
+      { "start": 4, "end": 20, "location": "wilderness", "activity": "scout" },
+      { "start": 20, "end": 22, "location": "camp", "activity": "rest" }
+    ],
+    "official": [
+      { "start": 22, "end": 6, "location": "home", "activity": "sleep" },
+      { "start": 6, "end": 12, "location": "office", "activity": "work" },
+      { "start": 12, "end": 13, "location": "home", "activity": "eat" },
+      { "start": 13, "end": 18, "location": "office", "activity": "work" },
+      { "start": 18, "end": 22, "location": "home", "activity": "social" }
+    ]
+  },
+  "factions": {
+    "Chiba": {
+      "name": "Chiba",
+      "kanji": "千葉",
+      "territory": ["shimosa"],
+      "rivals": ["Satake"],
+      "allies": ["Uesugi"],
+      "reputationThresholds": { "hostile": -30, "neutral": 0, "friendly": 30, "allied": 60 }
+    },
+    "Satake": {
+      "name": "Satake",
+      "kanji": "佐竹",
+      "territory": ["hitachi"],
+      "rivals": ["Chiba","Utsunomiya"],
+      "allies": [],
+      "reputationThresholds": { "hostile": -25, "neutral": 0, "friendly": 25, "allied": 50 }
+    },
+    "Utsunomiya": {
+      "name": "Utsunomiya",
+      "kanji": "宇都宮",
+      "territory": ["shimotsuke"],
+      "rivals": ["Satake"],
+      "allies": ["Uesugi"],
+      "reputationThresholds": { "hostile": -20, "neutral": 0, "friendly": 20, "allied": 40 }
+    },
+    "Uesugi": {
+      "name": "Uesugi",
+      "kanji": "上杉",
+      "territory": ["kozuke"],
+      "rivals": [],
+      "allies": ["Chiba","Utsunomiya"],
+      "reputationThresholds": { "hostile": -35, "neutral": 0, "friendly": 35, "allied": 70 }
+    },
+    "Kawagoe": {
+      "name": "Kawagoe",
+      "kanji": "川越",
+      "territory": ["musashi"],
+      "rivals": [],
+      "allies": [],
+      "reputationThresholds": { "hostile": -20, "neutral": 0, "friendly": 20, "allied": 40 }
+    }
+  },
+  "combatSkillTable": {
+    "samurai": { "min": 6, "max": 10 },
+    "ronin": { "min": 5, "max": 9 },
+    "ashigaru": { "min": 4, "max": 7 },
+    "bandit": { "min": 3, "max": 6 },
+    "scout": { "min": 3, "max": 7 },
+    "monk": { "min": 2, "max": 5 },
+    "priest": { "min": 1, "max": 3 },
+    "commoner": { "min": 0, "max": 3 },
+    "merchant": { "min": 0, "max": 2 },
+    "artisan": { "min": 0, "max": 2 },
+    "religious": { "min": 0, "max": 3 },
+    "scholar": { "min": 0, "max": 2 }
+  },
+  "startingInventory": {
+    "farmer": [
+      { "itemId": "item_hoe", "quantity": 1 },
+      { "itemId": "item_rice_bag", "quantity": 2 }
+    ],
+    "merchant": [
+      { "itemId": "item_silk_bolt", "quantity": 1 },
+      { "itemId": "item_dried_fish", "quantity": 3 }
+    ],
+    "blacksmith": [
+      { "itemId": "item_iron_ingot", "quantity": 2 },
+      { "itemId": "item_charcoal_bundle", "quantity": 1 },
+      { "itemId": "item_hammer", "quantity": 1 }
+    ],
+    "carpenter": [
+      { "itemId": "item_timber_log", "quantity": 2 },
+      { "itemId": "item_saw", "quantity": 1 }
+    ],
+    "fisherman": [
+      { "itemId": "item_fishing_net", "quantity": 1 },
+      { "itemId": "item_dried_fish", "quantity": 2 }
+    ],
+    "samurai": [
+      { "itemId": "item_katana", "quantity": 1 },
+      { "itemId": "item_wakizashi", "quantity": 1 }
+    ],
+    "ashigaru": [
+      { "itemId": "item_yari", "quantity": 1 }
+    ],
+    "monk": [
+      { "itemId": "item_incense", "quantity": 2 }
+    ],
+    "doctor": [
+      { "itemId": "item_medicine_herb", "quantity": 3 }
+    ],
+    "beggar": [
+      { "itemId": "item_rice_bag", "quantity": 1 }
+    ],
+    "ronin": [
+      { "itemId": "item_katana", "quantity": 1 }
+    ],
+    "bandit": [
+      { "itemId": "item_wakizashi", "quantity": 1 }
+    ]
+  },
+  "moodModifiers": {
+    "wealthy": { "greed": -0.2, "loyalty": 0.2, "aggression": 0.1 },
+    "starving": { "greed": 0.4, "fear": 0.2, "aggression": 0.3, "loyalty": -0.3 },
+    "war_zone": { "fear": 0.3, "aggression": 0.2, "loyalty": 0.1 },
+    "festival": { "aggression": -0.2, "greed": -0.1, "loyalty": 0.1 },
+    "plague": { "fear": 0.5, "greed": 0.2, "loyalty": -0.2 }
+  },
+  "relationshipDefaults": {
+    "samurai_to_peasant": -10,
+    "peasant_to_samurai": 10,
+    "merchant_to_peasant": 0,
+    "peasant_to_merchant": -5,
+    "same_clan": 20,
+    "rival_clan": -30,
+    "enemy_faction": -40,
+    "rescued": 40,
+    "hired": 20,
+    "cheated": -30,
+    "insulted": -25,
+    "gifted": 15,
+    "family": 50
+  }
+}
