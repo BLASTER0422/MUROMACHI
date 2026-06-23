@@ -1,0 +1,762 @@
+{
+  "greetings": {
+    "farmer": [
+      "\"Another day in the fields. The {season} sun is {weatherComment}.\"",
+      "\"Ah, a stranger. Don't see many new faces at planting time. What brings you to {location}?\"",
+      "\"The paddies {paddyState}. My back aches, but the land provides.\"",
+      "\"Careful where you step — the irrigation channels are slippery this time of year.\"",
+      "\"You look hungry. There's still some millet porridge left if you want.\"",
+      "\"Rain would be welcome. The seedlings are thirsty.\"",
+      "\"Last harvest was poor, but the kami have blessed us with a mild winter so far.\"",
+      "\"Have you come to buy rice? The price is high this month.\"",
+      "\"My eldest son left to join the levy. I pray he returns.\"",
+      "\"The scarecrows need repairing. Always something to do.\""
+    ],
+    "merchant": [
+      "\"Welcome, welcome! Have a look at my wares. Finest {goods} in {location}!\"",
+      "\"Business has been {businessState} lately. Not many caravans from {tradeRoute} since the {event}.\"",
+      "\"A shrewd buyer, I can tell. Let's talk price.\"",
+      "\"I just received a shipment of {localSpecialty}. You won't find better quality.\"",
+      "\"Coin is tight this season. If you have something to trade, I'm listening.\"",
+      "\"Everything is negotiable. Name your offer.\"",
+      "\"I have contacts in Kamakura, Edo, and even the capital. I can get anything.\"",
+      "\"Careful of the counterfeit coins going around. I check every piece.\"",
+      "\"Travel is dangerous now. Half my usual suppliers haven't arrived.\"",
+      "\"A good merchant knows when to hold and when to sell. Today, I sell.\""
+    ],
+    "monk": [
+      "\"Amida Buddha watches over all who walk the path. Welcome, traveller.\"",
+      "\"The temple bells ring for the departed. Have you come to pray?\"",
+      "\"Sit with me. The world's troubles can wait a moment.\"",
+      "\"I sense a restlessness in you. Perhaps a cup of tea will soothe it.\"",
+      "\"The leaves are changing. A reminder that all things are impermanent.\"",
+      "\"Compassion is the only true weapon against suffering.\"",
+      "\"We hold a meditation at dusk. You are welcome to join.\"",
+      "\"The abbot speaks of a coming storm — not of weather, but of men's hearts.\"",
+      "\"If you carry a burden, leave it at the temple gate.\"",
+      "\"Even the most fearsome warrior will one day be dust. Reflect on that.\""
+    ],
+    "samurai": [
+      "\"State your business. The {clan} clan does not tolerate idle wanderers.\"",
+      "\"Your blade — it looks well‑used. Have you seen battle?\"",
+      "\"My lord requires {lordDemand}. These are troubled times, and loyalty is everything.\"",
+      "\"I remember the fields of {battlefield}. The cries still echo.\"",
+      "\"If you serve no master, you serve only yourself. That is a dangerous path.\"",
+      "\"Stand straight. A warrior's posture reflects his spirit.\"",
+      "\"I am on patrol. Move along unless you have business here.\"",
+      "\"The code of bushidō is all that separates us from beasts.\"",
+      "\"My sword has tasted blood. Pray it does not taste yours.\"",
+      "\"A samurai's word is his bond. Remember that.\""
+    ],
+    "blacksmith": [
+      "\"The forge is hot and the iron waits for no one. What do you need?\"",
+      "\"A new blade? Repairs? I can shape anything from a plowshare to a katana.\"",
+      "\"Iron ore from Hitachi is getting scarce. Prices may rise.\"",
+      "\"Mind the sparks — that's good steel folding under the hammer.\"",
+      "\"They say a well‑forged sword carries the soul of its maker. This one's almost ready.\"",
+      "\"I learned this trade from my father. He learned from his.\"",
+      "\"Good tools make all the difference. A dull axe is a danger to everyone.\"",
+      "\"If you bring me raw iron, I'll give you a discount on the work.\"",
+      "\"Quenching is an art. Too fast, the blade shatters. Too slow, it's soft.\"",
+      "\"I don't just make weapons. Nails, hinges, cooking pots — all essential.\""
+    ],
+    "innkeeper": [
+      "\"A room for the night? The hearth is warm and the sake is cold.\"",
+      "\"You're in luck — the last room is yours, if you have the coin.\"",
+      "\"Travellers have been few since the {event}. It's hard times.\"",
+      "\"Supper is rice and grilled fish. Not fancy, but it fills the belly.\"",
+      "\"Watch your belongings. There have been reports of petty thieves.\"",
+      "\"The bath is out back. Hot water costs extra.\"",
+      "\"I can stable your horse for the night. Extra fodder is two mon.\"",
+      "\"If you need directions, just ask. I know every road in the province.\"",
+      "\"We don't allow fighting inside. Take it outside.\"",
+      "\"A group of merchants came through yesterday. They paid in silver.\""
+    ],
+    "fisherman": [
+      "\"The sea was rough this morning. Barely a catch to speak of.\"",
+      "\"Best bonito you'll taste this side of Kazusa. Fresh off the boat.\"",
+      "\"The tide's coming in. Good time to try your luck with a line.\"",
+      "\"There's a storm brewing. Smell the air? We're in for a blow.\"",
+      "\"A kappa was spotted near the river mouth. Keep your wits about you.\"",
+      "\"My grandfather fished these waters. His grandfather before him.\"",
+      "\"I lost a net to a shark last week. Costly business.\"",
+      "\"The best fishing is at dawn, when the sea is glass.\"",
+      "\"We offer prayers to Ebisu-sama before every voyage.\"",
+      "\"You can buy dried fish from me for half what the market charges.\""
+    ],
+    "woodcutter": [
+      "\"The forest has been good this year. Plenty of oak and cedar.\"",
+      "\"Listen — do you hear that? A woodpecker. Good omen.\"",
+      "\"Charcoal burning is hard work, but it keeps the village warm in winter.\"",
+      "\"Stay on the path if you go into the woods. Wolves have been seen.\"",
+      "\"My axe is getting dull. Time to see the blacksmith.\"",
+      "\"Sometimes I see strange lights in the trees at night. The monks say it's nothing.\"",
+      "\"Timber prices are up. More building in the towns.\"",
+      "\"I once saw a bear as big as a horse. I ran so fast I left my sandals behind.\"",
+      "\"The mountain kami are real. Show respect when you take from their forest.\"",
+      "\"I've been cutting wood here for thirty years. It's honest work.\""
+    ],
+    "beggar": [
+      "\"Spare a mon for a poor soul? The war took everything.\"",
+      "\"I used to be a farmer, before the flood. Now I have nothing.\"",
+      "\"The temple gives out rice on festival days. Small mercies.\"",
+      "\"You look like a kind soul. May the kami bless your journey.\"",
+      "\"The nights are cold. Even a scrap of cloth would help.\"",
+      "\"I can tell you the gossip of the town. I hear everything.\"",
+      "\"Don't pity me. I was once a proud man.\"",
+      "\"The children throw stones, but I'm used to it.\"",
+      "\"If you give me something, I'll pray for your fortune.\"",
+      "\"Even a dying dog can still bite. I'm not completely useless.\""
+    ],
+    "entertainer": [
+      "\"A song? A dance? I can play the biwa or spin a tale for your amusement.\"",
+      "\"The capital's the place for real entertainment. Out here, we make do.\"",
+      "\"I heard a rumour that a Noh troupe is travelling through Musashi. Perhaps we'll see them.\"",
+      "\"For a few mon, I'll tell you a story that'll make your heart race.\"",
+      "\"Laughter is the best medicine, they say. Try it — it's free.\"",
+      "\"I used to perform at the court of a daimyō. Then the war came.\"",
+      "\"My biwa has seen better days. The strings are old, but the sound is still sweet.\"",
+      "\"Every night I perform, someone buys me a drink. Tonight, it's your turn.\"",
+      "\"I know a hundred stories, from the creation of the world to yesterday's battle.\"",
+      "\"If you have a story worth telling, I'll trade you a song for it.\""
+    ],
+    "doctor": [
+      "\"You look pale. Have you been eating enough?\"",
+      "\"I can prepare a remedy for that cough. Willow bark and ginger.\"",
+      "\"Acupuncture can relieve many pains. Lie down and relax.\"",
+      "\"This poultice will draw out the infection. Change it twice a day.\"",
+      "\"The body's humours must stay balanced. Too much fire leads to fever.\"",
+      "\"I studied under a Chinese physician who knew secrets lost to most.\"",
+      "\"Some illnesses are of the spirit, not the body. Have you consulted a priest?\"",
+      "\"Rest is the best medicine. But nobody listens to that advice.\"",
+      "\"I charge according to what the patient can afford. The wealthy pay for the poor.\"",
+      "\"If you bring me herbs, I'll treat you for free.\""
+    ]
+  },
+  "gossip": {
+    "farmer": [
+      "\"Did you hear? Old man {npcName} found a buried jar of coins in his field. Lucky devil.\"",
+      "\"The headman's daughter ran off with a peddler. Scandalous!\"",
+      "\"They say the rice tax is going up again. The Shogun's men are relentless.\"",
+      "\"A white fox was seen near the shrine. That's either a blessing or a curse.\"",
+      "\"My neighbour's cow gave birth to a two‑headed calf. Bad omen, that.\"",
+      "\"The smith's apprentice has been sneaking out at night. Meeting someone, I'd wager.\"",
+      "\"I heard a baby crying in the woods. Probably just a fox, but still...\"",
+      "\"A stranger was asking about the old battlefield. Treasure hunter?\"",
+      "\"The river has risen three feet since last week. Floods might be coming.\"",
+      "\"My wife saw a shooting star last night and made a wish. I hope it was for a good harvest.\""
+    ],
+    "merchant": [
+      "\"Word is, a large caravan from the capital was attacked on the Tōkaidō. Bandits grow bolder.\"",
+      "\"Silk prices are falling — a ship from Ming China docked in Sakai.\"",
+      "\"The Satake and Uesugi are massing troops. War is coming.\"",
+      "\"A new coin is being minted. It's debased, they say, but it spends the same.\"",
+      "\"Someone in {location} is hoarding salt. Price spike coming, mark my words.\"",
+      "\"The innkeeper overcharges strangers. I've seen his ledgers.\"",
+      "\"A wealthy widow from Kamakura is looking to invest in a trading venture.\"",
+      "\"They say the magistrate takes bribes. That's why certain cases never go to trial.\"",
+      "\"The price of charcoal will double before winter. Buy now if you can.\"",
+      "\"A rival merchant tried to undercut me. He's now selling rotten fish down by the docks.\""
+    ],
+    "monk": [
+      "\"A hermit in the mountains claims to have seen the Buddha in a waterfall.\"",
+      "\"Pilgrims from Awa spoke of a great fish that sang like a woman.\"",
+      "\"A tengu was sighted in Nikkō. The yamabushi are preparing a purification ritual.\"",
+      "\"The abbot is ill. They say it's a curse from a disgruntled spirit.\"",
+      "\"A wandering nun performed a miracle — healed a child with just a touch.\"",
+      "\"The temple records speak of a hidden treasure buried during the Genpei War.\"",
+      "\"I heard a voice in the meditation hall last night. No one else was there.\"",
+      "\"The cherry tree in the courtyard bloomed out of season. A sign from the heavens.\"",
+      "\"A samurai came to confess his sins. He left without his sword.\"",
+      "\"The novice monk has dreams that come true. The abbot fears for his safety.\""
+    ],
+    "samurai": [
+      "\"The Chiba clan is recruiting ronin. They're offering good pay.\"",
+      "\"A duel took place at the crossroads yesterday. Two samurai, both dead.\"",
+      "\"My lord has received a secret envoy from the Southern Court. Treason or diplomacy?\"",
+      "\"One of the castle guards vanished last night. His armour was found by the river.\"",
+      "\"A famous swordmaster is passing through {location}. Every warrior wants to challenge him.\"",
+      "\"I overheard my lord arguing with the tax collector. Voices were raised.\"",
+      "\"The daimyō's son is a coward. He'll never lead men into battle.\"",
+      "\"They say a ronin in the hills has mastered a technique that can cut through stone.\"",
+      "\"The Shogun's inspectors are travelling incognito. They could be anyone.\"",
+      "\"An old woman spat at a samurai and he did nothing. He must be disgraced.\""
+    ],
+    "commoner": [
+      "\"Have you seen the new shrine gate? It was funded by a wealthy merchant.\"",
+      "\"A fire broke out in the lower quarter. Three houses lost.\"",
+      "\"The midwife says the baker's wife is pregnant with twins.\"",
+      "\"Someone's been stealing turnips from my garden. I blame the children.\"",
+      "\"The village council is meeting tonight about the new irrigation ditch.\"",
+      "\"I saw a dog walking on its hind legs. My grandmother says that's bad luck.\"",
+      "\"The constable has been drinking more than usual. Something's troubling him.\"",
+      "\"A peddler is selling miracle cures. I'd call them snake oil, but people buy them.\"",
+      "\"The temple bell rang by itself yesterday. Everyone's spooked.\"",
+      "\"The rice merchant's wife left him. She took the children and all the silver.\""
+    ]
+  },
+  "fearful": {
+    "commoner": [
+      "\"Please don't hurt me! I have nothing of value.\"",
+      "\"Take whatever you want! Just spare my family!\"",
+      "\"I'll do anything — just don't burn our fields.\"",
+      "\"The gods have abandoned us. First plague, now bandits.\"",
+      "\"Run! Run to the hills! They're coming!\"",
+      "\"I can't fight. I'm just a simple farmer.\"",
+      "\"My children are hiding in the shed. Please don't find them.\"",
+      "\"I never hurt anyone. Why is this happening?\"",
+      "\"Let me go and I'll never speak of this.\"",
+      "\"The soldiers are worse than the bandits. They take everything.\""
+    ],
+    "merchant": [
+      "\"Here's my purse. All of it. Just let me go.\"",
+      "\"I'll pay triple next season if you spare my warehouse.\"",
+      "\"Don't kill me! I have connections — they'll ransom me well!\"",
+      "\"The guards will be here any moment. You should leave.\"",
+      "\"I have a family. Please, think of them.\"",
+      "\"Take my goods but leave my ledgers. They're worthless to you.\"",
+      "\"I always pay protection money. This shouldn't be happening.\"",
+      "\"I'll give you credit at any shop in the province. Just name it.\"",
+      "\"If you kill me, my debtors will never pay. You'll lose money.\"",
+      "\"I'll sign a contract giving you half my profits. Please.\""
+    ],
+    "samurai": [
+      "\"Do your worst. I will not dishonour my clan.\"",
+      "\"If I die, my lord will avenge me. You gain nothing.\"",
+      "\"I have faced worse than you on the battlefield.\"",
+      "\"My sword is not for sale, bandit. Come and take it.\"",
+      "\"Kill me if you must, but spare the villagers.\"",
+      "\"You think fear will break me? I've stared death in the face before.\"",
+      "\"My ancestors watch me. I will not shame them.\"",
+      "\"Cut me down, but you'll never see your homeland again.\"",
+      "\"I've written my death poem already. I'm ready.\"",
+      "\"A samurai does not beg. Do what you came to do.\""
+    ]
+  },
+  "angry": {
+    "commoner": [
+      "\"How dare you speak to me that way!\"",
+      "\"Get off my land before I set the dogs on you!\"",
+      "\"I've had enough of outsiders causing trouble here.\"",
+      "\"You think you're better than us? Leave now.\"",
+      "\"One more word and I'll fetch the constable.\"",
+      "\"I'll remember your face. You'll regret this.\"",
+      "\"Touch my family and I'll kill you myself.\"",
+      "\"You're not welcome here. Turn around and go.\"",
+      "\"I've dealt with worse than you. Don't test me.\"",
+      "\"You've insulted my house. An apology won't be enough.\""
+    ],
+    "samurai": [
+      "\"You insult my honour. Draw your blade or apologise.\"",
+      "\"I'll cut you down where you stand.\"",
+      "\"Nobody speaks to a {clan} retainer like that.\"",
+      "\"You're either brave or foolish. We'll soon see which.\"",
+      "\"A duel, then. Sunrise, outside the shrine.\"",
+      "\"I've killed men for less. Consider this your final warning.\"",
+      "\"My patience is as thin as a blade's edge.\"",
+      "\"Your words are an insult to my entire bloodline.\"",
+      "\"I don't fight cowards. Prove you're worth my time.\"",
+      "\"You'll kneel before I cut you down.\""
+    ],
+    "merchant": [
+      "\"You try to cheat me? I'll ruin your reputation in every province!\"",
+      "\"Guards! This scoundrel is trying to use counterfeit coin!\"",
+      "\"I didn't build my trade by being intimidated. Get out of my shop.\"",
+      "\"You owe me money, and I always collect.\"",
+      "\"Never darken my doorstep again, or I'll have you arrested.\"",
+      "\"Do you know who my creditors are? They could buy your village.\"",
+      "\"I can make one call and have you blacklisted from every port.\"",
+      "\"You think you can out‑haggle me? I was bargaining while you were in diapers.\"",
+      "\"Take your business elsewhere. I don't deal with cheats.\"",
+      "\"If you cross me, you'll find your shipments mysteriously lost.\""
+    ]
+  },
+  "news": {
+    "drought": [
+      "\"The wells are drying up. If it doesn't rain soon, the crops will fail.\"",
+      "\"The river is lower than I've ever seen. Even the fish are dying.\"",
+      "\"The daimyō ordered prayers at every shrine, but the sky remains clear.\"",
+      "\"Rice prices are going to soar. Mark my words.\""
+    ],
+    "flood": [
+      "\"The Tone River burst its banks. Half the village is underwater.\"",
+      "\"We lost everything — the house, the tools, the winter grain.\"",
+      "\"Bodies washed up downstream. The water shows no mercy.\"",
+      "\"They're calling it the worst flood in a generation.\""
+    ],
+    "bandit_raid": [
+      "\"A caravan was hit two days ago. No survivors.\"",
+      "\"The bandits have been seen near the pass. Travellers are warned.\"",
+      "\"They came at night. Took the grain and burned what they couldn't carry.\"",
+      "\"The magistrate is posting a bounty, but it's not enough.\""
+    ],
+    "war": [
+      "\"Troops are marching east. The Shogunate has called the banners.\"",
+      "\"A siege has begun at a castle in Musashi. We heard the cannons.\"",
+      "\"Refugees are pouring into town. They say their village was razed.\"",
+      "\"The war will be over by winter — or so the daimyō claims.\""
+    ],
+    "festival": [
+      "\"The streets are decorated for the harvest festival. Finally, some joy!\"",
+      "\"There's going to be a sumo match in the square tomorrow.\"",
+      "\"Fireworks! The temple is setting off fireworks for the first time in years.\"",
+      "\"Sake is half price during the festival. My favourite time of year.\""
+    ],
+    "supernatural": [
+      "\"A ghost was seen at the crossroads. They say it's a woman who died in childbirth.\"",
+      "\"A strange light moves through the forest at night. The monks say it's a hitodama.\"",
+      "\"A fortune teller arrived yesterday. She predicted a terrible earthquake.\"",
+      "\"The shrine maiden heard the voice of the kami in a dream. She's been silent ever since.\""
+    ]
+  }
+}
+  "profession_specific": {
+    "blacksmith": [
+      "\"This steel is from the Satake mines. Harder than anything you'll find in the south.\"",
+      "\"I can forge you a blade that will never fail in battle. It will cost you, though.\"",
+      "\"The secret to a good edge is in the quenching. Water or oil — that's the question.\"",
+      "\"My master taught me the old techniques. I'm one of the few left.\"",
+      "\"If you bring me raw iron, I'll give you a discount on the work.\"",
+      "\"Quenching is an art. Too fast, the blade shatters. Too slow, it's soft.\"",
+      "\"A katana is not just a weapon; it's the soul of the samurai. I treat each blade as a prayer.\"",
+      "\"I don't just make weapons. Nails, hinges, cooking pots — all essential.\"",
+      "\"See these bellows? They've been in my family for three generations.\"",
+      "\"The iron sand from the mountains is the best. It folds a hundred times without breaking.\""
+    ],
+    "carpenter": [
+      "\"See this joint? No nails needed. That's the art of the daiku.\"",
+      "\"I built the new temple gate. Took me three months of carving.\"",
+      "\"Good timber is getting harder to find. The forest is thinning.\"",
+      "\"I can make you a chest that will last a hundred years. Or longer.\"",
+      "\"Every beam I cut is measured against the morning sun. Precision is everything.\"",
+      "\"A house built right will stand through earthquakes. The secret is in the foundation stones.\"",
+      "\"I use cypress for the frames — it resists rot and insects.\"",
+      "\"The daimyō's palace has sliding doors I made. They still glide like silk.\"",
+      "\"If you need a bridge, I can span a river in a week.\"",
+      "\"My tools are my children. I sharpen them every morning before work.\""
+    ],
+    "fisherman": [
+      "\"Today's catch was all bonito. The market will be flooded.\"",
+      "\"You have to read the currents. The fish follow them like roads.\"",
+      "\"My grandfather told me about a great whale that lives in Sagami Bay.\"",
+      "\"Nets need mending every week. Salt water eats through everything.\"",
+      "\"The best fishing is at dawn, when the sea is glass.\"",
+      "\"We offer prayers to Ebisu-sama before every voyage.\"",
+      "\"I once pulled up a fish with a pearl in its belly. Sold it for a year's wages.\"",
+      "\"A storm can come out of nowhere. Always keep an eye on the clouds.\"",
+      "\"Cormorant fishing? That's for the wealthy to watch. I use a net.\"",
+      "\"Seaweed harvest is in spring. The young shoots are the most tender.\""
+    ],
+    "healer": [
+      "\"For fever, boil willow bark and drink the tea. It's bitter but effective.\"",
+      "\"This herb poultice will draw out the infection. Change it twice a day.\"",
+      "\"Acupuncture can relieve pain, but you must trust the needles.\"",
+      "\"I learned my art from a Chinese physician who passed through years ago.\"",
+      "\"Ginger root warms the blood. Chew it raw for a cold.\"",
+      "\"Moxibustion — burning mugwort on the skin — can cure deep ailments.\"",
+      "\"A calm mind heals faster than any medicine. Meditate daily.\"",
+      "\"If the wound is festering, clean it with sake and apply honey.\"",
+      "\"I treat all who come, rich or poor. Payment is whatever you can give.\"",
+      "\"Some illnesses are caused by angry spirits. In those cases, call a priest.\""
+    ],
+    "potter": [
+      "\"This clay is from Seto — the finest in the land. It fires to a warm, rich colour.\"",
+      "\"A good bowl should feel like it belongs in your hands. It's not just a vessel; it's a companion.\"",
+      "\"I can make a tea cup so thin you can see the shadow of the tea through it.\"",
+      "\"Kiln temperature must be perfect. Too hot and everything cracks.\"",
+      "\"Each piece is glazed with ash from the rice fields. No two are alike.\"",
+      "\"I studied under a master in Shigaraki. He taught me that imperfections are beauty.\"",
+      "\"A cracked pot can be mended with lacquer and gold — it tells a story.\"",
+      "\"The tea ceremony masters demand perfection. One mistake, and they reject the whole set.\""
+    ],
+    "weaver": [
+      "\"This silk is from our own silkworms. The thread is stronger than it looks.\"",
+      "\"Indigo dyeing is a messy business, but the colour lasts a lifetime.\"",
+      "\"I can weave a pattern so complex it tells an entire story.\"",
+      "\"A well‑made kimono should move with the body, not against it.\"",
+      "\"Cotton is for everyday; silk is for special occasions. Hemp is for work.\"",
+      "\"I use a shuttle made of cherry wood. It's smooth and never snags.\"",
+      "\"The daimyō's wife ordered a bolt of red silk. It took me a month.\"",
+      "\"If you bring me raw silk, I can weave it into cloth in three days.\"",
+      "\"Weaving is meditation. The rhythm of the loom clears the mind.\"",
+      "\"A torn garment can be rewoven so well you'd never see the mend.\""
+    ],
+    "stonemason": [
+      "\"Granite from the mountains is best for castle walls. It laughs at catapults.\"",
+      "\"I carved the guardian statues at the shrine. They've stood for fifty years.\"",
+      "\"A good foundation stone must be perfectly flat. I use a level and patience.\"",
+      "\"Stone remembers every blow of the chisel. You can't rush it.\"",
+      "\"Limestone is easier to carve but weathers faster. Choose wisely.\"",
+      "\"I learned from my uncle, who built the great bridge over the Tone River.\"",
+      "\"A stone lantern properly placed will stand for centuries.\"",
+      "\"Gravestones are the most important work. They carry a family's name forever.\""
+    ],
+    "lacquerer": [
+      "\"This sap is from the urushi tree. It hardens to a mirror finish.\"",
+      "\"Lacquerware must be applied in thin layers, one per day, for weeks.\"",
+      "\"The red pigment comes from cinnabar. It's rare and expensive.\"",
+      "\"A well‑made lacquer bowl can hold boiling soup without harming the hands.\"",
+      "\"Gold leaf applied over lacquer creates a design worthy of a palace.\"",
+      "\"The poison in raw lacquer gives a terrible rash. I've suffered many times.\"",
+      "\"Each piece takes months to finish. That's why it commands such a price.\""
+    ],
+    "paper_maker": [
+      "\"Washi paper is made from mulberry bark. It's stronger than it looks.\"",
+      "\"A good sheet of paper can last a thousand years if kept dry.\"",
+      "\"I supply the temple with paper for sutras. They demand the best.\"",
+      "\"The mould and deckle are my most prized tools. They're worn smooth by years of use.\"",
+      "\"White paper is for poetry; cream paper is for letters. Each has its place.\"",
+      "\"I can make paper so thin you can see the moon through it.\""
+    ]
+  },
+  "quest": {
+    "fetch_item": {
+      "offer": [
+        "\"I need {itemName} urgently. My {familyMember} is ill and the healer says this will help. Can you find it?\"",
+        "\"If you could bring me {itemName}, I'd be in your debt. The market is out, and the next caravan won't come for weeks.\"",
+        "\"A simple task for a capable person: fetch me {itemName} from {location}. I'll pay well.\"",
+        "\"My workshop is useless without {itemName}. I can't craft anything until I get more. Please, I'll make it worth your while.\"",
+        "\"I'm looking for {itemName}. None of the local merchants have it. You seem resourceful — can you help?\"",
+        "\"My son is getting married, and we need {itemName} for the ceremony. I'll pay extra for speed.\"",
+        "\"A traveller like you must know the roads. Bring me {itemName} from {location} and earn my gratitude.\"",
+        "\"The temple requires {itemName} for a ritual. The abbot will reward you handsomely.\"",
+        "\"I've searched everywhere. If you can find {itemName}, I'll give you something valuable in return.\"",
+        "\"There's good coin in it if you can procure {itemName}. I'm desperate.\""
+      ],
+      "accept": [
+        "\"Thank you! You're a lifesaver. I'll prepare your reward.\"",
+        "\"May the kami guide your steps. I'll wait here.\"",
+        "\"Excellent. Remember, I need {itemName}, not a substitute. The quality matters.\"",
+        "\"Good. I knew you had an honest face. Don't be long — it's urgent.\"",
+        "\"I'll write down the details so you don't forget. Take this note.\"",
+        "\"Be careful on the roads. Bandits have been spotted lately.\"",
+        "\"If anyone asks, you're on an errand for the village headman.\"",
+        "\"Take this small advance. It's all I can spare until you return.\"",
+        "\"The sooner you're back, the better. But safety first.\"",
+        "\"I'll pray for your swift return.\""
+      ],
+      "remind": [
+        "\"Any luck finding {itemName} yet? I'm getting anxious.\"",
+        "\"I haven't forgotten our deal. I hope you haven't either.\"",
+        "\"Still waiting on that {itemName}. My need grows each day.\"",
+        "\"No rush… well, actually, yes rush. But I trust you.\"",
+        "\"The healer stopped by again. The medicine is urgently needed.\"",
+        "\"Every day without {itemName} is a day my {familyMember} suffers.\"",
+        "\"Have you checked the market in {location}? They might have it.\"",
+        "\"I can offer a little more coin if that speeds things up.\"",
+        "\"Don't forget me. I'm counting on you.\"",
+        "\"If you can't find it, come back anyway. We'll think of something.\""
+      ],
+      "complete": [
+        "\"You found it! I can't thank you enough. Here's your reward, as promised.\"",
+        "\"Perfect, just what I needed. You're a true friend.\"",
+        "\"Excellent quality! This will do nicely. Take this for your trouble.\"",
+        "\"Finally! I was starting to lose hope. You've earned this.\"",
+        "\"My {familyMember} is saved because of you. I'll never forget this.\"",
+        "\"The temple will bless you for your help. Here's the abbot's donation.\"",
+        "\"Wonderful! I can finish my work now. Please, accept this bonus.\"",
+        "\"You're a miracle worker. I'll spread word of your reliability.\"",
+        "\"I knew I could trust you. If you ever need a favour, just ask.\"",
+        "\"Here, take a little extra. It's not much, but it comes from the heart.\""
+      ]
+    },
+    "kill_beast": {
+      "offer": [
+        "\"A {beast} has been terrorising our village. It killed three of our goats and wounded a child. Please, kill it before it takes a life.\"",
+        "\"You look capable with that blade. There's a bounty on a {beast} that's been haunting the {location} forest. Interested?\"",
+        "\"The magistrate posted a reward for anyone who slays the {beast}. But I'm adding my own coin on top. The creature must die.\"",
+        "\"My hunting party was slaughtered. I'm the only survivor. That {beast} is no ordinary animal. Will you help?\"",
+        "\"A monstrous {beast} has been seen near the rice paddies. It's scared the farmers so much they won't go out. We need a warrior.\"",
+        "\"The {beast} came down from the mountains last week. It's been killing livestock every night. The village is in terror.\"",
+        "\"I'll pay you handsomely if you can bring me the head of the {beast}. My son was its first victim.\"",
+        "\"The shrine maiden says the {beast} is a punishment from the kami. But punishment or not, we need it gone.\"",
+        "\"No one else is brave enough. They say you've killed before. Prove them right.\"",
+        "\"There's a cave in the hills where the {beast} lairs. Bring torches and a strong arm.\""
+      ],
+      "accept": [
+        "\"Buddha bless you. Be careful — it's smart, not just strong.\"",
+        "\"I'll pray for your success. Bring back its head as proof.\"",
+        "\"Take this charm. It's blessed by the shrine maiden. May it protect you.\"",
+        "\"We'll all be cheering for you. Don't underestimate it.\"",
+        "\"The {beast} is most active at dawn. Catch it unawares.\"",
+        "\"Use fire — it's afraid of flames. At least, that's what the hunters say.\"",
+        "\"Its hide is thick. Aim for the eyes or the throat.\"",
+        "\"I'll have a feast prepared for your return. Come back alive.\"",
+        "\"Don't go alone if you can help it. There's strength in numbers.\"",
+        "\"My daughter made you these rice balls. They're for luck.\""
+      ],
+      "remind": [
+        "\"The {beast} struck again last night. We're running out of time.\"",
+        "\"Have you tracked it yet? Every day we wait, it grows bolder.\"",
+        "\"I've gathered more coin for the reward. Please, don't abandon us.\"",
+        "\"The children are terrified to leave their homes. You're our only hope.\"",
+        "\"I heard it howling again. It sounded closer this time.\"",
+        "\"The village headman is getting impatient. He's talking about hiring mercenaries.\"",
+        "\"One of the farmers tried to hunt it himself. He's in the healer's hut now.\"",
+        "\"If you need anything — weapons, traps, poisons — just ask.\"",
+        "\"The moon is full tonight. The {beast} will be out. It's your best chance.\"",
+        "\"Please hurry. My wife cries herself to sleep every night.\""
+      ],
+      "complete": [
+        "\"You killed it! The whole village is celebrating! Here's the bounty, and my eternal thanks.\"",
+        "\"That monster's head will hang at the village gate as a warning to all beasts. You've saved us.\"",
+        "\"I watched from a distance. Your skill with {weapon} is remarkable. The reward is yours.\"",
+        "\"We can finally sleep without fear. Thank you, brave warrior.\"",
+        "\"You've done what no one else could. The magistrate will hear of your deed.\"",
+        "\"My daughter wants to thank you personally. She's alive because of you.\"",
+        "\"The village has named a street after you. It's a small honour, but heartfelt.\"",
+        "\"Take this, on top of the reward. It's my grandfather's lucky stone. It kept him safe in many battles.\"",
+        "\"There will be songs sung about you tonight. You're a hero.\"",
+        "\"If you ever need a place to stay, my home is yours.\""
+      ]
+    },
+    "deliver_message": {
+      "offer": [
+        "\"I need to get word to my brother in {destination}. It's too dangerous for me. Would you carry a letter?\"",
+        "\"This message must reach the garrison commander before dawn. The enemy plans to attack. Will you be my courier?\"",
+        "\"My daughter married a merchant in {destination}. I haven't heard from her in months. Take this letter, and I'll pay you well.\"",
+        "\"The information in this scroll could prevent a war. But I can't leave my post. You — take it to {destination}.\"",
+        "\"A secret message for the daimyō's advisor. If you're caught, destroy it. Are you willing?\"",
+        "\"I'm too old for the road, but this letter must reach my son. He's a soldier stationed in {destination}.\"",
+        "\"The priest said this sutra must be delivered to a dying monk. It's a matter of the spirit.\"",
+        "\"A love letter. I'm too shy to take it myself. Can you hand it to the innkeeper's daughter in {destination}?\"",
+        "\"This scroll contains trade negotiations. If it falls into the wrong hands, my business is ruined.\"",
+        "\"I'll make it worth your while. Deliver this to the temple in {destination} and ask for the head priest.\""
+      ],
+      "accept": [
+        "\"Remember: deliver it into his hands only. No one else can read it.\"",
+        "\"Travel swiftly. The road is dangerous, but I sense you can handle it.\"",
+        "\"If anyone tries to take it from you, destroy it first. The contents are sensitive.\"",
+        "\"May the wind be at your back. I'll await word of your success.\"",
+        "\"Here's a seal — it proves you're my messenger. Show it only at the gate.\"",
+        "\"Take the northern path; it's less travelled but safer.\"",
+        "\"If you're stopped by guards, say you're carrying temple correspondence.\"",
+        "\"I'll give you half now, half when you return. Fair?\"",
+        "\"Don't stop at inns. Sleep by the road if you must. Time is critical.\"",
+        "\"Return with a reply, and I'll double your pay.\""
+      ],
+      "remind": [
+        "\"You haven't left yet? Every hour counts!\"",
+        "\"I'm counting on you. Don't let me down.\"",
+        "\"Has the letter been delivered? I'm on edge waiting for news.\"",
+        "\"If you've lost the letter, tell me now. I'll find another way.\"",
+        "\"The situation has worsened. If you haven't left, please hurry.\"",
+        "\"I had a nightmare that you were captured. Please be careful.\"",
+        "\"My brother's life depends on this. I'm begging you.\"",
+        "\"If you meet trouble, remember: the letter is more important than your life.\"",
+        "\"I've prayed at the shrine for your safe passage.\"",
+        "\"Any word from {destination}? I can't sleep.\""
+      ],
+      "complete": [
+        "\"You delivered it? And he read it? Excellent! Here's what I promised.\"",
+        "\"You've done a great service. This will change many fates. Thank you.\"",
+        "\"Safe and sound. I knew I could trust you. Your payment.\"",
+        "\"The response arrived this morning. Your help was invaluable.\"",
+        "\"Because of you, a war was avoided. I can't tell you more, but the daimyō is grateful.\"",
+        "\"My daughter sent a letter back! She's alive and well. Thank you, thank you.\"",
+        "\"The dying monk received the sutra and passed peacefully. The temple blesses you.\"",
+        "\"Here's a little extra. Your speed was remarkable.\"",
+        "\"You handled it like a professional. I'll use your services again.\"",
+        "\"You're more than a courier — you're a saviour. Take this, with my deepest thanks.\""
+      ]
+    },
+    "escort": {
+      "offer": [
+        "\"I must travel to {destination} for my sister's funeral, but the road is full of bandits. Escort me, and I'll pay.\"",
+        "\"My master, a wealthy merchant, needs safe passage to {destination}. He travels with valuable goods. Will you guard him?\"",
+        "\"There's a convoy leaving at dawn. We need swords to protect it. Pay is generous, danger is real.\"",
+        "\"I'm transporting temple treasures to a new shrine. The monks have blessed the journey, but blessings don't stop arrows.\"",
+        "\"A noblewoman needs to visit her husband's grave in {destination}. She cannot travel alone.\"",
+        "\"Three wagons of rice are heading to {destination}. Bandits know the route. We need guards.\"",
+        "\"A group of pilgrims seek an escort through the mountain pass. They'll pay what they can.\"",
+        "\"My daughter is to be married in {destination}. I must deliver her safely, and her dowry.\"",
+        "\"I'm a tax collector carrying silver. If I'm robbed, the daimyō will have my head. Protect me.\"",
+        "\"A cartographer wants to map the old forest road. He needs a fighter by his side.\""
+      ],
+      "accept": [
+        "\"We leave at first light. Stay close to the wagons.\"",
+        "\"If bandits attack, protect the cargo first. The horses second. Me third.\"",
+        "\"I hope we don't need your blade, but I'm glad it's with us.\"",
+        "\"Keep your eyes on the treeline. That's where they always hide.\"",
+        "\"I'll provide food and drink for the journey. Your sword is all I ask.\"",
+        "\"Stay quiet and don't draw attention. We want to pass unnoticed.\"",
+        "\"If we meet soldiers, let me do the talking.\"",
+        "\"We travel by moonlight to avoid the heat. You'll get used to it.\"",
+        "\"The pay is good, but the road is cursed. Still in?\"",
+        "\"Glad to have you. Your reputation precedes you.\""
+      ],
+      "remind": [
+        "\"The caravan is almost ready. Are you prepared?\"",
+        "\"We can't afford delays. The pass might be snowed in if we wait.\"",
+        "\"I dreamed of wolves last night. Stay alert.\"",
+        "\"The other guards are nervous. They look to you for confidence.\"",
+        "\"One of the horses is lame. Can you help find a replacement?\"",
+        "\"A scout says there are fresh tracks ahead. Bandits, probably.\"",
+        "\"The merchants are complaining about the pace. We need to move faster.\"",
+        "\"The pilgrims want to stop at every shrine. It's slowing us down.\"",
+        "\"The noblewoman insists on riding in a palanquin. It's a target.\"",
+        "\"We're halfway there. The hardest part is behind us.\""
+      ],
+      "complete": [
+        "\"We made it! Not a single scratch on the cargo. You're worth every mon.\"",
+        "\"Your vigilance saved us at the river crossing. I'll recommend you to every merchant I know.\"",
+        "\"Safe at last. Here's your payment, plus a bonus for your courage.\"",
+        "\"That was the smoothest journey I've had in years. You're a born protector.\"",
+        "\"The temple is grateful. They've inscribed your name in the shrine records.\"",
+        "\"My daughter is safely married. You're invited to the feast.\"",
+        "\"The daimyō's silver is secure. He may have more work for you.\"",
+        "\"The pilgrims are singing your praises. They said you were a guardian angel.\"",
+        "\"The map is complete. The cartographer says he'll name a road after you.\"",
+        "\"I've never felt safer on the road. Thank you, friend.\""
+      ]
+    }
+  }
+,
+  "combat": {
+    "taunt": [
+      "\"You picked the wrong opponent, fool.\"",
+      "\"I've cut down stronger men before breakfast.\"",
+      "\"Your stance is sloppy. Did you learn swordsmanship from a fishwife?\"",
+      "\"I'll send you to meet your ancestors.\"",
+      "\"Drop your weapon and I might let you walk away.\"",
+      "\"Is that blade for show, or do you actually know how to use it?\"",
+      "\"Your mother would weep to see you now.\"",
+      "\"Come, let's see if you bleed like a man or squeal like a pig.\"",
+      "\"This will be over quickly. Don't blink.\"",
+      "\"I've been itching for a fight. Thank you for volunteering.\""
+    ],
+    "player_win": [
+      "\"You fought well. Rest now — your battle is over.\"",
+      "\"The ground drinks your blood. I hope your cause was worth it.\"",
+      "\"Another corpse for the crows. May you find peace in the next life.\"",
+      "\"I take no joy in this. But you left me no choice.\"",
+      "\"Your sword will be well used. Your body, left for the wolves.\""
+    ],
+    "enemy_yield": [
+      "\"Wait! I yield! Please, I have a family!\"",
+      "\"Enough! Spare me, and I'll give you everything I have.\"",
+      "\"I can't fight anymore. My arm is numb. Mercy!\"",
+      "\"You're better than me. I admit it. Just let me go.\"",
+      "\"I'll leave this province and never return. I swear it on my ancestors.\""
+    ],
+    "enemy_flee": [
+      "\"This isn't worth dying for!\"",
+      "\"You're a demon! Stay away from me!\"",
+      "\"I'll remember your face. Next time, I'll be ready.\"",
+      "\"The whole clan will hear of this!\"",
+      "\"Run! He's unstoppable!\""
+    ],
+    "last_words": {
+      "bandit": [
+        "\"Should've... stayed in the hills...\"",
+        "\"All this... for a few copper...\"",
+        "\"My brother... will find you...\""
+      ],
+      "samurai": [
+        "\"A worthy... end... my ancestors... welcome me...\"",
+        "\"My lord... I have failed... the {clan} name...\"",
+        "\"Remember me... when you face... the next blade...\""
+      ],
+      "scout": [
+        "\"You... don't know... what's coming...\"",
+        "\"Three days... the army... behind me...\"",
+        "\"They'll... burn everything...\""
+      ],
+      "merchant": [
+        "\"My wealth... take it... just... let my family know...\"",
+        "\"All my trading... ends here... in the dirt...\""
+      ],
+      "commoner": [
+        "\"Please... my children...\"",
+        "\"I never wanted... any of this...\""
+      ]
+    }
+  },
+  "event_comments": {
+    "drought": [
+      "\"The earth is cracking. I've never seen a season this dry.\"",
+      "\"We pray to the dragon king, but the sky gives nothing.\"",
+      "\"At this rate, we'll be eating bark by winter.\""
+    ],
+    "flood": [
+      "\"The river swallowed the bridge. There's no crossing now.\"",
+      "\"Mud everywhere. It'll take weeks to clean up.\"",
+      "\"I lost two chickens to the flood. Could've been worse.\""
+    ],
+    "bandit_raid": [
+      "\"I heard screams last night. I barred my door and prayed.\"",
+      "\"They say the bandits have a camp in the mountains. Someone should do something.\"",
+      "\"The magistrate's useless. We need samurai, not tax collectors.\""
+    ],
+    "war": [
+      "\"The soldiers took half our grain. Said it was for the war effort.\"",
+      "\"My son was conscripted. I may never see him again.\"",
+      "\"The cannons echo for miles. Even the birds have fled.\""
+    ],
+    "festival": [
+      "\"Have you tried the sweet dumplings? My wife made them.\"",
+      "\"Even a poor man can smile during a festival.\"",
+      "\"Drink up! Tomorrow we go back to reality.\""
+    ],
+    "supernatural": [
+      "\"I'm not superstitious, but I've been avoiding the crossroads at night.\"",
+      "\"The priest says it's a hungry ghost. An offering might appease it.\"",
+      "\"My dog refuses to go near the old well. Animals know things.\""
+    ]
+  },
+  "philosophy": {
+    "monk": [
+      "\"Life is like a dewdrop on a leaf — beautiful and brief.\"",
+      "\"Attachment is the root of suffering. Let go of what you cannot keep.\"",
+      "\"The cherry blossom falls without regret. So should we.\"",
+      "\"In silence, you can hear the universe breathe.\"",
+      "\"You are not your thoughts. You are the one who observes them.\""
+    ],
+    "samurai": [
+      "\"The way of the warrior is to accept death.\"",
+      "\"A true samurai needs only his sword and his honour.\"",
+      "\"Victory is not in the killing, but in the not needing to kill.\"",
+      "\"Discipline is freedom. Chaos is slavery.\"",
+      "\"If you fear death, you are already dead.\""
+    ],
+    "merchant": [
+      "\"Time is money. Every idle moment is a lost opportunity.\"",
+      "\"A good reputation is worth more than gold.\"",
+      "\"Only fools chase profit without considering risk.\"",
+      "\"The best deal leaves both sides satisfied.\"",
+      "\"Markets rise and fall, but a wise merchant endures.\""
+    ],
+    "farmer": [
+      "\"You reap what you sow. That's the first law of the land.\"",
+      "\"Patience is the farmer's greatest tool.\"",
+      "\"The land doesn't lie. If you care for it, it cares for you.\"",
+      "\"We're all just passing through. The fields will be here long after we're gone.\"",
+      "\"Hunger teaches what no book can.\""
+    ]
+  },
+  "farewell": {
+    "commoner": [
+      "\"Safe travels. May the road rise to meet you.\"",
+      "\"Come back anytime. Our door is always open.\"",
+      "\"Kami watch over you.\"",
+      "\"Don't be a stranger.\"",
+      "\"Until we meet again.\""
+    ],
+    "merchant": [
+      "\"Pleasure doing business. Tell your friends about my shop.\"",
+      "\"Next time you're in town, I might have new stock.\"",
+      "\"Here's a little something for the road. On the house.\"",
+      "\"Farewell, and may your purse stay heavy.\""
+    ],
+    "monk": [
+      "\"Go in peace. The Buddha walks with you.\"",
+      "\"Remember: the journey is the destination.\"",
+      "\"If you ever need guidance, the temple gate is never locked.\""
+    ],
+    "samurai": [
+      "\"Until we cross swords again — or not.\"",
+      "\"Stay sharp. The world is a battlefield.\"",
+      "\"If our paths cross again, I hope it's as allies.\""
+    ]
+  }
+}
