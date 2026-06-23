@@ -1,52 +1,152 @@
 {
   "greetings": {
     "farmer": [
-      "\"Another day in the fields. The {season} sun is {weatherComment}.\"",
-      "\"Ah, a stranger. Don't see many new faces at planting time. What brings you to {location}?\"",
-      "\"The paddies {paddyState}. My back aches, but the land provides.\"",
-      "\"Careful where you step — the irrigation channels are slippery this time of year.\"",
-      "\"You look hungry. There's still some millet porridge left if you want.\"",
-      "\"Rain would be welcome. The seedlings are thirsty.\"",
-      "\"Last harvest was poor, but the kami have blessed us with a mild winter so far.\"",
-      "\"Have you come to buy rice? The price is high this month.\"",
-      "\"My eldest son left to join the levy. I pray he returns.\"",
-      "\"The scarecrows need repairing. Always something to do.\""
+      {
+        "condition": { "playerKillCount": { "gt": 0 } },
+        "lines": [
+          "\"You have the look of someone who's seen battle. We don't get many warriors passing through {location}.\"",
+          "\"I heard about the blood on your hands. The village is nervous around strangers like you.\"",
+          "\"You've killed before, haven't you? I can see it in your eyes. Please, no trouble here.\"",
+          "\"My brother was a soldier. He never came back. I hope you're not here to bring more war.\"",
+          "\"A killer's shadow is long. The children have been told to stay away from you.\""
+        ],
+        "replies": [
+          { "text": "\"I only fight when I must. You have nothing to fear.\"", "action": "reassure" },
+          { "text": "\"Mind your tongue, farmer.\"", "action": "intimidate" },
+          { "text": "\"I'm just passing through.\"", "action": "neutral" }
+        ]
+      },
+      {
+        "condition": { "playerKillCount": { "eq": 0 } },
+        "lines": [
+          "\"Another day in the fields. The {season} sun is {weatherComment}.\"",
+          "\"Ah, a stranger. Don't see many new faces at planting time. What brings you to {location}?\"",
+          "\"The paddies {paddyState}. My back aches, but the land provides.\"",
+          "\"Careful where you step — the irrigation channels are slippery this time of year.\"",
+          "\"You look hungry. There's still some millet porridge left if you want.\"",
+          "\"Rain would be welcome. The seedlings are thirsty.\"",
+          "\"Last harvest was poor, but the kami have blessed us with a mild winter so far.\"",
+          "\"Have you come to buy rice? The price is high this month.\"",
+          "\"My eldest son left to join the levy. I pray he returns.\"",
+          "\"The scarecrows need repairing. Always something to do.\""
+        ],
+        "replies": [
+          { "text": "\"I could help with the scarecrows.\"", "action": "offer_help" },
+          { "text": "\"I'm just a traveller, nothing more.\"", "action": "neutral" }
+        ]
+      },
+      {
+        "condition": { "playerMarried": true },
+        "lines": [
+          "\"Your spouse must miss you. Farming is easier with two pairs of hands.\"",
+          "\"A married person travelling alone? Times must be hard.\"",
+          "\"I hope your wife is safe while you're away.\"",
+          "\"Does your husband know you're out here risking your life?\""
+        ]
+      },
+      {
+        "condition": { "playerChildrenCount": { "gt": 0 } },
+        "lines": [
+          "\"Little ones at home? They grow up fast. Cherish them.\"",
+          "\"You have children? I can tell — you have the patience of a parent.\"",
+          "\"Bring them by the farm sometime. I'll give them a ride on the ox.\""
+        ]
+      },
+      {
+        "condition": { "playerBounty": { "gt": 50 } },
+        "lines": [
+          "\"There's a price on your head. I could turn you in for more than a year's harvest.\"",
+          "\"I should call the constable, but... I won't. Just leave before sunset.\"",
+          "\"You're wanted. The whole village knows. Best move on.\""
+        ]
+      }
     ],
     "merchant": [
-      "\"Welcome, welcome! Have a look at my wares. Finest {goods} in {location}!\"",
-      "\"Business has been {businessState} lately. Not many caravans from {tradeRoute} since the {event}.\"",
-      "\"A shrewd buyer, I can tell. Let's talk price.\"",
-      "\"I just received a shipment of {localSpecialty}. You won't find better quality.\"",
-      "\"Coin is tight this season. If you have something to trade, I'm listening.\"",
-      "\"Everything is negotiable. Name your offer.\"",
-      "\"I have contacts in Kamakura, Edo, and even the capital. I can get anything.\"",
-      "\"Careful of the counterfeit coins going around. I check every piece.\"",
-      "\"Travel is dangerous now. Half my usual suppliers haven't arrived.\"",
-      "\"A good merchant knows when to hold and when to sell. Today, I sell.\""
+      {
+        "condition": { "playerKillCount": { "gt": 0 } },
+        "lines": [
+          "\"I don't want trouble. Just buy something and leave.\"",
+          "\"You've got blood on your ledger. Still, coin is coin.\"",
+          "\"A warrior's purse is often heavy. What can I sell you?\"",
+          "\"I've dealt with bandits before. One more killer in my shop won't scare me off.\"",
+          "\"They say you're dangerous. I say dangerous men pay double.\""
+        ],
+        "replies": [
+          { "text": "\"I'm no bandit. I'm a paying customer.\"", "action": "reassure" },
+          { "text": "\"Double? You're a thief yourself.\"", "action": "insult" }
+        ]
+      },
+      {
+        "condition": { "playerKillCount": { "eq": 0 } },
+        "lines": [
+          "\"Welcome, welcome! Have a look at my wares. Finest {goods} in {location}!\"",
+          "\"Business has been {businessState} lately. Not many caravans from {tradeRoute} since the {event}.\"",
+          "\"A shrewd buyer, I can tell. Let's talk price.\"",
+          "\"I just received a shipment of {localSpecialty}. You won't find better quality.\"",
+          "\"Coin is tight this season. If you have something to trade, I'm listening.\"",
+          "\"Everything is negotiable. Name your offer.\"",
+          "\"I have contacts in Kamakura, Edo, and even the capital. I can get anything.\"",
+          "\"Careful of the counterfeit coins going around. I check every piece.\"",
+          "\"Travel is dangerous now. Half my usual suppliers haven't arrived.\"",
+          "\"A good merchant knows when to hold and when to sell. Today, I sell.\""
+        ]
+      },
+      {
+        "condition": { "playerWealth": { "gt": 200 } },
+        "lines": [
+          "\"Ah, a wealthy customer! Please, take your time browsing.\"",
+          "\"With a purse like yours, I'll show you the premium stock.\""
+        ]
+      }
     ],
     "monk": [
-      "\"Amida Buddha watches over all who walk the path. Welcome, traveller.\"",
-      "\"The temple bells ring for the departed. Have you come to pray?\"",
-      "\"Sit with me. The world's troubles can wait a moment.\"",
-      "\"I sense a restlessness in you. Perhaps a cup of tea will soothe it.\"",
-      "\"The leaves are changing. A reminder that all things are impermanent.\"",
-      "\"Compassion is the only true weapon against suffering.\"",
-      "\"We hold a meditation at dusk. You are welcome to join.\"",
-      "\"The abbot speaks of a coming storm — not of weather, but of men's hearts.\"",
-      "\"If you carry a burden, leave it at the temple gate.\"",
-      "\"Even the most fearsome warrior will one day be dust. Reflect on that.\""
+      {
+        "condition": { "playerKillCount": { "gt": 5 } },
+        "lines": [
+          "\"The weight of many deaths hangs on you. I can see it.\"",
+          "\"Have you come to seek forgiveness?\"",
+          "\"Even the greatest killer can find peace. Sit with me.\""
+        ]
+      },
+      {
+        "lines": [
+          "\"Amida Buddha watches over all who walk the path. Welcome, traveller.\"",
+          "\"The temple bells ring for the departed. Have you come to pray?\"",
+          "\"Sit with me. The world's troubles can wait a moment.\"",
+          "\"I sense a restlessness in you. Perhaps a cup of tea will soothe it.\"",
+          "\"The leaves are changing. A reminder that all things are impermanent.\"",
+          "\"Compassion is the only true weapon against suffering.\"",
+          "\"We hold a meditation at dusk. You are welcome to join.\"",
+          "\"The abbot speaks of a coming storm — not of weather, but of men's hearts.\"",
+          "\"If you carry a burden, leave it at the temple gate.\"",
+          "\"Even the most fearsome warrior will one day be dust. Reflect on that.\""
+        ]
+      }
     ],
     "samurai": [
-      "\"State your business. The {clan} clan does not tolerate idle wanderers.\"",
-      "\"Your blade — it looks well‑used. Have you seen battle?\"",
-      "\"My lord requires {lordDemand}. These are troubled times, and loyalty is everything.\"",
-      "\"I remember the fields of {battlefield}. The cries still echo.\"",
-      "\"If you serve no master, you serve only yourself. That is a dangerous path.\"",
-      "\"Stand straight. A warrior's posture reflects his spirit.\"",
-      "\"I am on patrol. Move along unless you have business here.\"",
-      "\"The code of bushidō is all that separates us from beasts.\"",
-      "\"My sword has tasted blood. Pray it does not taste yours.\"",
-      "\"A samurai's word is his bond. Remember that.\""
+      {
+        "condition": { "playerKillCount": { "gt": 0 } },
+        "lines": [
+          "\"You've seen battle. I can tell by the way you stand.\"",
+          "\"A fellow warrior. What clan do you serve?\"",
+          "\"Your reputation precedes you. I've heard of your deeds.\""
+        ]
+      },
+      {
+        "condition": { "playerKillCount": { "eq": 0 } },
+        "lines": [
+          "\"State your business. The {clan} clan does not tolerate idle wanderers.\"",
+          "\"Your blade — it looks well‑used. Have you seen battle?\"",
+          "\"My lord requires {lordDemand}. These are troubled times.\"",
+          "\"I remember the fields of {battlefield}. The cries still echo.\"",
+          "\"If you serve no master, you serve only yourself.\"",
+          "\"Stand straight. A warrior's posture reflects his spirit.\"",
+          "\"I am on patrol. Move along unless you have business here.\"",
+          "\"The code of bushidō is all that separates us from beasts.\"",
+          "\"My sword has tasted blood. Pray it does not taste yours.\"",
+          "\"A samurai's word is his bond. Remember that.\""
+        ]
+      }
     ],
     "blacksmith": [
       "\"The forge is hot and the iron waits for no one. What do you need?\"",
@@ -135,16 +235,26 @@
   },
   "gossip": {
     "farmer": [
-      "\"Did you hear? Old man {npcName} found a buried jar of coins in his field. Lucky devil.\"",
-      "\"The headman's daughter ran off with a peddler. Scandalous!\"",
-      "\"They say the rice tax is going up again. The Shogun's men are relentless.\"",
-      "\"A white fox was seen near the shrine. That's either a blessing or a curse.\"",
-      "\"My neighbour's cow gave birth to a two‑headed calf. Bad omen, that.\"",
-      "\"The smith's apprentice has been sneaking out at night. Meeting someone, I'd wager.\"",
-      "\"I heard a baby crying in the woods. Probably just a fox, but still...\"",
-      "\"A stranger was asking about the old battlefield. Treasure hunter?\"",
-      "\"The river has risen three feet since last week. Floods might be coming.\"",
-      "\"My wife saw a shooting star last night and made a wish. I hope it was for a good harvest.\""
+      {
+        "condition": { "playerKillCount": { "gt": 0 } },
+        "lines": [
+          "\"Old Jirō said he saw you fighting bandits. He won't stop talking about it.\""
+        ]
+      },
+      {
+        "lines": [
+          "\"Did you hear? Old man {npcName} found a buried jar of coins in his field. Lucky devil.\"",
+          "\"The headman's daughter ran off with a peddler. Scandalous!\"",
+          "\"They say the rice tax is going up again. The Shogun's men are relentless.\"",
+          "\"A white fox was seen near the shrine. That's either a blessing or a curse.\"",
+          "\"My neighbour's cow gave birth to a two‑headed calf. Bad omen, that.\"",
+          "\"The smith's apprentice has been sneaking out at night. Meeting someone, I'd wager.\"",
+          "\"I heard a baby crying in the woods. Probably just a fox, but still...\"",
+          "\"A stranger was asking about the old battlefield. Treasure hunter?\"",
+          "\"The river has risen three feet since last week. Floods might be coming.\"",
+          "\"My wife saw a shooting star last night and made a wish. I hope it was for a good harvest.\""
+        ]
+      }
     ],
     "merchant": [
       "\"Word is, a large caravan from the capital was attacked on the Tōkaidō. Bandits grow bolder.\"",
@@ -308,8 +418,8 @@
       "\"A fortune teller arrived yesterday. She predicted a terrible earthquake.\"",
       "\"The shrine maiden heard the voice of the kami in a dream. She's been silent ever since.\""
     ]
-  }
-}
+  },
+  ,
   "profession_specific": {
     "blacksmith": [
       "\"This steel is from the Satake mines. Harder than anything you'll find in the south.\"",
