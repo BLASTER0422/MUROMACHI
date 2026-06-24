@@ -1,6 +1,8 @@
 {
-"locations":[],
-"establishments":[],
-"factions":[],
-"events":[]
+"name":"Muromachi Japan",
+"year":1400,
+"villages":[
+"Kyoto",
+"Nara"
+]
 }
