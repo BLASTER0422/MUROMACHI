@@ -1,34 +1,65 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
 
-<title>
+<title>Muromachi Godlike Engine</title>
 
-Muromachi Engine
-
-</title>
+<style>
+body{
+background:#111;
+color:#eee;
+font-family:Georgia;
+padding:40px;
+}
+</style>
 
 </head>
 
 <body>
 
-<h1>
+<h1>🏯 Muromachi Godlike Engine</h1>
 
-Muromachi Godlike Engine
+<div id="status">
+Loading...
+</div>
 
-</h1>
+<script>
 
-<script src="./engine/storage.js"></script>
+(async()=>{
 
-<script src="./engine/registry.js"></script>
+try{
 
-<script src="./engine/loader.js"></script>
+const r=
+await fetch(
+"./engine/bootstrap.js"
+);
 
-<script src="./engine/simulation.js"></script>
+if(!r.ok)
+throw new Error();
 
-<script src="./engine/bootstrap.js"></script>
+document.getElementById(
+"status"
+)
+.innerHTML=
+"✅ Engine Ready";
+
+}
+catch(e){
+
+document.getElementById(
+"status"
+)
+.innerHTML=
+"❌ bootstrap.js not found";
+
+}
+
+})();
+
+</script>
 
 </body>
 
