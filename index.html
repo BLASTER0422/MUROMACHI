@@ -1,330 +1,6308 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muromachi Life · Godlike Engine</title>
-    <style>
-        :root {
-            --bg: #0f0f0a; --panel: #1f1a10; --border: #4a3f2f; --accent: #c9a96e;
-            --text: #e8dcc8; --dim: #a09070; --hp: #c0392b; --gold: #f0c040;
-            --btn: #3b2f1e; --btnHov: #5a452a; --scroll: #f5ecd7; --scrollTxt: #2b1e0e;
-            --modal-bg: rgba(0,0,0,0.85);
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            background: var(--bg); color: var(--text); font-family: 'Georgia', serif;
-            display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 0.5rem;
-            background-image: radial-gradient(ellipse at 50% 30%, #2d2416 0%, transparent 70%);
-        }
-        #app {
-            width: 100%; max-width: 1000px; height: 95vh; max-height: 950px;
-            background: var(--panel); border: 2px solid var(--border); border-radius: 12px;
-            display: grid; grid-template-rows: auto 1fr auto; grid-template-columns: 1fr 340px;
-            grid-template-areas: "header header" "main side" "actions side"; overflow: hidden;
-        }
-        @media (max-width: 800px) {
-            #app { grid-template-columns: 1fr; grid-template-rows: auto 1fr auto auto; grid-template-areas: "header" "main" "side" "actions"; }
-        }
-        .header { grid-area: header; background: #1a150c; padding: 0.6rem 1rem; border-bottom: 2px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-        .header h1 { font-size: 1.5rem; color: var(--accent); }
-        .location { color: var(--dim); font-size: 0.9rem; }
-        .gold { color: var(--gold); }
-        .main { grid-area: main; overflow-y: auto; padding: 0.6rem; display: flex; flex-direction: column; gap: 0.5rem; }
-        .card { background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem; }
-        .log { background: var(--scroll); color: var(--scrollTxt); padding: 0.5rem; border-radius: 8px; height: 160px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.4; }
-        .side { grid-area: side; overflow-y: auto; padding: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
-        .actions { grid-area: actions; padding: 0.4rem 0.6rem; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 0.4rem; }
-        button {
-            background: var(--btn); border: 1px solid var(--border); color: var(--text);
-            padding: 0.4rem 0.7rem; border-radius: 6px; cursor: pointer; font-family: inherit;
-            font-size: 0.85rem; transition: background 0.2s; white-space: nowrap;
-        }
-        button:hover:not(:disabled) { background: var(--btnHov); border-color: var(--accent); }
-        button:disabled { opacity: 0.5; cursor: not-allowed; }
-        .primary { background: var(--accent); color: #000; font-weight: bold; }
-        .danger { background: var(--hp); }
-        .dialog-options { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.4rem; }
-        .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--modal-bg); z-index: 100; justify-content: center; align-items: center;
-        }
-        .modal.active { display: flex; }
-        .modal-content {
-            background: var(--panel); border: 2px solid var(--accent); border-radius: 12px;
-            padding: 1rem; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto;
-        }
-        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 0.2rem 0; border-bottom: 1px dotted #444; }
-    </style>
+
+<meta charset="UTF-8">
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1.0"
+/>
+
+<title>Muromachi Life · Godlike Engine FIXED</title>
+
+<style>
+
+:root{
+
+--bg:#0f0f0a;
+--panel:#1f1a10;
+--border:#4a3f2f;
+--accent:#c9a96e;
+
+--text:#e8dcc8;
+--dim:#9f8f72;
+
+--gold:#f4d15e;
+--hp:#c0392b;
+
+--btn:#342715;
+--btnHover:#5f4b2f;
+
+--scroll:#f5ecd7;
+--scrollText:#2b1e0e;
+
+--modal:
+rgba(0,0,0,.88);
+
+}
+
+*{
+
+margin:0;
+padding:0;
+
+box-sizing:border-box;
+
+}
+
+body{
+
+background:
+radial-gradient(
+circle at top,
+#2b2416,
+#0f0f0a
+);
+
+color:var(--text);
+
+font-family:
+Georgia,
+serif;
+
+min-height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+padding:8px;
+
+}
+
+#app{
+
+width:100%;
+
+max-width:1100px;
+
+height:96vh;
+
+background:var(--panel);
+
+border:
+
+2px solid
+var(--border);
+
+border-radius:12px;
+
+display:grid;
+
+grid-template:
+
+auto
+1fr
+auto
+
+/
+
+1fr
+340px;
+
+grid-template-areas:
+
+"header header"
+
+"main side"
+
+"actions side";
+
+overflow:hidden;
+
+}
+
+@media(max-width:800px){
+
+#app{
+
+grid-template:
+
+auto
+1fr
+auto
+auto
+
+/
+
+1fr;
+
+grid-template-areas:
+
+"header"
+
+"main"
+
+"side"
+
+"actions";
+
+}
+
+}
+
+.header{
+
+grid-area:header;
+
+display:flex;
+
+justify-content:
+space-between;
+
+align-items:center;
+
+gap:8px;
+
+padding:10px;
+
+background:#161108;
+
+border-bottom:
+
+2px solid
+var(--border);
+
+flex-wrap:wrap;
+
+}
+
+.header h1{
+
+font-size:1.4rem;
+
+color:
+
+var(--accent);
+
+}
+
+.main{
+
+grid-area:main;
+
+padding:8px;
+
+overflow-y:auto;
+
+display:flex;
+
+flex-direction:column;
+
+gap:8px;
+
+}
+
+.side{
+
+grid-area:side;
+
+padding:8px;
+
+overflow-y:auto;
+
+display:flex;
+
+flex-direction:column;
+
+gap:8px;
+
+}
+
+.actions{
+
+grid-area:actions;
+
+display:flex;
+
+flex-wrap:wrap;
+
+gap:6px;
+
+padding:8px;
+
+border-top:
+
+1px solid
+var(--border);
+
+}
+
+.card{
+
+padding:10px;
+
+border:
+
+1px solid
+var(--border);
+
+border-radius:8px;
+
+background:
+
+rgba(
+0,
+0,
+0,
+0.25
+);
+
+}
+
+.log{
+
+height:180px;
+
+overflow-y:auto;
+
+background:
+
+var(--scroll);
+
+color:
+
+var(--scrollText);
+
+font-family:
+
+monospace;
+
+padding:10px;
+
+border-radius:8px;
+
+}
+
+button{
+
+padding:
+
+7px
+12px;
+
+cursor:pointer;
+
+border-radius:6px;
+
+background:
+
+var(--btn);
+
+color:
+
+var(--text);
+
+border:
+
+1px solid
+var(--border);
+
+}
+
+button:hover{
+
+background:
+
+var(--btnHover);
+
+}
+
+.primary{
+
+background:
+
+var(--accent);
+
+color:black;
+
+}
+
+.modal{
+
+display:none;
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:
+
+var(--modal);
+
+justify-content:center;
+
+align-items:center;
+
+z-index:999;
+
+}
+
+.modal.active{
+
+display:flex;
+
+}
+
+.modal-content{
+
+width:
+
+90%;
+
+max-width:
+
+550px;
+
+max-height:
+
+80vh;
+
+overflow:auto;
+
+background:
+
+var(--panel);
+
+border:
+
+2px solid
+var(--accent);
+
+padding:18px;
+
+border-radius:12px;
+
+}
+
+.list-item{
+
+display:flex;
+
+justify-content:
+space-between;
+
+padding:5px;
+
+border-bottom:
+
+1px dotted #444;
+
+}
+
+</style>
+
 </head>
+
 <body>
+
 <div id="app">
-    <div class="header">
-        <h1>🏯 Muromachi Life</h1>
-        <span class="location" id="locDisplay">—</span>
-        <span class="gold">💰 <span id="goldDisplay">0</span></span>
-    </div>
-    <div class="main" id="mainArea">
-        <div class="card" id="playerCard"></div>
-        <div class="card" id="enemyCard" style="display:none;"></div>
-        <div class="card" id="dialogueCard" style="display:none;"></div>
-        <div class="log" id="logArea"></div>
-    </div>
-    <div class="side" id="sidebar">
-        <div class="card"><strong>🎒 Inventory</strong><div id="invList"></div></div>
-        <div class="card"><strong>📜 Quests</strong><div id="questList"></div></div>
-        <div class="card"><strong>👥 Relations</strong><div id="relList"></div></div>
-    </div>
-    <div class="actions" id="actionBar"></div>
+
+<div class="header">
+
+<h1>
+🏯 Muromachi Life
+</h1>
+
+<div id="timeDisplay">
+Year 1550
 </div>
-<div class="modal" id="travelModal"><div class="modal-content" id="travelContent"></div></div>
-<div class="modal" id="marketModal"><div class="modal-content" id="marketContent"></div></div>
-<div class="modal" id="deathModal"><div class="modal-content" id="deathContent"></div></div>
+
+<div>
+💰
+<span id="goldDisplay">
+0
+</span>
+</div>
+
+</div>
+
+<div
+class="main"
+id="mainArea"
+>
+
+<div
+class="card"
+id="playerCard">
+</div>
+
+<div
+class="card"
+id="enemyCard"
+style="display:none">
+</div>
+
+<div
+class="card"
+id="dialogueCard"
+style="display:none">
+</div>
+
+<div
+class="log"
+id="logArea">
+</div>
+
+</div>
+
+<div
+class="side"
+id="sidebar">
+
+<div class="card">
+
+<strong>
+🎒 Inventory
+</strong>
+
+<div id="invList">
+</div>
+
+</div>
+
+<div class="card">
+
+<strong>
+📜 Quests
+</strong>
+
+<div id="questList">
+</div>
+
+</div>
+
+<div class="card">
+
+<strong>
+👥 Relations
+</strong>
+
+<div id="relList">
+</div>
+
+</div>
+
+</div>
+
+<div
+class="actions"
+id="actionBar">
+</div>
+
+</div>
+
+<div
+class="modal"
+id="travelModal">
+
+<div
+class="modal-content"
+id="travelContent">
+
+</div>
+
+</div>
+
+<div
+class="modal"
+id="marketModal">
+
+<div
+class="modal-content"
+id="marketContent">
+
+</div>
+
+</div>
+
+<div
+class="modal"
+id="deathModal">
+
+<div
+class="modal-content"
+id="deathContent">
+
+</div>
+
+</div>
+
+<div
+class="modal"
+id="establishmentModal">
+
+<div
+class="modal-content"
+id="establishmentContent">
+
+</div>
+
+</div>
 
 <script>
+
 'use strict';
-(function() {
-// ====================== GODLIKE ENGINE ======================
-// ---------- PRNG ----------
-const m32=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
-let rng=m32(Date.now());
-const rand=()=>rng();
-const randInt=(a,b)=>Math.floor(rand()*(b-a+1))+a;
-const pick=a=>a[Math.floor(rand()*a.length)];
 
-// ---------- IndexedDB ----------
-const DB='MuromachiLifeEngine',DBV=1;
-let db=null,mF=false;const mem={templates:new Map(),world:null,player:null};
-async function initDB(){return new Promise((rs,rj)=>{if(!window.indexedDB){mF=true;rs(null);return}const r=indexedDB.open(DB,DBV);r.onerror=()=>rj(r.error);r.onsuccess=()=>{db=r.result;rs(db)};r.onupgradeneeded=e=>{const d=e.target.result;['templates','world','player'].forEach(n=>{if(!d.objectStoreNames.contains(n))d.createObjectStore(n,{keyPath:'id'})})}})}
-async function initS(){try{await initDB();mF=false}catch(e){mF=true;db=null}}
-const sto=async(sn,md,op,...a)=>{if(mF){if(sn==='templates')return op(mem.templates);if(sn==='world')return op(mem.world);if(sn==='player')return op(mem.player);return null}const tx=db.transaction(sn,md);const s=tx.objectStore(sn);return new Promise((rs,rj)=>{const r=op(s,...a);r.onsuccess=()=>rs(r.result);r.onerror=()=>rj(r.error)})};
-const putI=(sn,it)=>sto(sn,'readwrite',(s,i)=>s.put(i),it);
-const getI=(sn,id)=>sto(sn,'readonly',(s,k)=>s.get(k),id);
-const getAllI=sn=>sto(sn,'readonly',s=>s.getAll());
+(function(){
 
-// ---------- Template Engine (supports JSON fetch) ----------
-const DEFAULT_TEMPLATES={
-    world:{provinces:{type:'array',count:{min:6,max:8},itemTemplate:'province'}},
-    province:{name:{pool:['Yamashiro','Kawachi','Settsu','Izumi','Yamato','Owari','Mikawa','Totomi','Suruga','Kai']},capital:{type:'template',id:'city'},towns:{type:'array',count:{min:1,max:3},itemTemplate:'town'},villages:{type:'array',count:{min:2,max:4},itemTemplate:'village'},wildlands:{type:'array',count:{min:1,max:3},itemTemplate:'wildland'}},
-    city:{name:{pool:['Heian-kyo','Kamakura','Osaka','Edo','Nara']},type:{value:'city'},market:true,castle:true,npcs:{type:'array',count:{min:4,max:8},itemTemplate:'npc'}},
-    town:{name:{pool:['Uji','Sakai','Hakata','Kanazawa','Otsu']},type:{value:'town'},market:true,npcs:{type:'array',count:{min:2,max:5},itemTemplate:'npc'}},
-    village:{name:{pool:['Agano','Ina','Kiso','Yahagi','Shirakawa']},type:{value:'village'},market:false,npcs:{type:'array',count:{min:1,max:4},itemTemplate:'npc'}},
-    wildland:{terrain:{pool:['forest','hills','mountain','river','coast']},name:{value:''},type:{value:'wildland'},beasts:{type:'array',count:{min:1,max:3},itemTemplate:'animal'},resources:{type:'array',count:{min:2,max:4},itemTemplate:'raw_material'}},
-    npc:{givenName:{pool:['Takeshi','Kaito','Yuki','Akiko','Sakura','Ryo','Hana','Kenji']},familyName:{pool:['Fujiwara','Taira','Minamoto','Tachibana','Abe']},job:{pool:['farmer','merchant','samurai','monk','craftsman','bandit','noble']},personality:{pool:['brave','cowardly','greedy','kind','wise']},hp:{min:30,max:80},attack:{min:5,max:15},defense:{min:1,max:8},gold:{min:10,max:100},weapon:{type:'template',id:'weapon'},armor:{type:'template',id:'armor'},faction:{pool:['villager','samurai clan','bandit gang','merchant guild']}},
-    animal:{name:{pool:['Deer','Boar','Wolf','Fox','Hare','Bear']},category:{value:'wildlife'},hp:{min:15,max:45},attack:{min:2,max:10},defense:{min:0,max:2},loot:{type:'template',id:'animal_part'}},
-    animal_part:{name:{pool:['Meat','Hide','Bones','Antlers','Fur']},category:{value:'animal_part'},value:{min:2,max:10}},
-    raw_material:{name:{pool:['Herb','Mushroom','Wood','Stone','Clay','Berries']},category:{value:'raw_material'},value:{min:1,max:5}},
-    weapon:{name:{pool:['Katana','Wakizashi','Yari','Yumi','Kanabo']},category:{value:'weapon'},damage:{min:5,max:25},value:{min:30,max:200},quality:{pool:['rusty','iron','steel','masterwork']}},
-    armor:{name:{pool:['Do-maru','Harate','Kabuto','Kote','Suneate']},category:{value:'armor'},defense:{min:2,max:12},value:{min:25,max:180}},
-    consumable_processed:{name:{pool:['Rice Ball','Sake Flask','Dried Fish','Herbal Medicine']},category:{value:'consumable_processed'},effect:{pool:['restore hp 15','restore hp 25','restore stamina']},value:{min:5,max:20}},
-    tool:{name:{pool:['Fishing Rod','Pickaxe','Axe']},category:{value:'tool'},value:{min:10,max:40}},
-    quest:{title:{pool:['Slay the beast','Deliver goods','Escort VIP','Collect herbs','Hunt bandits']},description:{pool:['A nearby village needs help.','A merchant offers a reward.','Urgent request from the lord.']},rewardGold:{min:20,max:200},targetType:{pool:['animal','npc','raw_material']},completed:{value:false}}
+/* ========= CORE ========= */
+
+const m32=
+seed=>
+()=>{
+
+seed|=0;
+
+seed=
+seed+
+0x6D2B79F5
+|0;
+
+let t=
+
+Math.imul(
+seed^seed>>>15,
+1|seed
+);
+
+t=
+t+
+Math.imul(
+t^t>>>7,
+61|t
+)^t;
+
+return(
+
+(
+t^t>>>14
+)>>>0
+
+)/4294967296;
+
 };
 
-let templates=new Map(Object.entries(DEFAULT_TEMPLATES));
+let rng=
 
-// Load external JSON for templates (GitHub raw URL)
-async function loadExternalTemplates(url){
-    try{
-        const res=await fetch(url);
-        if(!res.ok)return;
-        const data=await res.json();
-        if(data.templates){
-            Object.entries(data.templates).forEach(([id,fields])=>templates.set(id,fields));
-        }
-    }catch(e){console.warn('Failed to load external templates, using defaults.')}
+m32(
+Date.now()
+);
+
+const rand=
+()=>rng();
+
+const randInt=
+(a,b)=>
+
+Math.floor(
+
+rand()
+
+*
+
+(
+b-a+1
+
+)
+
+)+a;
+
+const pick=
+a=>
+
+a[
+Math.floor(
+rand()
+*
+a.length
+)
+];
+
+/* ========= DB ========= */
+
+const DB=
+
+'GodlikeEngineFixed';
+
+const DBV=1;
+
+let db=null;
+
+let memoryMode=false;
+
+const mem={
+
+world:null,
+
+player:null,
+
+templates:
+
+new Map()
+
+};
+
+async function initDB(){
+
+return new Promise(
+
+(resolve)=>{
+
+if(
+!window.indexedDB
+){
+
+memoryMode=true;
+
+resolve();
+
+return;
+
 }
 
-// Template generation
-function generate(id,seed){
-    if(seed)rng=m32(seed);
-    const t=templates.get(id);
-    if(!t)throw new Error(`Template '${id}' not found`);
-    return build(t);
-}
-function build(fields){
-    const obj={};
-    for(const[k,v]of Object.entries(fields)){
-        if(v.pool)obj[k]=pick(v.pool);
-        else if(v.min!==undefined&&v.max!==undefined)obj[k]=randInt(v.min,v.max);
-        else if(v.value!==undefined)obj[k]=v.value;
-        else if(v.type==='template')obj[k]=generate(v.id);
-        else if(v.type==='array'){
-            const cnt=randInt(v.count.min,v.count.max);
-            const arr=[];for(let i=0;i<cnt;i++)arr.push(generate(v.itemTemplate));
-            obj[k]=arr;
-        }else if(v.type==='object')obj[k]=build(v.fields);
-        else obj[k]=null;
-    }
-    return obj;
+const req=
+
+indexedDB.open(
+DB,
+DBV
+);
+
+req.onupgradeneeded=
+e=>{
+
+let d=
+
+e.target.result;
+
+[
+
+'world',
+
+'player'
+
+]
+
+.forEach(
+
+s=>{
+
+if(
+
+!d.objectStoreNames.contains(
+s
+)
+
+)
+
+d.createObjectStore(
+s,
+
+{
+
+keyPath:'id'
+
 }
 
-// ---------- World Generation ----------
-class World{
-    constructor(){this.provinces=[]}
-    static async load(){
-        let data=await getI('world','world');
-        if(data){const w=new World();w.provinces=data.data.provinces;return w}
-        const w=new World();
-        w.provinces=generate('world').provinces;
-        w.provinces.forEach(p=>p.wildlands.forEach(wl=>wl.name=`${wl.terrain} of ${p.name}`));
-        w.assignIds();
-        await putI('world',{id:'world',data:{provinces:w.provinces}});
-        return w;
-    }
-    assignIds(){let id=1;const walk=o=>{if(Array.isArray(o))o.forEach(walk);else if(o&&typeof o==='object'){if(!o._id)o._id=id++;Object.values(o).forEach(walk)}};walk(this.provinces)}
-    getLocById(id){for(const p of this.provinces)for(const l of[p.capital,...p.towns,...p.villages,...p.wildlands])if(l._id===id)return l;return null}
-    getProvinceLocs(idx){const p=this.provinces[idx];return{capital:p.capital,towns:p.towns,villages:p.villages,wildlands:p.wildlands}}
+);
+
 }
 
-// ---------- Player Class ----------
+);
+
+};
+
+req.onsuccess=
+()=>{
+
+db=
+req.result;
+
+resolve();
+
+};
+
+req.onerror=
+()=>{
+
+memoryMode=true;
+
+resolve();
+
+};
+
+}
+
+);
+
+}
+
+async function putSave(
+
+store,
+
+obj
+
+){
+
+if(
+memoryMode
+){
+
+mem[
+store
+]=obj;
+
+return;
+
+}
+
+return new Promise(
+
+resolve=>{
+
+let tx=
+
+db.transaction(
+
+store,
+
+'readwrite'
+
+);
+
+tx.objectStore(
+
+store
+
+)
+
+.put(
+
+obj
+
+);
+
+tx.oncomplete=
+
+resolve;
+
+}
+
+);
+
+}
+
+async function getSave(
+
+store,
+
+id
+
+){
+
+if(
+memoryMode
+)
+
+return mem[
+store
+];
+
+return new Promise(
+
+resolve=>{
+
+let tx=
+
+db.transaction(
+
+store
+
+);
+
+let req=
+
+tx
+
+.objectStore(
+
+store
+
+)
+
+.get(
+
+id
+
+);
+
+req.onsuccess=
+
+()=>resolve(
+req.result
+);
+
+req.onerror=
+
+()=>resolve(
+null
+);
+
+}
+
+);
+
+}
+
+/* ========= PLAYER ========= */
+
 class Player{
-    constructor(){
-        this.name='Ronin';this.age=25;this.gender='male';
-        this.hp=100;this.maxHp=100;this.stamina=50;this.maxStamina=50;
-        this.attack=8;this.defense=3;this.gold=50;
-        this.equipment={weapon:null,armor:null};
-        this.inventory=[];this.quests=[];this.relationships=[];
-        this.currentLocId=null;this.socialClass='ronin';
-        this.skills={strength:5,agility:4,intelligence:3,charisma:3};
-        this.alive=true;this.spouse=null;this.children=[];
-    }
-}
 
-let player=new Player();
-let currentEnemy=null,dialogueState=null,gameLog=[],world=null,autoSaveTimer;
+constructor(){
 
-// ---------- UI Helpers ----------
-function addLog(m){gameLog.push(m);if(gameLog.length>120)gameLog.shift();renderLog()}
-function renderLog(){document.getElementById('logArea').innerHTML=gameLog.slice(-30).map(m=>`<div>${m}</div>`).join('')}
-function updateUI(){
-    const loc=world.getLocById(player.currentLocId);
-    document.getElementById('locDisplay').textContent=loc?`${loc.name} (${loc.type})`:'—';
-    document.getElementById('goldDisplay').textContent=player.gold;
-    renderPlayer();renderEnemy();renderDialogue();renderInv();renderQuests();renderRels();renderActions();
-}
-function renderPlayer(){
-    const c=document.getElementById('playerCard');
-    const wp=player.equipment.weapon?player.equipment.weapon.name:'Fists';
-    const ar=player.equipment.armor?player.equipment.armor.name:'Cloth';
-    c.innerHTML=`<strong>${player.name}</strong>, ${player.age}yr, ${player.socialClass}<br>❤️ HP ${player.hp}/${player.maxHp} | ⚡ Stam ${player.stamina}/${player.maxStamina}<br>⚔️ Atk ${player.attack} | 🛡️ Def ${player.defense}<br>🗡️ ${wp} | 🛡️ ${ar}`;
-}
-function renderEnemy(){
-    const c=document.getElementById('enemyCard');
-    if(!currentEnemy){c.style.display='none';return}
-    c.style.display='block';
-    const n=currentEnemy.name||`${currentEnemy.givenName} ${currentEnemy.familyName}`;
-    c.innerHTML=`<strong>${n}</strong> (${currentEnemy.category||currentEnemy.job})<br>❤️ HP ${currentEnemy.hp}/${currentEnemy.maxHp}`;
-}
-function renderDialogue(){
-    const c=document.getElementById('dialogueCard');
-    if(!dialogueState){c.style.display='none';return}
-    c.style.display='block';
-    c.innerHTML=`<strong>${dialogueState.npc.givenName} ${dialogueState.npc.familyName}</strong>: "${dialogueState.text}"`;
-    const d=document.createElement('div');d.className='dialog-options';
-    dialogueState.options.forEach(o=>{const b=document.createElement('button');b.textContent=o.label;b.onclick=o.action;d.appendChild(b)});
-    c.appendChild(d);
-}
-function renderInv(){
-    const l=document.getElementById('invList');
-    l.innerHTML=player.inventory.length?player.inventory.map((it,i)=>`<div class="list-item"><span>${it.name} [${it.category}]</span><span>${(it.category==='weapon'||it.category==='armor')?`<button onclick="GE.equip(${i})">Equip</button>`:''}${it.category==='consumable_processed'?`<button onclick="GE.use(${i})">Use</button>`:''}<button onclick="GE.drop(${i})">Drop</button></span></div>`).join(''):'<div style="color:var(--dim)">Empty</div>';
-}
-function renderQuests(){document.getElementById('questList').innerHTML=player.quests.length?player.quests.map(q=>`<div>📜 ${q.title} (${q.completed?'done':'active'})</div>`).join(''):'None'}
-function renderRels(){document.getElementById('relList').innerHTML=player.relationships.length?player.relationships.map(r=>`<div>${r.name} (${r.faction}) ❤️${r.affection}</div>`).join(''):'None'}
-function renderActions(){
-    const b=document.getElementById('actionBar');let h='';
-    if(player.alive){
-        h+='<button onclick="GE.travel()">🚶 Travel</button>';
-        const loc=world.getLocById(player.currentLocId);
-        if(loc&&loc.market)h+='<button onclick="GE.market()">🏪 Market</button>';
-        if(loc&&loc.npcs&&loc.npcs.length)h+='<button onclick="GE.talk()">🗣️ Talk</button>';
-        if(loc&&loc.type==='wildland'){h+='<button onclick="GE.forage()">🌿 Forage</button><button onclick="GE.hunt()">🏹 Hunt</button>'}
-        if(currentEnemy){h+='<button onclick="GE.attack()">⚔️ Attack</button><button onclick="GE.defend()">🛡️ Defend</button><button onclick="GE.flee()">🏃 Flee</button>'}
-        if(player.spouse&&player.children.length<3&&player.spouse.age<45)h+='<button onclick="GE.baby()">👶 Child</button>';
-        h+='<button onclick="GE.save()">💾 Save</button>';
-    }else{
-        h+='<button onclick="GE.load()">🔄 Load</button><button onclick="GE.newGame()">🆕 New</button>';
-        if(player.children.length)h+='<button onclick="GE.playChild()">👤 Play Child</button>';
-    }
-    b.innerHTML=h;
-}
+this.name='Ronin';
 
-// ---------- GAME ENGINE ----------
-const GE={
-    travel(){
-        if(!player.alive)return;
-        const m=document.getElementById('travelModal');m.classList.add('active');
-        const c=document.getElementById('travelContent');
-        let h='<h3>Provinces</h3>';
-        world.provinces.forEach((p,i)=>h+=`<button onclick="GE.pickProv(${i})">${p.name}</button> `);
-        c.innerHTML=h;
-    },
-    pickProv(i){
-        const l=world.getProvinceLocs(i);const c=document.getElementById('travelContent');
-        let h=`<h3>${world.provinces[i].name}</h3>`;
-        h+=`<button onclick="GE.goLoc(${l.capital._id})">🏙️ ${l.capital.name}</button><br>`;
-        l.towns.forEach(t=>h+=`<button onclick="GE.goLoc(${t._id})">${t.name}</button> `);
-        l.villages.forEach(v=>h+=`<button onclick="GE.goLoc(${v._id})">${v.name}</button> `);
-        l.wildlands.forEach(w=>h+=`<button onclick="GE.goLoc(${w._id})">${w.name}</button> `);
-        h+='<br><button onclick="GE.travel()">Back</button>';
-        c.innerHTML=h;
-    },
-    goLoc(id){
-        document.getElementById('travelModal').classList.remove('active');
-        player.currentLocId=id;const loc=world.getLocById(id);addLog(`🚶 Arrived at ${loc.name}.`);
-        if(loc.type==='wildland'&&rand()<0.5){const b=pick(loc.beasts);if(b){addLog(`⚠️ A ${b.name} attacks!`);GE.startFight(b)}}
-        updateUI();
-    },
-    market(){
-        const loc=world.getLocById(player.currentLocId);if(!loc||!loc.market)return;
-        const m=document.getElementById('marketModal');m.classList.add('active');
-        const c=document.getElementById('marketContent');c.innerHTML='<h3>Market</h3><div id="mItems"></div>';
-        const items=[],types=['weapon','armor','consumable_processed','tool','raw_material'];
-        for(let i=0;i<randInt(4,6);i++)items.push(generate(pick(types)));
-        window._mitems=items;
-        document.getElementById('mItems').innerHTML=items.map((it,i)=>`<div class="list-item"><span>${it.name} [${it.category}] - ${it.value}g</span><button onclick="GE.buy(${i})">Buy</button></div>`).join('');
-    },
-    buy(i){
-        const it=window._mitems[i];if(!it||player.gold<it.value){addLog('Not enough gold.');return}
-        player.gold-=it.value;player.inventory.push(it);addLog(`Bought ${it.name}.`);
-        document.getElementById('mItems').innerHTML=window._mitems.map((it,j)=>`<div class="list-item"><span>${it.name} [${it.category}] - ${it.value}g</span><button onclick="GE.buy(${j})">Buy</button></div>`).join('');
-        updateUI();
-    },
-    equip(i){const it=player.inventory[i];if(!it||(it.category!=='weapon'&&it.category!=='armor'))return;const slot=it.category;if(player.equipment[slot])player.inventory.push(player.equipment[slot]);player.equipment[slot]=it;player.inventory.splice(i,1);if(slot==='weapon')player.attack+=it.damage||0;else player.defense+=it.defense||0;addLog(`Equipped ${it.name}.`);updateUI()},
-    use(i){const it=player.inventory[i];if(!it||it.category!=='consumable_processed')return;if(it.effect.includes('hp')){player.hp=Math.min(player.maxHp,player.hp+parseInt(it.effect.split(' ')[2])||15)}else{player.stamina=Math.min(player.maxStamina,player.stamina+20)}player.inventory.splice(i,1);addLog(`Used ${it.name}.`);updateUI()},
-    drop(i){const it=player.inventory.splice(i,1)[0];addLog(`Dropped ${it.name}.`);updateUI()},
-    talk(){const loc=world.getLocById(player.currentLocId);if(!loc||!loc.npcs.length)return;const npc=pick(loc.npcs);dialogueState={npc,text:`Greetings, I am ${npc.givenName} ${npc.familyName}, a ${npc.job}.`,options:[{label:'Quest',action:()=>GE.quest(npc)},{label:'Trade',action:()=>GE.market()},{label:'Fight',action:()=>{dialogueState=null;GE.startFight(npc)}},{label:'Leave',action:()=>{dialogueState=null;updateUI()}}]};updateUI()},
-    quest(npc){const q=generate('quest');q.giver=`${npc.givenName} ${npc.familyName}`;dialogueState={npc,text:`${q.title}. ${q.description}. Reward: ${q.rewardGold}g. Accept?`,options:[{label:'Accept',action:()=>{player.quests.push(q);addLog('Quest accepted.');dialogueState=null;updateUI()}},{label:'Decline',action:()=>{dialogueState=null;updateUI()}}]};updateUI()},
-    startFight(enemy){currentEnemy=JSON.parse(JSON.stringify(enemy));currentEnemy.maxHp=currentEnemy.hp||30;addLog(`⚔️ Fight!`);updateUI()},
-    attack(){if(!currentEnemy)return;let d=Math.max(1,player.attack-(currentEnemy.defense||0)+randInt(-2,3));currentEnemy.hp-=d;addLog(`You deal ${d} dmg.`);if(currentEnemy.hp<=0){GE.enemyDown();return}GE.enemyTurn();updateUI()},
-    defend(){player.defense+=4;addLog('Braced.');GE.enemyTurn();player.defense-=4;updateUI()},
-    flee(){if(rand()<0.5){addLog('Fled.');currentEnemy=null}else{addLog('Failed!');GE.enemyTurn()}updateUI()},
-    enemyTurn(){if(!currentEnemy)return;let d=Math.max(1,(currentEnemy.attack||5)-player.defense+randInt(-2,2));player.hp-=d;addLog(`${currentEnemy.name||currentEnemy.givenName} hits for ${d}.`);if(player.hp<=0){player.hp=0;GE.die()}updateUI()},
-    enemyDown(){const e=currentEnemy;addLog(`💀 ${e.name||e.givenName} slain.`);player.gold+=e.gold||0;if(e.loot){player.inventory.push(e.loot);addLog(`🎁 ${e.loot.name}`)}player.quests.forEach(q=>{if(q.completed)return;if((q.targetType==='animal'&&e.category==='wildlife')||(q.targetType==='npc'&&e.job)||(q.targetType==='raw_material'&&e.category==='animal_part')){q.completed=true;player.gold+=q.rewardGold;addLog(`🏆 Quest done: ${q.title}!`)}});currentEnemy=null;updateUI()},
-    die(){addLog('💀 You died.');player.alive=false;currentEnemy=null;document.getElementById('deathModal').classList.add('active');updateUI()},
-    forage(){const loc=world.getLocById(player.currentLocId);if(!loc||loc.type!=='wildland')return;if(loc.resources.length){player.inventory.push(pick(loc.resources));addLog('🌿 Foraged.');}else addLog('Nothing.');updateUI()},
-    hunt(){const loc=world.getLocById(player.currentLocId);if(!loc||loc.type!=='wildland')return;if(loc.beasts.length){GE.startFight(pick(loc.beasts));}else addLog('No animals.');},
-    baby(){if(rand()<0.3){const n=`${pick(['Fujiwara','Taira','Minamoto'])} ${player.gender==='male'?pick(['Taro','Jiro']):pick(['Hana','Yuki'])}`;player.children.push({name:n,gender:rand()<0.5?'male':'female',age:0,skills:{strength:randInt(2,4),agility:randInt(2,4),intelligence:randInt(2,4),charisma:randInt(2,4)}});addLog(`👶 ${n} born!`)}else addLog('No child.');updateUI()},
-    playChild(){if(!player.children.length)return;const c=player.children.pop();const np=new Player();np.name=c.name;np.gender=c.gender;np.age=18;np.skills=c.skills;np.currentLocId=player.currentLocId;np.gold=Math.floor(player.gold/2);player=np;addLog(`👤 Playing as ${c.name}.`);document.getElementById('deathModal').classList.remove('active');updateUI()},
-    async save(){await putI('player',{id:'player',data:JSON.parse(JSON.stringify(player))});addLog('💾 Saved.')},
-    async load(){const d=await getI('player','player');if(d){player=Object.assign(new Player(),d);player.alive=true;addLog('📂 Loaded.');updateUI();document.getElementById('deathModal').classList.remove('active')}else addLog('No save.')},
-    newGame(){location.reload()}
+this.age=25;
+
+this.gender='male';
+
+this.hp=100;
+
+this.maxHp=100;
+
+this.stamina=50;
+
+this.maxStamina=50;
+
+this.attack=8;
+
+this.defense=3;
+
+this.gold=50;
+
+this.inventory=[];
+
+this.quests=[];
+
+this.relationships=[];
+
+this.equipment={
+
+weapon:null,
+
+armor:null
+
 };
-window.GE=GE;
 
-// ---------- Init ----------
-(async function(){
-    await initS();
-    // Try to load external templates (user can set this URL to their GitHub JSON)
-    await loadExternalTemplates('https://raw.githubusercontent.com/yourusername/yourrepo/main/templates.json');
-    world=await World.load();
-    const saved=await getI('player','player');
-    if(saved){player=Object.assign(new Player(),saved);addLog('📂 Game loaded.')}
-    else{player.currentLocId=world.provinces[0].capital._id;addLog('⚔️ New life begins.')}
-    updateUI();
-    window.addEventListener('beforeunload',()=>GE.save());
-})();
-})();
+this.children=[];
+
+this.alive=true;
+
+this.currentLocId=null;
+
+}
+
+}
+
+let player=
+new Player();
+
+let world=null;
+
+let currentEnemy=
+null;
+
+let dialogueState=
+null;
+
+let logs=[];
+
+let gameTime={
+
+year:1550,
+
+month:1,
+
+day:1,
+
+season:'Spring'
+
+};
+
+/* ========= INVENTORY ========= */
+
+function addItem(item){
+
+let found=
+
+player.inventory.find(
+
+x=>
+
+x.name===item.name
+
+);
+
+if(found){
+
+found.qty=
+
+(found.qty||1)
+
++1;
+
+}
+
+else{
+
+player.inventory.push({
+
+...item,
+
+qty:1
+
+});
+
+}
+
+}
+
+function removeItem(i){
+
+let item=
+
+player.inventory[i];
+
+if(!item)
+return;
+
+item.qty--;
+
+if(
+item.qty<=0
+)
+
+player.inventory.splice(
+i,
+1
+);
+
+}
+
+/* ========= LOG ========= */
+
+function addLog(msg){
+
+logs.push(msg);
+
+if(
+
+logs.length>
+
+150
+
+)
+
+logs.shift();
+
+document
+
+.getElementById(
+'logArea'
+)
+
+.innerHTML=
+
+logs
+
+.slice(-30)
+
+.map(
+
+x=>
+
+`<div>${x}</div>`
+
+)
+
+.join('');
+
+}
+
+/* ========= TIME ========= */
+
+function advanceTime(
+
+days
+
+){
+
+for(
+
+let i=0;
+
+i<days;
+
+i++
+
+){
+
+gameTime.day++;
+
+if(
+
+gameTime.day>
+
+30
+
+){
+
+gameTime.day=1;
+
+gameTime.month++;
+
+}
+
+}
+
+}
+
+/* PART 1 END */
+
+```
+```html
+/* ==========================
+PART 2
+WORLD + GENERATOR
+========================== */
+
+/* ---------- TEMPLATES ---------- */
+
+const templates=new Map(
+
+Object.entries({
+
+world:{
+provinces:{
+type:'array',
+count:{
+min:8,
+max:12
+},
+itemTemplate:'province'
+}
+},
+
+province:{
+
+name:{
+pool:[
+'Yamashiro',
+'Kawachi',
+'Kai',
+'Echigo',
+'Shinano',
+'Mino',
+'Settsu',
+'Owari'
+]
+},
+
+capital:{
+type:'template',
+id:'city'
+},
+
+towns:{
+type:'array',
+count:{
+min:1,
+max:3
+},
+itemTemplate:'town'
+},
+
+villages:{
+type:'array',
+count:{
+min:2,
+max:5
+},
+itemTemplate:'village'
+},
+
+wildlands:{
+type:'array',
+count:{
+min:1,
+max:4
+},
+itemTemplate:'wildland'
+}
+
+},
+
+city:{
+
+type:{
+value:'city'
+},
+
+name:{
+pool:[
+'Kyoto',
+'Sakai',
+'Kamakura',
+'Nara'
+]
+},
+
+npcs:{
+type:'array',
+count:{
+min:8,
+max:15
+},
+itemTemplate:'npc'
+},
+
+establishments:{
+type:'array',
+count:{
+min:3,
+max:6
+},
+itemTemplate:'establishment'
+}
+
+},
+
+town:{
+
+type:{
+value:'town'
+},
+
+name:{
+pool:[
+'Uji',
+'Osaka',
+'Nagahama',
+'Azuchi'
+]
+},
+
+npcs:{
+type:'array',
+count:{
+min:4,
+max:8
+},
+itemTemplate:'npc'
+},
+
+establishments:{
+type:'array',
+count:{
+min:1,
+max:3
+},
+itemTemplate:'establishment'
+}
+
+},
+
+village:{
+
+type:{
+value:'village'
+},
+
+name:{
+pool:[
+'Ina',
+'Agano',
+'Yura',
+'Kiso'
+]
+},
+
+npcs:{
+type:'array',
+count:{
+min:1,
+max:4
+},
+itemTemplate:'npc'
+}
+
+},
+
+wildland:{
+
+type:{
+value:'wildland'
+},
+
+terrain:{
+
+pool:[
+
+'Forest',
+'Hills',
+'Mountain',
+'River'
+
+]
+
+},
+
+name:{
+value:''
+},
+
+beasts:{
+
+type:'array',
+
+count:{
+min:1,
+max:4
+},
+
+itemTemplate:'animal'
+
+},
+
+resources:{
+
+type:'array',
+
+count:{
+min:2,
+max:6
+},
+
+itemTemplate:'raw_material'
+
+}
+
+},
+
+npc:{
+
+givenName:{
+
+pool:[
+
+'Takeshi',
+'Akira',
+'Yuki',
+'Hana',
+'Kenta'
+
+]
+
+},
+
+familyName:{
+
+pool:[
+
+'Fujiwara',
+'Taira',
+'Minamoto'
+
+]
+
+},
+
+job:{
+
+pool:[
+
+'farmer',
+'merchant',
+'samurai',
+'hunter',
+'priest'
+
+]
+
+},
+
+personality:{
+
+pool:[
+
+'kind',
+'greedy',
+'honest',
+'brave'
+
+]
+
+},
+
+dialogueGreeting:{
+
+pool:[
+
+'Good day.',
+'Traveler.',
+'Need work?',
+'Stay awhile.'
+
+]
+
+},
+
+hp:{
+
+min:40,
+max:90
+
+},
+
+attack:{
+
+min:4,
+max:15
+
+},
+
+defense:{
+
+min:1,
+max:8
+
+},
+
+gold:{
+
+min:10,
+max:150
+
+}
+
+},
+
+animal:{
+
+category:{
+
+value:'wildlife'
+
+},
+
+name:{
+
+pool:[
+
+'Wolf',
+'Boar',
+'Deer',
+'Bear'
+
+]
+
+},
+
+hp:{
+
+min:20,
+max:60
+
+},
+
+attack:{
+
+min:2,
+max:12
+
+},
+
+defense:{
+
+min:0,
+max:4
+
+},
+
+gold:{
+
+min:1,
+max:10
+
+},
+
+loot:{
+
+type:'template',
+
+id:'animal_part'
+
+}
+
+},
+
+animal_part:{
+
+category:{
+
+value:'animal_part'
+
+},
+
+name:{
+
+pool:[
+
+'Meat',
+
+'Hide',
+
+'Bones'
+
+]
+
+},
+
+value:{
+
+min:2,
+max:12
+
+}
+
+},
+
+raw_material:{
+
+category:{
+
+value:'raw_material'
+
+},
+
+name:{
+
+pool:[
+
+'Wood',
+
+'Herb',
+
+'Mushroom',
+
+'Stone'
+
+]
+
+},
+
+value:{
+
+min:1,
+max:8
+
+}
+
+},
+
+weapon:{
+
+category:{
+
+value:'weapon'
+
+},
+
+name:{
+
+pool:[
+
+'Katana',
+
+'Yari',
+
+'Wakizashi'
+
+]
+
+},
+
+damage:{
+
+min:5,
+max:20
+
+},
+
+value:{
+
+min:20,
+max:150
+
+}
+
+},
+
+armor:{
+
+category:{
+
+value:'armor'
+
+},
+
+name:{
+
+pool:[
+
+'Do-Maru',
+
+'Kabuto',
+
+'Lamellar'
+
+]
+
+},
+
+defense:{
+
+min:2,
+max:12
+
+},
+
+value:{
+
+min:20,
+max:140
+
+}
+
+},
+
+tool:{
+
+category:{
+
+value:'tool'
+
+},
+
+name:{
+
+pool:[
+
+'Fishing Rod',
+
+'Pickaxe'
+
+]
+
+},
+
+value:{
+
+min:10,
+max:40
+
+}
+
+},
+
+consumable_processed:{
+
+category:{
+
+value:'consumable_processed'
+
+},
+
+name:{
+
+pool:[
+
+'Rice Ball',
+
+'Sake',
+
+'Tea'
+
+]
+
+},
+
+effect:{
+
+pool:[
+
+'restore hp 20',
+
+'restore hp 35'
+
+]
+
+},
+
+value:{
+
+min:5,
+max:20
+
+}
+
+},
+
+/* FIXED */
+
+itemCategory:{
+
+pool:[
+
+'weapon',
+
+'armor',
+
+'tool',
+
+'consumable_processed',
+
+'raw_material'
+
+]
+
+},
+
+establishment:{
+
+name:{
+
+pool:[
+
+'Market',
+
+'Inn',
+
+'Tea House',
+
+'Smith'
+
+]
+
+},
+
+type:{
+
+pool:[
+
+'market',
+
+'shop',
+
+'inn',
+
+'restaurant'
+
+]
+
+},
+
+sells:{
+
+type:'array',
+
+count:{
+
+min:2,
+
+max:5
+
+},
+
+itemTemplate:'itemCategory'
+
+}
+
+},
+
+quest:{
+
+title:{
+
+pool:[
+
+'Kill Beast',
+
+'Deliver Goods',
+
+'Collect Herbs'
+
+]
+
+},
+
+description:{
+
+pool:[
+
+'Someone needs help.'
+
+]
+
+},
+
+rewardGold:{
+
+min:20,
+
+max:200
+
+},
+
+targetType:{
+
+pool:[
+
+'animal',
+
+'npc'
+
+]
+
+},
+
+completed:{
+
+value:false
+
+}
+
+}
+
+})
+
+);
+
+/* ---------- GENERATOR ---------- */
+
+function generate(id){
+
+let t=
+
+templates.get(id);
+
+if(!t)
+
+throw Error(
+id
+);
+
+return build(t);
+
+}
+
+function build(t){
+
+let obj={};
+
+for(
+
+let[k,v]
+
+of
+
+Object.entries(t)
+
+){
+
+if(v.pool){
+
+obj[k]=
+
+pick(
+v.pool
+);
+
+}
+
+else if(
+
+v.value!==undefined
+
+){
+
+obj[k]=
+
+v.value;
+
+}
+
+else if(
+
+v.min!==undefined
+
+){
+
+obj[k]=
+
+randInt(
+v.min,
+v.max
+);
+
+}
+
+else if(
+
+v.type==='template'
+
+){
+
+obj[k]=
+
+generate(
+v.id
+);
+
+}
+
+else if(
+
+v.type==='array'
+
+){
+
+obj[k]=[];
+
+let count=
+
+randInt(
+
+v.count.min,
+
+v.count.max
+
+);
+
+for(
+
+let i=0;
+
+i<count;
+
+i++
+
+){
+
+obj[k]
+
+.push(
+
+generate(
+v.itemTemplate
+)
+
+);
+
+}
+
+}
+
+}
+
+return obj;
+
+}
+
+/* ---------- WORLD ---------- */
+
+class World{
+
+constructor(){
+
+this.provinces=[];
+
+}
+
+assignIds(){
+
+let id=1;
+
+const walk=
+
+o=>{
+
+if(
+Array.isArray(o)
+){
+
+o.forEach(
+walk
+);
+
+}
+
+else if(
+
+o&&
+
+typeof o==='object'
+
+){
+
+o._id=id++;
+
+Object
+
+.values(o)
+
+.forEach(
+
+walk
+
+);
+
+}
+
+};
+
+walk(
+
+this.provinces
+
+);
+
+}
+
+getLocById(id){
+
+for(
+
+let p
+
+of
+
+this.provinces
+
+){
+
+let all=[
+
+p.capital,
+
+...p.towns,
+
+...p.villages,
+
+...p.wildlands
+
+];
+
+for(
+
+let x
+
+of all
+
+){
+
+if(
+
+x._id===id
+
+)
+
+return x;
+
+}
+
+}
+
+return null;
+
+}
+
+static async load(){
+
+let save=
+
+await getSave(
+
+'world',
+
+'world'
+
+);
+
+if(
+
+save
+
+)
+
+return save.data;
+
+let w=
+
+new World();
+
+w.provinces=
+
+generate(
+
+'world'
+
+)
+
+.provinces;
+
+w.provinces.forEach(
+
+p=>{
+
+p.wildlands.forEach(
+
+x=>{
+
+x.name=
+
+`${x.terrain}
+of
+${p.name}`;
+
+}
+
+);
+
+}
+
+);
+
+w.assignIds();
+
+await putSave(
+
+'world',
+
+{
+
+id:'world',
+
+data:w
+
+}
+
+);
+
+return w;
+
+}
+
+}
+
+/* PART 2 END */
+```
+```html
+/* ==========================
+PART 3
+UI + INVENTORY + TRAVEL
+========================== */
+
+/* ---------- UI ---------- */
+
+function updateUI(){
+
+document
+.getElementById(
+'goldDisplay'
+)
+.textContent=
+player.gold;
+
+document
+.getElementById(
+'timeDisplay'
+)
+.textContent=
+
+`Year ${
+gameTime.year
+}
+ · ${
+gameTime.season
+}
+ · Day ${
+gameTime.day
+}`;
+
+renderPlayer();
+
+renderEnemy();
+
+renderDialogue();
+
+renderInventory();
+
+renderQuest();
+
+renderRelations();
+
+renderActions();
+
+}
+
+/* ---------- PLAYER ---------- */
+
+function renderPlayer(){
+
+const card=
+
+document
+.getElementById(
+'playerCard'
+);
+
+const loc=
+
+world
+?
+world.getLocById(
+player.currentLocId
+)
+:
+null;
+
+card.innerHTML=
+
+`
+<strong>
+
+${player.name}
+
+</strong>
+
+<br>
+
+Age:
+${player.age}
+
+<br>
+
+❤️
+${player.hp}
+
+/
+
+${player.maxHp}
+
+<br>
+
+⚡
+${player.stamina}
+
+/
+
+${player.maxStamina}
+
+<br>
+
+⚔️
+${player.attack}
+
+<br>
+
+🛡️
+${player.defense}
+
+<br>
+
+📍
+
+${
+
+loc
+?
+
+loc.name
+
+:
+
+'Unknown'
+
+}
+
+<br>
+
+🗡️
+
+${
+player.equipment.weapon
+?
+
+player.equipment.weapon.name
+
+:
+
+'None'
+
+}
+
+<br>
+
+🛡️
+
+${
+player.equipment.armor
+?
+
+player.equipment.armor.name
+
+:
+
+'None'
+
+}
+
+`;
+
+}
+
+/* ---------- ENEMY ---------- */
+
+function renderEnemy(){
+
+let box=
+
+document
+.getElementById(
+'enemyCard'
+);
+
+if(
+
+!currentEnemy
+
+){
+
+box.style.display='none';
+
+return;
+
+}
+
+box.style.display='block';
+
+box.innerHTML=
+
+`
+
+<strong>
+
+${
+
+currentEnemy.name
+
+||
+
+currentEnemy.givenName
+
+}
+
+</strong>
+
+<br>
+
+❤️
+
+${
+
+currentEnemy.hp
+
+}
+
+/
+
+${
+
+currentEnemy.maxHp
+
+}
+
+`;
+
+}
+
+/* ---------- DIALOG ---------- */
+
+function renderDialogue(){
+
+let box=
+
+document
+.getElementById(
+'dialogueCard'
+);
+
+if(
+
+!dialogueState
+
+){
+
+box.style.display='none';
+
+return;
+
+}
+
+box.style.display='block';
+
+box.innerHTML=
+
+`
+
+<strong>
+
+${
+
+dialogueState.npc.givenName
+
+}
+
+</strong>
+
+<br><br>
+
+${
+
+dialogueState.text
+
+}
+
+`;
+
+let wrap=
+
+document
+.createElement(
+'div'
+);
+
+wrap.className=
+
+'dialog-options';
+
+dialogueState.options
+
+.forEach(
+
+o=>{
+
+let b=
+
+document
+.createElement(
+'button'
+);
+
+b.textContent=
+
+o.label;
+
+b.onclick=
+
+o.action;
+
+wrap.appendChild(
+b
+);
+
+}
+
+);
+
+box.appendChild(
+wrap
+);
+
+}
+
+/* ---------- INVENTORY ---------- */
+
+function renderInventory(){
+
+const box=
+
+document
+.getElementById(
+'invList'
+);
+
+if(
+
+!player.inventory.length
+
+){
+
+box.innerHTML='Empty';
+
+return;
+
+}
+
+box.innerHTML=
+
+player.inventory
+
+.map(
+
+(
+
+it,
+
+i
+
+)=>
+
+`
+
+<div class="list-item">
+
+<span>
+
+${it.name}
+
+x
+
+${it.qty}
+
+</span>
+
+<span>
+
+${
+it.category==='weapon'
+
+||
+
+it.category==='armor'
+
+?
+
+`<button onclick="GE.equip(${i})">
+
+Equip
+
+</button>`
+
+:
+
+''
+
+}
+
+${
+it.category==='consumable_processed'
+
+?
+
+`<button onclick="GE.use(${i})">
+
+Use
+
+</button>`
+
+:
+
+''
+
+}
+
+<button onclick="GE.drop(${i})">
+
+Drop
+
+</button>
+
+</span>
+
+</div>
+
+`
+
+)
+
+.join('');
+
+}
+
+/* ---------- QUEST ---------- */
+
+function renderQuest(){
+
+document
+
+.getElementById(
+
+'questList'
+
+)
+
+.innerHTML=
+
+player.quests.length
+
+?
+
+player.quests
+
+.map(
+
+q=>
+
+`📜
+${q.title}`
+
+)
+
+.join(
+
+'<br>'
+
+)
+
+:
+
+'None';
+
+}
+
+/* ---------- REL ---------- */
+
+function renderRelations(){
+
+document
+
+.getElementById(
+
+'relList'
+
+)
+
+.innerHTML=
+
+player.relationships.length
+
+?
+
+player.relationships
+
+.map(
+
+r=>
+
+`${r.name}`
+
+)
+
+.join(
+
+'<br>'
+
+)
+
+:
+
+'None';
+
+}
+
+/* ---------- ACTIONS ---------- */
+
+function renderActions(){
+
+const bar=
+
+document
+
+.getElementById(
+
+'actionBar'
+
+);
+
+let html='';
+
+html+=
+`
+<button onclick="GE.advance(1)">
+Next Day
+</button>
+`;
+
+html+=
+`
+<button onclick="GE.travel()">
+Travel
+</button>
+`;
+
+html+=
+`
+<button onclick="GE.save()">
+Save
+</button>
+`;
+
+bar.innerHTML=
+
+html;
+
+}
+
+/* ---------- EQUIP FIX ---------- */
+
+GE.equip=
+
+function(i){
+
+let item=
+
+player.inventory[
+i
+];
+
+if(
+
+!item
+
+)
+
+return;
+
+let slot=
+
+item.category;
+
+if(
+
+slot!=='weapon'
+
+&&
+
+slot!=='armor'
+
+)
+
+return;
+
+/* remove old */
+
+if(
+
+player.equipment[
+slot
+]
+
+){
+
+let old=
+
+player.equipment[
+slot
+];
+
+if(
+
+slot==='weapon'
+
+)
+
+player.attack-=
+
+old.damage
+
+||
+
+0;
+
+if(
+
+slot==='armor'
+
+)
+
+player.defense-=
+
+old.defense
+
+||
+
+0;
+
+addItem(
+old
+);
+
+}
+
+player.equipment[
+slot
+]=
+
+{
+
+...item,
+
+qty:1
+
+};
+
+removeItem(
+i
+);
+
+/* apply */
+
+if(
+
+slot==='weapon'
+
+)
+
+player.attack+=
+
+item.damage
+
+||
+
+0;
+
+if(
+
+slot==='armor'
+
+)
+
+player.defense+=
+
+item.defense
+
+||
+
+0;
+
+addLog(
+
+`Equipped
+${item.name}`
+
+);
+
+updateUI();
+
+};
+
+/* ---------- USE ---------- */
+
+GE.use=
+
+function(i){
+
+let item=
+
+player.inventory[
+i
+];
+
+if(
+
+!item
+
+)
+
+return;
+
+if(
+
+item.effect
+
+&&
+
+item.effect.includes(
+'hp'
+)
+
+){
+
+let heal=
+
+parseInt(
+
+item.effect.match(
+
+/\d+/
+
+)[0]
+
+);
+
+player.hp=
+
+Math.min(
+
+player.maxHp,
+
+player.hp+
+
+heal
+
+);
+
+}
+
+removeItem(
+i
+);
+
+updateUI();
+
+};
+
+/* ---------- DROP ---------- */
+
+GE.drop=
+
+function(i){
+
+if(
+
+!player.inventory[
+i
+]
+
+)
+
+return;
+
+addLog(
+
+`Dropped
+${
+player.inventory[
+i
+].name
+}`
+
+);
+
+removeItem(
+i
+);
+
+updateUI();
+
+};
+
+/* ---------- TRAVEL ---------- */
+
+GE.travel=
+
+function(){
+
+let modal=
+
+document
+.getElementById(
+'travelModal'
+);
+
+let body=
+
+document
+.getElementById(
+'travelContent'
+);
+
+body.innerHTML=
+
+'<h3>Travel</h3>';
+
+world.provinces
+
+.forEach(
+
+(
+
+p,
+
+idx
+
+)=>{
+
+body.innerHTML+=
+
+`
+
+<button
+onclick="GE.openProvince(
+${idx}
+)">
+${p.name}
+</button>
+
+`;
+
+}
+
+);
+
+body.innerHTML+=
+
+'<br><br><button onclick="GE.closeModal()">Close</button>';
+
+modal.classList.add(
+'active'
+);
+
+};
+
+GE.openProvince=
+
+function(i){
+
+let p=
+
+world.provinces[
+i
+];
+
+let body=
+
+document
+.getElementById(
+'travelContent'
+);
+
+body.innerHTML=
+
+`<h3>${p.name}</h3>`;
+
+let all=[
+
+p.capital,
+
+...p.towns,
+
+...p.villages,
+
+...p.wildlands
+
+];
+
+all.forEach(
+
+l=>{
+
+body.innerHTML+=
+
+`
+
+<button
+
+onclick="GE.goto(
+${l._id}
+)"
+
+>
+
+${l.name}
+
+</button>
+
+`;
+
+}
+
+);
+
+};
+
+GE.goto=
+
+function(id){
+
+player.currentLocId=id;
+
+document
+
+.getElementById(
+
+'travelModal'
+
+)
+
+.classList.remove(
+
+'active'
+
+);
+
+addLog(
+
+'Travel complete.'
+
+);
+
+updateUI();
+
+};
+
+GE.closeModal=
+
+function(){
+
+document
+
+.querySelectorAll(
+
+'.modal'
+
+)
+
+.forEach(
+
+x=>
+
+x.classList.remove(
+
+'active'
+
+)
+
+);
+
+};
+
+GE.advance=
+
+function(
+
+d
+
+){
+
+advanceTime(
+d
+);
+
+updateUI();
+
+};
+
+/* PART 3 END */
+```
+```html id="q6mj4k"
+/* ==========================
+PART 4
+ESTABLISHMENTS + MARKET
+========================== */
+
+/* ---------- MARKET CACHE ---------- */
+
+let marketItems=[];
+
+/* ---------- OPEN ---------- */
+
+GE.showPlaces=
+
+function(){
+
+let loc=
+
+world.getLocById(
+
+player.currentLocId
+
+);
+
+if(
+
+!loc
+
+||
+
+!loc.establishments
+
+)
+
+return;
+
+let modal=
+
+document.getElementById(
+
+'establishmentModal'
+
+);
+
+let body=
+
+document.getElementById(
+
+'establishmentContent'
+
+);
+
+body.innerHTML=
+
+'<h3>Places</h3>';
+
+loc.establishments.forEach(
+
+(
+
+x,
+
+i
+
+)=>{
+
+body.innerHTML+=
+
+`
+
+<button
+onclick="GE.visitPlace(
+${i}
+)"
+>
+
+${x.name}
+
+(
+${x.type}
+)
+
+</button>
+
+<br><br>
+
+`;
+
+}
+
+);
+
+body.innerHTML+=
+
+`
+
+<button
+onclick="GE.closeModal()">
+
+Close
+
+</button>
+
+`;
+
+modal.classList.add(
+
+'active'
+
+);
+
+};
+
+/* ---------- VISIT ---------- */
+
+GE.visitPlace=
+
+function(i){
+
+let loc=
+
+world.getLocById(
+
+player.currentLocId
+
+);
+
+if(
+
+!loc
+
+)
+
+return;
+
+let place=
+
+loc.establishments[
+i
+];
+
+if(
+
+!place
+
+)
+
+return;
+
+GE.closeModal();
+
+/* MARKET */
+
+if(
+
+place.type==='market'
+
+){
+
+GE.market();
+
+return;
+
+}
+
+/* SHOP */
+
+if(
+
+place.type==='shop'
+
+){
+
+GE.shop(
+
+place.sells
+
+||
+
+[
+
+'weapon',
+
+'armor'
+
+]
+
+);
+
+return;
+
+}
+
+/* INN */
+
+if(
+
+place.type==='inn'
+
+){
+
+let price=
+
+randInt(
+
+5,
+
+15
+
+);
+
+if(
+
+player.gold<price
+
+){
+
+addLog(
+
+'Not enough gold.'
+
+);
+
+return;
+
+}
+
+player.gold-=price;
+
+player.hp=
+
+player.maxHp;
+
+player.stamina=
+
+player.maxStamina;
+
+/* FIX */
+
+advanceTime(
+1
+);
+
+addLog(
+
+`Stayed at inn
+(
+${price}g
+)`
+
+);
+
+updateUI();
+
+return;
+
+}
+
+/* RESTAURANT */
+
+if(
+
+place.type==='restaurant'
+
+){
+
+let price=
+
+randInt(
+
+3,
+
+8
+
+);
+
+if(
+
+player.gold<price
+
+){
+
+addLog(
+
+'Not enough gold.'
+
+);
+
+return;
+
+}
+
+player.gold-=price;
+
+player.stamina=
+
+player.maxStamina;
+
+addLog(
+
+'Meal eaten.'
+
+);
+
+updateUI();
+
+return;
+
+}
+
+};
+
+/* ---------- MARKET ---------- */
+
+GE.market=
+
+function(){
+
+marketItems=[];
+
+let body=
+
+document.getElementById(
+
+'marketContent'
+
+);
+
+let modal=
+
+document.getElementById(
+
+'marketModal'
+
+);
+
+body.innerHTML=
+
+`
+
+<h3>
+
+Market
+
+</h3>
+
+<div id="marketList">
+
+</div>
+
+`;
+
+for(
+
+let i=0;
+
+i<6;
+
+i++
+
+){
+
+marketItems.push(
+
+generate(
+
+pick([
+
+'weapon',
+
+'armor',
+
+'tool',
+
+'raw_material',
+
+'consumable_processed'
+
+])
+
+)
+
+);
+
+}
+
+GE.refreshMarket();
+
+modal.classList.add(
+
+'active'
+
+);
+
+};
+
+/* ---------- SHOP ---------- */
+
+GE.shop=
+
+function(
+
+cats
+
+){
+
+marketItems=[];
+
+let body=
+
+document.getElementById(
+
+'marketContent'
+
+);
+
+body.innerHTML=
+
+`
+
+<h3>
+
+Shop
+
+</h3>
+
+<div id="marketList">
+
+</div>
+
+`;
+
+for(
+
+let i=0;
+
+i<5;
+
+i++
+
+){
+
+marketItems.push(
+
+generate(
+
+pick(
+
+cats
+
+)
+
+)
+
+);
+
+}
+
+GE.refreshMarket();
+
+document
+
+.getElementById(
+
+'marketModal'
+
+)
+
+.classList.add(
+
+'active'
+
+);
+
+};
+
+/* ---------- REFRESH ---------- */
+
+GE.refreshMarket=
+
+function(){
+
+let target=
+
+document.getElementById(
+
+'marketList'
+
+);
+
+let html='';
+
+/* BUY */
+
+html+=
+
+'<h4>Buy</h4>';
+
+marketItems.forEach(
+
+(
+
+item,
+
+i
+
+)=>{
+
+html+=
+
+`
+
+<div
+class="list-item">
+
+<span>
+
+${item.name}
+
+—
+
+${item.value}g
+
+</span>
+
+<button
+
+onclick="GE.buy(
+${i}
+)"
+
+>
+
+Buy
+
+</button>
+
+</div>
+
+`;
+
+}
+
+/* SELL */
+
+html+=
+
+'<br><h4>Sell</h4>';
+
+if(
+
+player.inventory.length
+
+){
+
+player.inventory.forEach(
+
+(
+
+it,
+
+i
+
+)=>{
+
+let value=
+
+Math.floor(
+
+(
+
+it.value
+
+||
+
+1
+
+)
+
+*
+
+0.6
+
+);
+
+html+=
+
+`
+
+<div
+class="list-item">
+
+<span>
+
+${it.name}
+
+x
+
+${it.qty}
+
+</span>
+
+<button
+
+onclick="GE.sell(
+${i}
+)"
+
+>
+
+${value}g
+
+</button>
+
+</div>
+
+`;
+
+}
+
+);
+
+}
+
+else{
+
+html+=
+
+'Inventory empty';
+
+}
+
+html+=
+
+`
+
+<br>
+
+<button
+
+onclick="GE.closeModal()"
+
+>
+
+Close
+
+</button>
+
+`;
+
+target.innerHTML=
+
+html;
+
+};
+
+/* ---------- BUY ---------- */
+
+GE.buy=
+
+function(i){
+
+let item=
+
+marketItems[
+i
+];
+
+if(
+
+!item
+
+)
+
+return;
+
+if(
+
+player.gold<
+
+item.value
+
+){
+
+addLog(
+
+'Not enough gold.'
+
+);
+
+return;
+
+}
+
+player.gold-=
+
+item.value;
+
+addItem(
+item);
+
+addLog(
+
+`Bought
+${item.name}`
+
+);
+
+/* FIX
+market remains open */
+
+GE.refreshMarket();
+
+updateUI();
+
+};
+
+/* ---------- SELL ---------- */
+
+GE.sell=
+
+function(i){
+
+let item=
+
+player.inventory[
+i
+];
+
+if(
+
+!item
+
+)
+
+return;
+
+let price=
+
+Math.floor(
+
+(
+
+item.value
+
+||
+
+1
+
+)
+
+*
+
+0.6
+
+);
+
+player.gold+=
+
+price;
+
+addLog(
+
+`Sold
+${item.name}`
+
+);
+
+removeItem(
+i);
+
+/* FIX
+market remains */
+
+GE.refreshMarket();
+
+updateUI();
+
+};
+
+/* ---------- ACTION PATCH ---------- */
+
+renderActions=
+
+function(){
+
+const bar=
+
+document.getElementById(
+
+'actionBar'
+
+);
+
+let html='';
+
+html+=
+
+`
+<button onclick="GE.advance(1)">
+Next Day
+</button>
+`;
+
+html+=
+
+`
+<button onclick="GE.travel()">
+Travel
+</button>
+`;
+
+let loc=
+
+world.getLocById(
+
+player.currentLocId
+
+);
+
+if(
+
+loc
+
+&&
+
+loc.establishments
+
+){
+
+html+=
+
+`
+<button
+onclick="GE.showPlaces()">
+
+Places
+
+</button>
+`;
+
+}
+
+html+=
+
+`
+<button onclick="GE.save()">
+Save
+</button>
+`;
+
+bar.innerHTML=
+
+html;
+
+};
+
+/* PART 4 END */
+```
+```html id="svf83u"
+/* ==========================
+PART 5
+NPC + DIALOGUE + QUESTS
+========================== */
+
+/* ---------- HELPERS ---------- */
+
+function npcFullName(n){
+
+return `${
+n.givenName
+}
+ ${
+n.familyName
+}`;
+
+}
+
+function gainRelation(
+
+npc,
+
+amount
+
+){
+
+let found=
+
+player.relationships
+
+.find(
+
+r=>
+
+r.id===npc._id
+
+);
+
+if(
+
+found
+
+){
+
+found.affection+=
+
+amount;
+
+}
+
+else{
+
+player.relationships.push({
+
+id:npc._id,
+
+name:
+
+npcFullName(
+npc
+),
+
+affection:
+
+amount
+
+});
+
+}
+
+}
+
+/* ---------- TALK ---------- */
+
+GE.talk=
+
+function(){
+
+let loc=
+
+world.getLocById(
+
+player.currentLocId
+
+);
+
+if(
+
+!loc
+
+||
+
+!loc.npcs
+
+||
+
+!loc.npcs.length
+
+)
+
+return;
+
+let npc=
+
+pick(
+
+loc.npcs
+
+);
+
+GE.openDialogue(
+npc);
+
+};
+
+/* ---------- OPEN ---------- */
+
+GE.openDialogue=
+
+function(
+
+npc
+
+){
+
+dialogueState={
+
+npc,
+
+text:
+
+npc.dialogueGreeting
+
+||
+
+'Hello.',
+
+options:[
+
+{
+
+label:
+
+'Chat',
+
+action:
+
+()=>{
+
+gainRelation(
+
+npc,
+
+1
+
+);
+
+dialogueState.text=
+
+pick([
+
+'Interesting.',
+
+'You seem trustworthy.',
+
+'Safe travels.',
+
+'Life is difficult.'
+
+]);
+
+updateUI();
+
+}
+
+},
+
+{
+
+label:
+
+'Quest',
+
+action:
+
+()=>{
+
+GE.offerQuest(
+npc
+);
+
+}
+
+},
+
+{
+
+label:
+
+'Trade',
+
+action:
+
+()=>{
+
+dialogueState=null;
+
+GE.market();
+
+updateUI();
+
+}
+
+},
+
+{
+
+label:
+
+'Fight',
+
+action:
+
+()=>{
+
+dialogueState=null;
+
+GE.challengeNPC(
+
+npc
+
+);
+
+}
+
+},
+
+{
+
+label:
+
+'Leave',
+
+action:
+
+()=>{
+
+dialogueState=null;
+
+updateUI();
+
+}
+
+}
+
+]
+
+};
+
+updateUI();
+
+};
+
+/* ---------- QUEST ---------- */
+
+GE.offerQuest=
+
+function(
+
+npc
+
+){
+
+let quest=
+
+generate(
+
+'quest'
+
+);
+
+quest.giver=
+
+npcFullName(
+npc
+);
+
+dialogueState={
+
+npc,
+
+text:
+
+`
+
+${quest.title}
+
+Reward:
+
+${quest.rewardGold}
+
+gold
+
+`,
+
+options:[
+
+{
+
+label:
+
+'Accept',
+
+action:
+
+()=>{
+
+player.quests.push(
+
+quest
+
+);
+
+dialogueState=null;
+
+addLog(
+
+`Accepted:
+${quest.title}`
+
+);
+
+updateUI();
+
+}
+
+},
+
+{
+
+label:
+
+'Decline',
+
+action:
+
+()=>{
+
+dialogueState=null;
+
+updateUI();
+
+}
+
+}
+
+]
+
+};
+
+updateUI();
+
+};
+
+/* ---------- COMPLETE ---------- */
+
+GE.checkQuest=
+
+function(
+
+enemy
+
+){
+
+player.quests.forEach(
+
+q=>{
+
+if(
+
+q.completed
+
+)
+
+return;
+
+if(
+
+q.targetType==='animal'
+
+&&
+
+enemy.category===
+
+'wildlife'
+
+){
+
+q.completed=true;
+
+player.gold+=
+
+q.rewardGold;
+
+addLog(
+
+`Quest complete:
+${q.title}`
+
+);
+
+}
+
+if(
+
+q.targetType==='npc'
+
+&&
+
+enemy.job
+
+){
+
+q.completed=true;
+
+player.gold+=
+
+q.rewardGold;
+
+addLog(
+
+`Quest complete:
+${q.title}`
+
+);
+
+}
+
+}
+
+);
+
+};
+
+/* ---------- NPC COMBAT ---------- */
+
+GE.challengeNPC=
+
+function(
+
+npc
+
+){
+
+currentEnemy=
+
+structuredClone(
+
+npc
+
+);
+
+currentEnemy.maxHp=
+
+currentEnemy.hp;
+
+addLog(
+
+`You challenge
+${npcFullName(
+npc
+)}`
+
+);
+
+updateUI();
+
+};
+
+/* ---------- RANDOM DIALOG ---------- */
+
+GE.randomDialogue=
+
+function(
+
+npc
+
+){
+
+const lines=[
+
+'The roads are dangerous.',
+
+'Bandits increase yearly.',
+
+'Rice prices changed.',
+
+'The lord raised taxes.',
+
+'Travel carefully.',
+
+'Trade is improving.',
+
+'The weather worries me.'
+
+];
+
+dialogueState={
+
+npc,
+
+text:
+
+pick(
+
+lines
+
+),
+
+options:[
+
+{
+
+label:
+
+'Continue',
+
+action:
+
+()=>{
+
+GE.randomDialogue(
+npc
+);
+
+}
+
+},
+
+{
+
+label:
+
+'Leave',
+
+action:
+
+()=>{
+
+dialogueState=null;
+
+updateUI();
+
+}
+
+}
+
+]
+
+};
+
+updateUI();
+
+};
+
+/* ---------- NPC GIFT ---------- */
+
+GE.giveGift=
+
+function(
+
+npc
+
+){
+
+if(
+
+!player.inventory.length
+
+){
+
+addLog(
+
+'No items.'
+
+);
+
+return;
+
+}
+
+let item=
+
+player.inventory[0];
+
+removeItem(
+0);
+
+gainRelation(
+
+npc,
+
+5
+
+);
+
+dialogueState.text=
+
+`
+
+${npc.givenName}
+
+accepted
+
+${item.name}
+
+`;
+
+updateUI();
+
+};
+
+/* ---------- RELATION VIEW ---------- */
+
+renderRelations=
+
+function(){
+
+const box=
+
+document.getElementById(
+
+'relList'
+
+);
+
+if(
+
+!player.relationships.length
+
+){
+
+box.innerHTML=
+
+'None';
+
+return;
+
+}
+
+box.innerHTML=
+
+player.relationships
+
+.map(
+
+r=>
+
+`
+
+<div>
+
+${r.name}
+
+❤️
+
+${r.affection}
+
+</div>
+
+`
+
+)
+
+.join('');
+
+};
+
+/* ---------- ACTION PATCH ---------- */
+
+renderActions=
+
+function(){
+
+let html='';
+
+html+=
+
+`
+<button onclick="GE.advance(1)">
+Next Day
+</button>
+`;
+
+html+=
+
+`
+<button onclick="GE.travel()">
+Travel
+</button>
+`;
+
+let loc=
+
+world.getLocById(
+
+player.currentLocId
+
+);
+
+if(
+
+loc
+
+&&
+
+loc.establishments
+
+){
+
+html+=
+
+`
+<button
+onclick="GE.showPlaces()">
+
+Places
+
+</button>
+`;
+
+}
+
+if(
+
+loc
+
+&&
+
+loc.npcs
+
+){
+
+html+=
+
+`
+<button
+onclick="GE.talk()">
+
+Talk
+
+</button>
+`;
+
+}
+
+html+=
+
+`
+<button onclick="GE.save()">
+Save
+</button>
+`;
+
+document
+
+.getElementById(
+
+'actionBar'
+
+)
+
+.innerHTML=
+
+html;
+
+};
+
+/* PART 5 END */
+```
+```html id="zc18vs"
+/* ==========================
+PART 6
+COMBAT + WILDLANDS
+========================== */
+
+/* ---------- START ---------- */
+
+GE.startCombat=
+
+function(enemy){
+
+currentEnemy=
+
+structuredClone(
+enemy
+);
+
+/* FIX */
+
+currentEnemy.maxHp=
+
+currentEnemy.hp||
+
+30;
+
+addLog(
+
+`Combat started:
+${
+enemy.name
+||
+enemy.givenName
+}`
+
+);
+
+updateUI();
+
+};
+
+/* ---------- ATTACK ---------- */
+
+GE.attack=
+
+function(){
+
+if(
+
+!currentEnemy
+
+)
+
+return;
+
+let damage=
+
+Math.max(
+
+1,
+
+player.attack
+
+-
+
+(
+
+currentEnemy.defense
+
+||
+
+0
+
+)
+
++
+
+randInt(
+
+-2,
+
+3
+
+)
+
+);
+
+currentEnemy.hp-=
+
+damage;
+
+addLog(
+
+`You dealt
+${damage}`
+
+);
+
+if(
+
+currentEnemy.hp<=0
+
+){
+
+GE.enemyDead();
+
+return;
+
+}
+
+GE.enemyTurn();
+
+updateUI();
+
+};
+
+/* ---------- DEFEND ---------- */
+
+GE.defend=
+
+function(){
+
+player.defense+=4;
+
+addLog(
+
+'Defending'
+
+);
+
+GE.enemyTurn();
+
+player.defense-=4;
+
+updateUI();
+
+};
+
+/* ---------- FLEE ---------- */
+
+GE.flee=
+
+function(){
+
+if(
+
+rand()<0.5
+
+){
+
+currentEnemy=null;
+
+addLog(
+
+'Escaped.'
+
+);
+
+}
+
+else{
+
+addLog(
+
+'Failed.'
+
+);
+
+GE.enemyTurn();
+
+}
+
+updateUI();
+
+};
+
+/* ---------- ENEMY ---------- */
+
+GE.enemyTurn=
+
+function(){
+
+if(
+
+!currentEnemy
+
+)
+
+return;
+
+let damage=
+
+Math.max(
+
+1,
+
+(
+
+currentEnemy.attack
+
+||
+
+5
+
+)
+
+-
+
+player.defense
+
++
+
+randInt(
+
+-1,
+
+2
+
+)
+
+);
+
+player.hp-=
+
+damage;
+
+addLog(
+
+`
+
+${
+currentEnemy.name
+||
+currentEnemy.givenName
+}
+
+hit
+
+${damage}
+
+`
+
+);
+
+if(
+
+player.hp<=0
+
+){
+
+player.hp=0;
+
+GE.playerDead();
+
+}
+
+updateUI();
+
+};
+
+/* ---------- DEAD ---------- */
+
+GE.enemyDead=
+
+function(){
+
+let e=
+
+currentEnemy;
+
+player.gold+=
+
+e.gold||
+
+0;
+
+if(
+
+e.loot
+
+){
+
+addItem(
+
+e.loot
+
+);
+
+addLog(
+
+`
+
+Loot:
+
+${e.loot.name}
+
+`
+
+);
+
+}
+
+GE.checkQuest(
+
+e
+
+);
+
+addLog(
+
+`
+
+Defeated
+
+${
+
+e.name
+
+||
+
+e.givenName
+
+}
+
+`
+
+);
+
+currentEnemy=
+
+null;
+
+updateUI();
+
+};
+
+/* ---------- PLAYER DEAD ---------- */
+
+GE.playerDead=
+
+function(){
+
+player.alive=false;
+
+currentEnemy=null;
+
+let modal=
+
+document.getElementById(
+
+'deathModal'
+
+);
+
+let body=
+
+document.getElementById(
+
+'deathContent'
+
+);
+
+body.innerHTML=
+
+`
+
+<h2>
+
+You Died
+
+</h2>
+
+<button
+onclick="GE.load()">
+
+Load
+
+</button>
+
+<button
+onclick="GE.newGame()">
+
+Restart
+
+</button>
+
+`;
+
+modal.classList.add(
+
+'active'
+
+);
+
+updateUI();
+
+};
+
+/* ---------- HUNT ---------- */
+
+GE.hunt=
+
+function(){
+
+let loc=
+
+world.getLocById(
+
+player.currentLocId
+
+);
+
+if(
+
+!loc
+
+||
+
+loc.type!==
+
+'wildland'
+
+)
+
+return;
+
+if(
+
+!loc.beasts
+
+||
+
+!loc.beasts.length
+
+)
+
+return;
+
+/* FIX */
+
+let enemy=
+
+structuredClone(
+
+pick(
+
+loc.beasts
+
+)
+
+);
+
+addLog(
+
+`
+
+Hunting
+
+${enemy.name}
+
+`
+
+);
+
+GE.startCombat(
+
+enemy
+
+);
+
+};
+
+/* ---------- FORAGE ---------- */
+
+GE.forage=
+
+function(){
+
+let loc=
+
+world.getLocById(
+
+player.currentLocId
+
+);
+
+if(
+
+!loc
+
+||
+
+loc.type!==
+
+'wildland'
+
+)
+
+return;
+
+let item=
+
+structuredClone(
+
+pick(
+
+loc.resources
+
+)
+
+);
+
+addItem(
+
+item
+
+);
+
+addLog(
+
+`
+
+Found
+
+${item.name}
+
+`
+
+);
+
+updateUI();
+
+};
+
+/* ---------- WILDLAND EVENTS ---------- */
+
+GE.wildEvent=
+
+function(){
+
+let loc=
+
+world.getLocById(
+
+player.currentLocId
+
+);
+
+if(
+
+!loc
+
+||
+
+loc.type!==
+
+'wildland'
+
+)
+
+return;
+
+if(
+
+rand()<0.35
+
+){
+
+GE.hunt();
+
+return;
+
+}
+
+if(
+
+rand()<0.55
+
+){
+
+GE.forage();
+
+return;
+
+}
+
+addLog(
+
+'Nothing happened.'
+
+);
+
+};
+
+/* ---------- ACTION PATCH ---------- */
+
+renderActions=
+
+function(){
+
+let html='';
+
+if(
+
+currentEnemy
+
+){
+
+html+=
+
+`
+<button
+onclick="GE.attack()">
+
+Attack
+
+</button>
+`;
+
+html+=
+
+`
+<button
+onclick="GE.defend()">
+
+Defend
+
+</button>
+`;
+
+html+=
+
+`
+<button
+onclick="GE.flee()">
+
+Flee
+
+</button>
+`;
+
+document
+
+.getElementById(
+
+'actionBar'
+
+)
+
+.innerHTML=
+
+html;
+
+return;
+
+}
+
+html+=
+
+`
+<button
+onclick="GE.advance(1)">
+Next Day
+</button>
+`;
+
+html+=
+
+`
+<button
+onclick="GE.travel()">
+Travel
+</button>
+`;
+
+let loc=
+
+world.getLocById(
+
+player.currentLocId
+
+);
+
+if(
+
+loc
+
+&&
+
+loc.establishments
+
+){
+
+html+=
+
+`
+<button
+onclick="GE.showPlaces()">
+
+Places
+
+</button>
+`;
+
+}
+
+if(
+
+loc
+
+&&
+
+loc.npcs
+
+){
+
+html+=
+
+`
+<button
+onclick="GE.talk()">
+
+Talk
+
+</button>
+`;
+
+}
+
+if(
+
+loc
+
+&&
+
+loc.type===
+
+'wildland'
+
+){
+
+html+=
+
+`
+<button
+onclick="GE.hunt()">
+
+Hunt
+
+</button>
+`;
+
+html+=
+
+`
+<button
+onclick="GE.forage()">
+
+Forage
+
+</button>
+`;
+
+}
+
+html+=
+
+`
+<button
+onclick="GE.save()">
+
+Save
+
+</button>
+`;
+
+document
+
+.getElementById(
+
+'actionBar'
+
+)
+
+.innerHTML=
+
+html;
+
+};
+
+/* PART 6 END */
+```
+```html id="xk49aw"
+/* ==========================
+PART 7
+FAMILY + SAVE + INIT
+========================== */
+
+/* ---------- FAMILY ---------- */
+
+player.spouse=
+
+player.spouse||
+
+null;
+
+GE.marry=
+
+function(){
+
+if(
+
+player.spouse
+
+){
+
+addLog(
+
+'Already married.'
+
+);
+
+return;
+
+}
+
+player.spouse={
+
+name:
+
+pick([
+
+'Hana',
+
+'Yuki',
+
+'Aiko',
+
+'Akane'
+
+])
+
+};
+
+addLog(
+
+`
+
+Married
+
+${player.spouse.name}
+
+`
+
+);
+
+updateUI();
+
+};
+
+/* ---------- CHILD ---------- */
+
+GE.child=
+
+function(){
+
+if(
+
+!player.spouse
+
+){
+
+addLog(
+
+'Need spouse.'
+
+);
+
+return;
+
+}
+
+if(
+
+rand()>0.30
+
+){
+
+addLog(
+
+'No child.'
+
+);
+
+return;
+
+}
+
+let child={
+
+name:
+
+pick([
+
+'Taro',
+
+'Jiro',
+
+'Hana',
+
+'Yumi'
+
+]),
+
+age:0,
+
+gender:
+
+rand()<0.5
+
+?
+
+'male'
+
+:
+
+'female'
+
+};
+
+player.children.push(
+
+child
+
+);
+
+addLog(
+
+`
+
+Child born:
+
+${child.name}
+
+`
+
+);
+
+updateUI();
+
+};
+
+/* ---------- PLAY CHILD ---------- */
+
+GE.playChild=
+
+function(){
+
+if(
+
+!player.children.length
+
+)
+
+return;
+
+let c=
+
+player.children.shift();
+
+let next=
+
+new Player();
+
+next.name=
+
+c.name;
+
+next.gender=
+
+c.gender;
+
+next.age=18;
+
+next.currentLocId=
+
+player.currentLocId;
+
+next.gold=
+
+Math.floor(
+
+player.gold/
+
+2
+
+);
+
+player=
+
+next;
+
+document
+
+.getElementById(
+
+'deathModal'
+
+)
+
+.classList.remove(
+
+'active'
+
+);
+
+addLog(
+
+`
+
+Playing as
+
+${c.name}
+
+`
+
+);
+
+updateUI();
+
+};
+
+/* ---------- SAVE ---------- */
+
+GE.save=
+
+async function(){
+
+try{
+
+await putSave(
+
+'player',
+
+{
+
+id:
+
+'player',
+
+data:{
+
+player,
+
+gameTime
+
+}
+
+}
+
+);
+
+addLog(
+
+'Game Saved'
+
+);
+
+}
+
+catch(e){
+
+console.log(e);
+
+}
+
+};
+
+/* ---------- LOAD ---------- */
+
+GE.load=
+
+async function(){
+
+let save=
+
+await getSave(
+
+'player',
+
+'player'
+
+);
+
+if(
+
+!save
+
+){
+
+addLog(
+
+'No save.'
+
+);
+
+return;
+
+}
+
+player=
+
+Object.assign(
+
+new Player(),
+
+save.data.player
+
+);
+
+gameTime=
+
+save.data.gameTime;
+
+player.alive=true;
+
+document
+
+.getElementById(
+
+'deathModal'
+
+)
+
+.classList.remove(
+
+'active'
+
+);
+
+addLog(
+
+'Game Loaded'
+
+);
+
+updateUI();
+
+};
+
+/* ---------- NEW ---------- */
+
+GE.newGame=
+
+async function(){
+
+await putSave(
+
+'player',
+
+null
+
+);
+
+location.reload();
+
+};
+
+/* ---------- AUTO ---------- */
+
+setInterval(
+
+()=>{
+
+if(
+
+player.alive
+
+)
+
+GE.save();
+
+},
+
+120000
+
+);
+
+/* ---------- ACTION PATCH ---------- */
+
+renderActions=
+
+function(){
+
+let html='';
+
+if(
+
+!player.alive
+
+){
+
+html+=
+
+`
+<button
+onclick="GE.load()">
+
+Load
+
+</button>
+`;
+
+html+=
+
+`
+<button
+onclick="GE.newGame()">
+
+Restart
+
+</button>
+`;
+
+if(
+
+player.children.length
+
+){
+
+html+=
+
+`
+<button
+onclick="GE.playChild()">
+
+Play Child
+
+</button>
+`;
+
+}
+
+document
+
+.getElementById(
+
+'actionBar'
+
+)
+
+.innerHTML=
+
+html;
+
+return;
+
+}
+
+if(
+
+currentEnemy
+
+){
+
+html+=
+
+`
+<button onclick="GE.attack()">
+Attack
+</button>
+`;
+
+html+=
+
+`
+<button onclick="GE.defend()">
+Defend
+</button>
+`;
+
+html+=
+
+`
+<button onclick="GE.flee()">
+Flee
+</button>
+`;
+
+document
+
+.getElementById(
+
+'actionBar'
+
+)
+
+.innerHTML=
+
+html;
+
+return;
+
+}
+
+html+=
+
+`
+<button onclick="GE.advance(1)">
+Next Day
+</button>
+`;
+
+html+=
+
+`
+<button onclick="GE.travel()">
+Travel
+</button>
+`;
+
+let loc=
+
+world.getLocById(
+
+player.currentLocId
+
+);
+
+if(
+
+loc
+
+&&
+
+loc.establishments
+
+){
+
+html+=
+
+`
+<button onclick="GE.showPlaces()">
+Places
+</button>
+`;
+
+}
+
+if(
+
+loc
+
+&&
+
+loc.npcs
+
+){
+
+html+=
+
+`
+<button onclick="GE.talk()">
+Talk
+</button>
+`;
+
+}
+
+if(
+
+loc
+
+&&
+
+loc.type===
+
+'wildland'
+
+){
+
+html+=
+
+`
+<button onclick="GE.hunt()">
+Hunt
+</button>
+`;
+
+html+=
+
+`
+<button onclick="GE.forage()">
+Forage
+</button>
+`;
+
+}
+
+if(
+
+!player.spouse
+
+){
+
+html+=
+
+`
+<button onclick="GE.marry()">
+Marry
+</button>
+`;
+
+}
+
+else{
+
+html+=
+
+`
+<button onclick="GE.child()">
+Child
+</button>
+`;
+
+}
+
+html+=
+
+`
+<button onclick="GE.save()">
+Save
+</button>
+`;
+
+document
+
+.getElementById(
+
+'actionBar'
+
+)
+
+.innerHTML=
+
+html;
+
+};
+
+/* ---------- START ---------- */
+
+async function start(){
+
+await initDB();
+
+world=
+
+await World.load();
+
+let save=
+
+await getSave(
+
+'player',
+
+'player'
+
+);
+
+if(
+
+save
+
+){
+
+player=
+
+Object.assign(
+
+new Player(),
+
+save.data.player
+
+);
+
+gameTime=
+
+save.data.gameTime;
+
+addLog(
+
+'Loaded Save'
+
+);
+
+}
+
+else{
+
+player.currentLocId=
+
+world
+
+.provinces[0]
+
+.capital
+
+._id;
+
+addLog(
+
+'New Life Begins'
+
+);
+
+}
+
+updateUI();
+
+}
+
+/* FIX */
+
+window.addEventListener(
+
+'beforeunload',
+
+async()=>{
+
+try{
+
+await GE.save();
+
+}
+
+catch(e){}
+
+}
+
+);
+
+start();
+
+})(); /* close IIFE */
+
 </script>
+
 </body>
+
 </html>
+```
