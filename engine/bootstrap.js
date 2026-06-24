@@ -1,16 +1,21 @@
 (async()=>{
 
-status.innerHTML=
-"Loading Engine";
+const status=
+document
+.getElementById(
+"status"
+);
 
-function load(src){
+status.innerHTML=
+"Loading Engine...";
+
+async function load(src){
 
 return new Promise(
 
-(r,j)=>{
+(resolve,reject)=>{
 
-let s=
-
+const s=
 document
 .createElement(
 "script"
@@ -20,21 +25,20 @@ s.src=
 src;
 
 s.onload=
-r;
+resolve;
 
 s.onerror=
-j;
+()=>reject(
+src
+);
 
 document
 .body
 .appendChild(
 s
-
 );
 
-}
-
-);
+});
 
 }
 
@@ -72,14 +76,30 @@ await load(
 "./engine/faction.js"
 );
 
+if(
+window.StorageEngine
+)
+
 await StorageEngine
 .init();
+
+if(
+window.WorldEngine
+)
 
 await WorldEngine
 .init();
 
+if(
+window.PlayerEngine
+)
+
 await PlayerEngine
 .init();
+
+if(
+window.FactionEngine
+)
 
 await FactionEngine
 .init();
@@ -93,7 +113,7 @@ catch(e){
 
 status.innerHTML=
 
-"❌ "+e;
+"❌ Failed";
 
 console.log(
 e
