@@ -1,48 +1,82 @@
 (async()=>{
 
-const scripts=[
+document.getElementById(
+"status"
+)
+.innerHTML=
+"Loading Modules...";
 
-"./engine/loader.js",
-"./engine/registry.js",
-"./engine/storage.js",
-"./engine/simulation.js"
+async function load(src){
 
-];
+return new Promise(
+(resolve,reject)=>{
 
-for(
-const s
-of scripts
-){
-
-await new Promise(
-
-(done)=>{
-
-const e=
+const s=
 document.createElement(
 "script"
 );
 
-e.src=s;
+s.src=src;
 
-e.onload=done;
+s.onload=
+resolve;
+
+s.onerror=
+reject;
 
 document.body.append(
-e);
-
-}
-
+s
 );
 
+});
+
 }
 
-await StorageEngine.init();
+try{
 
-document.getElementById(
+await load(
+"./engine/loader.js"
+);
+
+await load(
+"./engine/registry.js"
+);
+
+await load(
+"./engine/storage.js"
+);
+
+await load(
+"./engine/simulation.js"
+);
+
+await StorageEngine
+.init();
+
+document
+.getElementById(
 "status"
 )
 .innerHTML=
 
 "✅ Godlike Engine Online";
+
+}
+catch(e){
+
+document
+.getElementById(
+"status"
+)
+.innerHTML=
+
+"❌ "+
+e;
+
+console.log(
+e
+);
+
+}
 
 })();
