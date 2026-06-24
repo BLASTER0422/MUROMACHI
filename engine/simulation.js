@@ -1,22 +1,11 @@
 window.Simulation={
 
-worldTime:0,
-
 start(){
 
-setInterval(()=>{
-
-this.worldTime++;
-
 console.log(
-"Tick",
-this.worldTime
+"Simulation Started"
 );
-
-},1000);
 
 }
 
 };
-
-Simulation.start();
