@@ -1,33 +1,22 @@
-window.Sim={
+window.Simulation={
 
-tick:0,
+worldTime:0,
 
-world:{
+start(){
 
-price:100,
+setInterval(()=>{
 
-season:"spring"
-
-},
-
-advance(){
-
-this.tick++;
-
-this.world.price+=
-Math.floor(
-Math.random()*10
-)-5;
-
-if(
-this.world.price<1
-)
-this.world.price=1;
+this.worldTime++;
 
 console.log(
-this.world
+"Tick",
+this.worldTime
 );
+
+},1000);
 
 }
 
 };
+
+Simulation.start();
