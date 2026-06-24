@@ -113,7 +113,7 @@ async function loadAllData() {
     GAME_DATA.items = await loadJSON('data/items.json');
     GAME_DATA.locations = await loadJSON('data/locations.json');
     GAME_DATA.skills = await loadJSON('data/skills.json');
-    GAME_DATA.dialogues = await loadJSON('data/dialogues.json');
+    GAME_DATA.dialogues = await loadJSON('data/dialogues.json');  // <--- this line
     GAME_DATA.events = await loadJSON('data/events.json');
     GAME_DATA.npcTemplates = await loadJSON('data/npc_templates.json');
 }
