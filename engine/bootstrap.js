@@ -1,8 +1,7 @@
 (async()=>{
 
 const status=
-document
-.getElementById(
+document.getElementById(
 "status"
 );
 
@@ -12,12 +11,10 @@ status.innerHTML=
 async function load(src){
 
 return new Promise(
-
 (resolve,reject)=>{
 
 const s=
-document
-.createElement(
+document.createElement(
 "script"
 );
 
@@ -29,12 +26,10 @@ resolve;
 
 s.onerror=
 ()=>reject(
-src
+"Failed to load "+src
 );
 
-document
-.body
-.appendChild(
+document.body.appendChild(
 s
 );
 
@@ -76,33 +71,60 @@ await load(
 "./engine/faction.js"
 );
 
+await load(
+"./engine/character.js"
+);
+
 if(
 window.StorageEngine
-)
+){
 
 await StorageEngine
 .init();
 
+}
+
 if(
 window.WorldEngine
-)
+){
 
 await WorldEngine
 .init();
 
+}
+
 if(
 window.PlayerEngine
-)
+){
 
 await PlayerEngine
 .init();
 
+PlayerEngine
+.load();
+
+}
+
 if(
 window.FactionEngine
-)
+){
 
 await FactionEngine
 .init();
+
+}
+
+if(
+window.CharacterEngine
+){
+
+await CharacterEngine
+.init();
+
+CharacterEngine
+.create();
+
+}
 
 status.innerHTML=
 
