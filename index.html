@@ -87,7 +87,7 @@ input, select, textarea {
 </div>
 <script>
 const DB_NAME = 'MuromachiWorld';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 const STORES = {
     playerState: 'playerState', npcs: 'npcs', locations: 'locations',
     items: 'items', quests: 'quests', events: 'events',
@@ -113,10 +113,7 @@ async function loadAllData() {
     GAME_DATA.items = await loadJSON('data/items.json');
     GAME_DATA.locations = await loadJSON('data/locations.json');
     GAME_DATA.skills = await loadJSON('data/skills.json');
-    const d1 = await loadJSON('data/dialogues_part1.json');
-    const d2 = await loadJSON('data/dialogues_part2.json');
-    const d3 = await loadJSON('data/dialogues_part3.json');
-    GAME_DATA.dialogues = { ...d1, ...d2, ...d3 };
+    GAME_DATA.dialogues = await loadJSON('data/dialogues.json');
     GAME_DATA.events = await loadJSON('data/events.json');
     GAME_DATA.npcTemplates = await loadJSON('data/npc_templates.json');
 }
