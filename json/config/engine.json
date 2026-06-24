@@ -1,6 +1,89 @@
-{
-"engine":"Muromachi",
-"version":"1.0",
-"storage":"indexeddb",
-"simulation":true
+(async()=>{
+
+const status=
+document.getElementById(
+"status"
+);
+
+try{
+
+status.innerHTML=
+"Loading Modules...";
+
+function load(src){
+
+return new Promise(
+(resolve,reject)=>{
+
+const s=
+document.createElement(
+"script"
+);
+
+s.src=
+src;
+
+s.onload=
+resolve;
+
+s.onerror=
+()=>reject(
+src
+);
+
+document.body
+.appendChild(
+s
+);
+
+});
+
 }
+
+await load(
+"./engine/loader.js"
+);
+
+await load(
+"./engine/registry.js"
+);
+
+await load(
+"./engine/storage.js"
+);
+
+await load(
+"./engine/simulation.js"
+);
+
+await StorageEngine
+.init();
+
+const config=
+await Loader.json(
+"./json/config/engine.json"
+);
+
+window.Engine=
+config;
+
+status.innerHTML=
+"✅ Godlike Engine Online";
+
+console.log(
+config
+);
+
+}
+catch(e){
+
+status.innerHTML=
+"❌ "+e;
+
+console.error(
+e
+);
+
+}
+
+})();
