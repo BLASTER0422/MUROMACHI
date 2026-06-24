@@ -1,19 +1,18 @@
 (async()=>{
 
-document
-.getElementById(
-"status"
-)
-.innerHTML=
-"Loading Engine...";
+status.innerHTML=
+"Loading Engine";
 
-async function load(src){
+function load(src){
 
 return new Promise(
-(resolve,reject)=>{
 
-const s=
-document.createElement(
+(r,j)=>{
+
+let s=
+
+document
+.createElement(
 "script"
 );
 
@@ -21,18 +20,21 @@ s.src=
 src;
 
 s.onload=
-resolve;
+r;
 
 s.onerror=
-()=>reject(
-"Failed to load "+src
-);
+j;
 
-document.body.append(
+document
+.body
+.appendChild(
 s
+
 );
 
-});
+}
+
+);
 
 }
 
@@ -58,29 +60,44 @@ await load(
 "./engine/world.js"
 );
 
-await StorageEngine.init();
+await load(
+"./engine/player.js"
+);
 
-await WorldEngine.init();
+await load(
+"./engine/family.js"
+);
 
-document
-.getElementById(
-"status"
-)
-.innerHTML=
+await load(
+"./engine/faction.js"
+);
+
+await StorageEngine
+.init();
+
+await WorldEngine
+.init();
+
+await PlayerEngine
+.init();
+
+await FactionEngine
+.init();
+
+status.innerHTML=
+
 "✅ Godlike Engine Online";
 
 }
-
 catch(e){
 
-document
-.getElementById(
-"status"
-)
-.innerHTML=
+status.innerHTML=
+
 "❌ "+e;
 
-console.log(e);
+console.log(
+e
+);
 
 }
 
