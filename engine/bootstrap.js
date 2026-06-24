@@ -13,8 +13,7 @@ return new Promise(
 (resolve,reject)=>{
 
 const s=
-document
-.createElement(
+document.createElement(
 "script"
 );
 
@@ -25,15 +24,11 @@ s.onload=
 resolve;
 
 s.onerror=
-()=>
-reject(
-"Failed to load "+
-src
+()=>reject(
+"Failed to load "+src
 );
 
-document
-.body
-.appendChild(
+document.body.append(
 s
 );
 
@@ -63,46 +58,19 @@ await load(
 "./engine/world.js"
 );
 
-await load(
-"./engine/npc.js"
-);
+await StorageEngine.init();
 
-if(
-window.StorageEngine
-){
-
-await StorageEngine
-.init();
-
-}
-
-if(
-window.WorldEngine
-){
-
-await WorldEngine
-.init();
-
-}
-
-if(
-window.NPCEngine
-){
-
-await NPCEngine
-.init();
-
-}
+await WorldEngine.init();
 
 document
 .getElementById(
 "status"
 )
 .innerHTML=
-
 "✅ Godlike Engine Online";
 
 }
+
 catch(e){
 
 document
@@ -110,14 +78,9 @@ document
 "status"
 )
 .innerHTML=
+"❌ "+e;
 
-"❌ "+
-e;
-
-console
-.error(
-e
-);
+console.log(e);
 
 }
 
