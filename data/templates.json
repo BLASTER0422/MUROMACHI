@@ -1,0 +1,233 @@
+{
+  "templates": {
+    "province": {
+      "name": {
+        "pool": [
+          "Yamashiro", "Kawachi", "Settsu", "Izumi", "Yamato", "Owari", "Mikawa", "Totomi", "Suruga", "Kai",
+          "Shinano", "Musashi", "Sagami", "Kozuke", "Shimotsuke", "Hitachi", "Kazusa", "Awa", "Echizen", "Etchu",
+          "Noto", "Kaga", "Wakasa", "Ise", "Iga", "Omi", "Mino", "Hida", "Tango", "Tajima",
+          "Inaba", "Hoki", "Izumo", "Iwami", "Bizen", "Bitchu", "Bingo", "Aki", "Suo", "Nagato"
+        ]
+      },
+      "towns": { "type": "array", "count": { "min": 2, "max": 5 }, "itemTemplate": "town" },
+      "villages": { "type": "array", "count": { "min": 3, "max": 7 }, "itemTemplate": "village" },
+      "wildlands": { "type": "array", "count": { "min": 2, "max": 6 }, "itemTemplate": "wildland" }
+    },
+    "city": {
+      "name": {
+        "pool": [
+          "Heian-kyo", "Kamakura", "Osaka", "Edo", "Nara", "Sakai", "Hakata", "Kanazawa", "Nagoya", "Sendai",
+          "Kumamoto", "Hiroshima", "Fukuoka", "Nagasaki", "Matsue", "Takamatsu", "Kochi", "Matsuyama", "Otsu", "Yamaguchi"
+        ]
+      }
+    },
+    "town": {
+      "name": {
+        "pool": [
+          "Uji", "Sakai", "Hakata", "Kanazawa", "Otsu", "Kusatsu", "Hikone", "Odawara", "Mishima", "Numazu",
+          "Fukuyama", "Onomichi", "Kurashiki", "Tokuyama", "Iwakuni", "Tottori", "Yonago", "Izumo", "Masuda", "Tsuyama"
+        ]
+      }
+    },
+    "village": {
+      "name": {
+        "pool": [
+          "Agano", "Ina", "Kiso", "Yahagi", "Shirakawa", "Yufuin", "Kusatsu", "Beppu", "Arashiyama", "Mizuguchi",
+          "Takahashi", "Soja", "Niimi", "Bihoro", "Sakaiminato", "Yasugi", "Gotsu", "Ota", "Hamada", "Tsukumi"
+        ]
+      }
+    },
+    "wildland": {
+      "terrain": { "pool": ["forest", "hills", "mountain", "river", "coast", "swamp", "grassland", "bamboo grove"] }
+    }
+  }
+}
+{
+  "templates": {
+    "npc": {
+      "givenName": {
+        "pool": [
+          "Takeshi", "Kaito", "Yuki", "Akiko", "Sakura", "Ryo", "Hana", "Kenji",
+          "Mai", "Shin", "Akira", "Yumi", "Daiki", "Sora", "Ren", "Natsuki",
+          "Haru", "Misaki", "Taro", "Jiro", "Saburo", "Shiro", "Goro", "Rokuro"
+        ]
+      },
+      "familyName": {
+        "pool": [
+          "Fujiwara", "Taira", "Minamoto", "Tachibana", "Abe", "Soga", "Hojo", "Kusunoki",
+          "Ashikaga", "Nitta", "Mori", "Uesugi", "Takeda", "Oda", "Imagawa", "Shimazu",
+          "Date", "Chosokabe", "Miyoshi", "Otomo"
+        ]
+      },
+      "job": {
+        "pool": [
+          "farmer", "merchant", "samurai", "monk", "craftsman", "bandit", "noble", "ronin",
+          "fisherman", "hunter", "healer", "carpenter", "blacksmith", "potter", "weaver",
+          "innkeeper", "geisha", "sumo wrestler", "poet", "calligrapher",
+          "gardener", "cook", "boatman", "messenger", "guard", "shrine maiden", "fortune teller"
+        ]
+      },
+      "personality": {
+        "pool": [
+          "brave", "cowardly", "greedy", "kind", "wise", "foolish", "honorable", "sly",
+          "arrogant", "humble", "pious", "drunkard", "lazy", "ambitious", "paranoid",
+          "loyal", "treacherous", "compassionate", "cruel", "romantic"
+        ]
+      },
+      "faction": {
+        "pool": [
+          "villager", "samurai clan", "bandit gang", "merchant guild", "temple order",
+          "imperial court", "ronin brotherhood", "pirate crew", "ninja clan", "yamabushi", "sumo stable"
+        ]
+      },
+      "dialogueGreeting": {
+        "pool": [
+          "Hello, traveler.", "What brings you here?", "The gods bless this meeting.",
+          "Leave me alone.", "Can I help you?", "Another wanderer...",
+          "Greetings, honorable one.", "Don't waste my time.", "Welcome, friend.",
+          "You look strong. Need work?", "Ah, a fresh face.", "The road is long, isn't it?"
+        ]
+      }
+    }
+  }
+}
+{
+  "templates": {
+    "weapon": {
+      "name": {
+        "pool": [
+          "Katana", "Wakizashi", "Yari", "Yumi", "Kanabo", "Naginata", "Tanto", "Tetsubo",
+          "Odachi", "Kodachi", "Kama", "Kusarigama", "Shuriken", "Fukiya", "Bo", "Jo",
+          "Tonfa", "Sai", "Nunchaku", "Tekko"
+        ]
+      },
+      "damage": { "min": 5, "max": 40 },
+      "value": { "min": 30, "max": 500 },
+      "quality": { "pool": ["rusty", "worn", "iron", "steel", "masterwork", "legendary", "ancient", "blessed", "cursed", "ornate"] }
+    },
+    "armor": {
+      "name": {
+        "pool": [
+          "Do-maru", "Harate", "Kabuto", "Kote", "Suneate", "Haidate", "Wakibiki",
+          "Tanko", "O-yoroi", "Kusazuri", "Mempo", "Jingasa", "Tatami-do", "Kikko", "Karuta"
+        ]
+      },
+      "defense": { "min": 2, "max": 20 },
+      "value": { "min": 25, "max": 400 }
+    },
+    "consumable_processed": {
+      "name": {
+        "pool": [
+          "Rice Ball", "Sake Flask", "Dried Fish", "Herbal Medicine", "Mochi", "Pickled Plum",
+          "Miso Soup", "Grilled Eel", "Tofu", "Soy Sauce", "Green Tea", "Sesame Oil",
+          "Vinegar", "Sugar Candy", "Rice Wine", "Ginger", "Garlic", "Wasabi", "Nori", "Bonito Flakes"
+        ]
+      },
+      "effect": {
+        "pool": [
+          "restore hp 15", "restore hp 25", "restore hp 40",
+          "restore stamina", "cure poison", "boost attack 5",
+          "boost defense 5", "boost speed 5", "cure illness"
+        ]
+      },
+      "value": { "min": 5, "max": 30 }
+    },
+    "tool": {
+      "name": {
+        "pool": [
+          "Fishing Rod", "Pickaxe", "Axe", "Hoe", "Sickle", "Hammer", "Chisel", "Saw",
+          "Plane", "Drill", "Compass", "Abacus", "Writing Brush", "Inkstone", "Paper",
+          "Cooking Pot", "Water Flask", "Ladder", "Rope", "Lantern"
+        ]
+      },
+      "value": { "min": 10, "max": 60 }
+    },
+    "raw_material": {
+      "name": {
+        "pool": [
+          "Herb", "Mushroom", "Wood", "Stone", "Clay", "Berries", "Bamboo", "Iron sand",
+          "Copper ore", "Silver ore", "Gold dust", "Salt", "Coal", "Flint", "Obsidian",
+          "Jade", "Crystal", "Sulfur", "Niter", "Charcoal", "Lumber", "Reeds", "Vines", "Wool", "Cotton"
+        ]
+      },
+      "value": { "min": 1, "max": 8 }
+    },
+    "animal_part": {
+      "name": {
+        "pool": [
+          "Meat", "Hide", "Bones", "Antlers", "Fur", "Feathers", "Scales", "Shell",
+          "Tusks", "Ivory", "Fat", "Sinew", "Horn", "Claw", "Beak", "Fish oil",
+          "Coral", "Pearl", "Silk cocoon", "Honey"
+        ]
+      },
+      "value": { "min": 2, "max": 25 }
+    }
+  }
+}
+{
+  "templates": {
+    "quest": {
+      "title": {
+        "pool": [
+          "Slay the beast", "Deliver goods", "Escort VIP", "Collect herbs", "Hunt bandits",
+          "Find lost artifact", "Rescue hostage", "Investigate ruins", "Defend village",
+          "Assassinate target", "Recover stolen item", "Map uncharted area", "Build bridge",
+          "Teach skill", "Mediate dispute", "Explore cavern", "Capture rare animal",
+          "Harvest special crop", "Deliver letter", "Escort caravan"
+        ]
+      },
+      "description": {
+        "pool": [
+          "A nearby village needs help.", "A merchant offers a reward.",
+          "Urgent request from the lord.", "Rumors of treasure attract adventurers.",
+          "An old monk seeks assistance.", "The local shrine is desecrated.",
+          "A family heirloom was stolen.", "Strange noises come from the forest.",
+          "A poet needs inspiration.", "A criminal escaped from jail."
+        ]
+      },
+      "rewardGold": { "min": 20, "max": 500 }
+    }
+  }
+}
+{
+  "templates": {
+    "establishment": {
+      "name": {
+        "pool": [
+          "Tea House", "Sake Brewery", "Blacksmith", "Weaver", "Pottery Kiln",
+          "Inn", "Restaurant", "Rice Merchant", "Silk Trader", "Armor Shop",
+          "Bookstore", "Clinic", "Stables", "Bathhouse", "Tatami Maker",
+          "Dye House", "Lacquerware Shop", "Fan Maker", "Sword Polisher", "Lantern Shop"
+        ]
+      },
+      "type": { "pool": ["shop", "service", "inn", "restaurant"] }
+    }
+  }
+}
+{
+  "templates": {
+    "animal": {
+      "name": {
+        "pool": [
+          "Deer", "Boar", "Wolf", "Fox", "Hare", "Bear", "Monkey", "Tanuki", "Badger", "Eagle",
+          "Hawk", "Pheasant", "Duck", "Carp", "Eel", "Salmon", "Trout", "Crab", "Squid", "Octopus"
+        ]
+      },
+      "hp": { "min": 10, "max": 60 },
+      "attack": { "min": 2, "max": 15 }
+    }
+  }
+}
+{
+  "templates": {
+    "deathMessage": {
+      "pool": [
+        "You have died. Your legacy lives on through your children.",
+        "The world moves on without you.",
+        "Your soul joins the ancestors.",
+        "A tragic end to a brave life.",
+        "The land remembers your deeds."
+      ]
+    }
+  }
+}
