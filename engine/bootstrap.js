@@ -50,8 +50,11 @@ await load(
 "./engine/simulation.js"
 );
 
-await StorageEngine
-.init();
+await StorageEngine.init();
+
+await WorldEngine.init();
+
+await NPCEngine.init();
 
 document
 .getElementById(
