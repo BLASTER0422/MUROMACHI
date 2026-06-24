@@ -1,10 +1,11 @@
 (async()=>{
 
-document.getElementById(
+document
+.getElementById(
 "status"
 )
 .innerHTML=
-"Loading Modules...";
+"Loading Engine...";
 
 async function load(src){
 
@@ -12,19 +13,27 @@ return new Promise(
 (resolve,reject)=>{
 
 const s=
-document.createElement(
+document
+.createElement(
 "script"
 );
 
-s.src=src;
+s.src=
+src;
 
 s.onload=
 resolve;
 
 s.onerror=
-reject;
+()=>
+reject(
+"Failed to load "+
+src
+);
 
-document.body.append(
+document
+.body
+.appendChild(
 s
 );
 
@@ -50,11 +59,40 @@ await load(
 "./engine/simulation.js"
 );
 
-await StorageEngine.init();
+await load(
+"./engine/world.js"
+);
 
-await WorldEngine.init();
+await load(
+"./engine/npc.js"
+);
 
-await NPCEngine.init();
+if(
+window.StorageEngine
+){
+
+await StorageEngine
+.init();
+
+}
+
+if(
+window.WorldEngine
+){
+
+await WorldEngine
+.init();
+
+}
+
+if(
+window.NPCEngine
+){
+
+await NPCEngine
+.init();
+
+}
 
 document
 .getElementById(
@@ -76,7 +114,8 @@ document
 "❌ "+
 e;
 
-console.log(
+console
+.error(
 e
 );
 
