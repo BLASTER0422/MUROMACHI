@@ -2,15 +2,30 @@
 <html>
 
 <head>
-<title>Muromachi Godlike Engine</title>
+
+<title>
+Muromachi Godlike Engine
+</title>
 
 <style>
 
 body{
-background:black;
-color:white;
+background:#111;
+color:#ddd;
 font-family:serif;
-padding:50px;
+padding:30px;
+}
+
+.card{
+
+background:#222;
+
+padding:20px;
+
+margin-top:20px;
+
+border-radius:10px;
+
 }
 
 </style>
@@ -27,7 +42,78 @@ padding:50px;
 Loading...
 </div>
 
-<script src="./engine/bootstrap.js"></script>
+<div
+class="card"
+id="game"
+>
+
+Waiting...
+
+</div>
+
+<script
+src="./engine/bootstrap.js">
+</script>
+
+<script>
+
+setInterval(()=>{
+
+if(
+window.WorldEngine
+&&
+WorldEngine.world
+){
+
+document
+.getElementById(
+"game"
+)
+.innerHTML=
+
+`
+
+<h2>
+
+World Loaded
+
+</h2>
+
+<p>
+
+Year:
+${WorldEngine.world.year}
+
+</p>
+
+<p>
+
+Name:
+${WorldEngine.world.name}
+
+</p>
+
+<p>
+
+Villages:
+${(
+WorldEngine.world
+.villages||
+[]
+)
+.join(
+", "
+)}
+
+</p>
+
+`;
+
+}
+
+},500);
+
+</script>
 
 </body>
 
