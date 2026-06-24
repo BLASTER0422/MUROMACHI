@@ -1,0 +1,7 @@
+{
+"engine":"Muromachi",
+"version":"1.0",
+"world":true,
+"economy":true,
+"procedural":true
+}
