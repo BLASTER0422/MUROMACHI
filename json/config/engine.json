@@ -1,0 +1,6 @@
+{
+"engine":"Muromachi",
+"version":"1.0",
+"storage":"indexeddb",
+"simulation":true
+}
