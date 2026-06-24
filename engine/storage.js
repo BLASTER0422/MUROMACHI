@@ -5,79 +5,121 @@ db:null,
 async init(){
 
 return new Promise(
+(resolve,reject)=>{
 
-(resolve)=>{
-
-const r=
+const request=
 indexedDB.open(
-"MUROMACHI",
+"MuromachiDB",
 1
 );
 
-r.onupgradeneeded=
-()=>{
+request.onupgradeneeded=
+e=>{
 
-r.result.createObjectStore(
-"save"
+const db=
+e.target.result;
+
+if(
+!db.objectStoreNames
+.contains(
+"game"
+)
+){
+
+db.createObjectStore(
+"game"
 );
+
+}
 
 };
 
-r.onsuccess=
-()=>{
+request.onsuccess=
+e=>{
 
 this.db=
-r.result;
+e.target.result;
+
+console.log(
+"IndexedDB Ready"
+);
 
 resolve();
 
 };
 
-}
+request.onerror=
+()=>{
 
+reject(
+"Storage failed"
 );
+
+};
+
+});
 
 },
 
-save(k,v){
-
-const tx=
-this.db.transaction(
-["save"],
-"readwrite"
-);
-
-tx.objectStore(
-"save"
-).put(v,k);
-
-},
-
-load(k){
+save(
+key,
+value
+){
 
 return new Promise(
-
 (resolve)=>{
 
 const tx=
-this.db.transaction(
-["save"]
+this.db
+.transaction(
+["game"],
+"readwrite"
 );
 
-const r=
-tx.objectStore(
-"save"
+tx
+.objectStore(
+"game"
 )
-.get(k);
+.put(
+value,
+key
+);
 
-r.onsuccess=
+tx.oncomplete=
+resolve;
+
+});
+
+},
+
+load(
+key
+){
+
+return new Promise(
+(resolve)=>{
+
+const tx=
+this.db
+.transaction(
+["game"]
+);
+
+const req=
+tx
+.objectStore(
+"game"
+)
+.get(
+key
+);
+
+req.onsuccess=
 ()=>resolve(
-r.result
+req.result
 );
 
-}
-
-);
+});
 
 }
 
