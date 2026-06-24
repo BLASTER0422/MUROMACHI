@@ -1,1263 +1,330 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Muromachi: Path of the Eight Provinces</title>
-<style>
-:root {
-    --bg: #1a1a0f;
-    --panel-bg: #2a2a1c;
-    --text: #c0b090;
-    --accent: #b85c38;
-    --gold: #c9a74b;
-    --border: #5a5a3a;
-    --highlight: #f0e0c0;
-    --danger: #a03020;
-    --button-bg: #3a3a24;
-    --button-hover: #4a4a30;
-    --input-bg: #222215;
-    --font-main: 'Georgia', 'Times New Roman', serif;
-    --font-mono: 'Courier New', monospace;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-main);
-    font-size: 16px;
-    line-height: 1.5;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 10px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-h1, h2, h3 { color: var(--accent); margin-bottom: 0.5em; }
-.panel {
-    background: var(--panel-bg);
-    border: 1px solid var(--border);
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-}
-button, .btn {
-    background: var(--button-bg);
-    color: var(--text);
-    border: 1px solid var(--border);
-    padding: 8px 16px;
-    cursor: pointer;
-    font-family: var(--font-main);
-    font-size: 14px;
-    border-radius: 3px;
-    transition: background 0.2s;
-    margin: 2px;
-}
-button:hover, .btn:hover { background: var(--button-hover); }
-button:disabled { opacity: 0.5; cursor: not-allowed; }
-input, select, textarea {
-    background: var(--input-bg);
-    color: var(--text);
-    border: 1px solid var(--border);
-    padding: 5px 8px;
-    font-family: var(--font-main);
-    font-size: 14px;
-    border-radius: 3px;
-}
-.flex-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-.flex-col { display: flex; flex-direction: column; gap: 8px; }
-.hidden { display: none !important; }
-.log-text { white-space: pre-wrap; font-family: var(--font-mono); background: #111108; padding: 10px; border: 1px solid var(--border); max-height: 300px; overflow-y: auto; }
-.status-bar { display: flex; justify-content: space-between; background: var(--panel-bg); padding: 8px 15px; border-bottom: 1px solid var(--border); }
-@media (max-width: 600px) { body { padding: 5px; } }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muromachi Life · Godlike Engine</title>
+    <style>
+        :root {
+            --bg: #0f0f0a; --panel: #1f1a10; --border: #4a3f2f; --accent: #c9a96e;
+            --text: #e8dcc8; --dim: #a09070; --hp: #c0392b; --gold: #f0c040;
+            --btn: #3b2f1e; --btnHov: #5a452a; --scroll: #f5ecd7; --scrollTxt: #2b1e0e;
+            --modal-bg: rgba(0,0,0,0.85);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--bg); color: var(--text); font-family: 'Georgia', serif;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 0.5rem;
+            background-image: radial-gradient(ellipse at 50% 30%, #2d2416 0%, transparent 70%);
+        }
+        #app {
+            width: 100%; max-width: 1000px; height: 95vh; max-height: 950px;
+            background: var(--panel); border: 2px solid var(--border); border-radius: 12px;
+            display: grid; grid-template-rows: auto 1fr auto; grid-template-columns: 1fr 340px;
+            grid-template-areas: "header header" "main side" "actions side"; overflow: hidden;
+        }
+        @media (max-width: 800px) {
+            #app { grid-template-columns: 1fr; grid-template-rows: auto 1fr auto auto; grid-template-areas: "header" "main" "side" "actions"; }
+        }
+        .header { grid-area: header; background: #1a150c; padding: 0.6rem 1rem; border-bottom: 2px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .header h1 { font-size: 1.5rem; color: var(--accent); }
+        .location { color: var(--dim); font-size: 0.9rem; }
+        .gold { color: var(--gold); }
+        .main { grid-area: main; overflow-y: auto; padding: 0.6rem; display: flex; flex-direction: column; gap: 0.5rem; }
+        .card { background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem; }
+        .log { background: var(--scroll); color: var(--scrollTxt); padding: 0.5rem; border-radius: 8px; height: 160px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.4; }
+        .side { grid-area: side; overflow-y: auto; padding: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+        .actions { grid-area: actions; padding: 0.4rem 0.6rem; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        button {
+            background: var(--btn); border: 1px solid var(--border); color: var(--text);
+            padding: 0.4rem 0.7rem; border-radius: 6px; cursor: pointer; font-family: inherit;
+            font-size: 0.85rem; transition: background 0.2s; white-space: nowrap;
+        }
+        button:hover:not(:disabled) { background: var(--btnHov); border-color: var(--accent); }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+        .primary { background: var(--accent); color: #000; font-weight: bold; }
+        .danger { background: var(--hp); }
+        .dialog-options { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.4rem; }
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--modal-bg); z-index: 100; justify-content: center; align-items: center;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: var(--panel); border: 2px solid var(--accent); border-radius: 12px;
+            padding: 1rem; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto;
+        }
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 0.2rem 0; border-bottom: 1px dotted #444; }
+    </style>
 </head>
 <body>
-<div id="app-root">
-    <div class="status-bar" id="status-bar">
-        <span id="time-display">Year 1380, Mutsuki 1st, Hour of the Rat</span>
-        <span id="location-display">Unknown</span>
-        <span id="health-display">Healthy</span>
+<div id="app">
+    <div class="header">
+        <h1>🏯 Muromachi Life</h1>
+        <span class="location" id="locDisplay">—</span>
+        <span class="gold">💰 <span id="goldDisplay">0</span></span>
     </div>
-    <div id="main-content" class="panel"></div>
-    <div id="action-panel" class="panel"></div>
-    <div id="log-panel" class="panel log-text"></div>
+    <div class="main" id="mainArea">
+        <div class="card" id="playerCard"></div>
+        <div class="card" id="enemyCard" style="display:none;"></div>
+        <div class="card" id="dialogueCard" style="display:none;"></div>
+        <div class="log" id="logArea"></div>
+    </div>
+    <div class="side" id="sidebar">
+        <div class="card"><strong>🎒 Inventory</strong><div id="invList"></div></div>
+        <div class="card"><strong>📜 Quests</strong><div id="questList"></div></div>
+        <div class="card"><strong>👥 Relations</strong><div id="relList"></div></div>
+    </div>
+    <div class="actions" id="actionBar"></div>
 </div>
+<div class="modal" id="travelModal"><div class="modal-content" id="travelContent"></div></div>
+<div class="modal" id="marketModal"><div class="modal-content" id="marketContent"></div></div>
+<div class="modal" id="deathModal"><div class="modal-content" id="deathContent"></div></div>
+
 <script>
-const DB_NAME = 'MuromachiWorld';
-const DB_VERSION = 2;
-const STORES = {
-    playerState: 'playerState', npcs: 'npcs', locations: 'locations',
-    items: 'items', quests: 'quests', events: 'events',
-    worldClock: 'worldClock', playerLog: 'playerLog',
-    economy: 'economy', settlements: 'settlements'
+'use strict';
+(function() {
+// ====================== GODLIKE ENGINE ======================
+// ---------- PRNG ----------
+const m32=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+let rng=m32(Date.now());
+const rand=()=>rng();
+const randInt=(a,b)=>Math.floor(rand()*(b-a+1))+a;
+const pick=a=>a[Math.floor(rand()*a.length)];
+
+// ---------- IndexedDB ----------
+const DB='MuromachiLifeEngine',DBV=1;
+let db=null,mF=false;const mem={templates:new Map(),world:null,player:null};
+async function initDB(){return new Promise((rs,rj)=>{if(!window.indexedDB){mF=true;rs(null);return}const r=indexedDB.open(DB,DBV);r.onerror=()=>rj(r.error);r.onsuccess=()=>{db=r.result;rs(db)};r.onupgradeneeded=e=>{const d=e.target.result;['templates','world','player'].forEach(n=>{if(!d.objectStoreNames.contains(n))d.createObjectStore(n,{keyPath:'id'})})}})}
+async function initS(){try{await initDB();mF=false}catch(e){mF=true;db=null}}
+const sto=async(sn,md,op,...a)=>{if(mF){if(sn==='templates')return op(mem.templates);if(sn==='world')return op(mem.world);if(sn==='player')return op(mem.player);return null}const tx=db.transaction(sn,md);const s=tx.objectStore(sn);return new Promise((rs,rj)=>{const r=op(s,...a);r.onsuccess=()=>rs(r.result);r.onerror=()=>rj(r.error)})};
+const putI=(sn,it)=>sto(sn,'readwrite',(s,i)=>s.put(i),it);
+const getI=(sn,id)=>sto(sn,'readonly',(s,k)=>s.get(k),id);
+const getAllI=sn=>sto(sn,'readonly',s=>s.getAll());
+
+// ---------- Template Engine (supports JSON fetch) ----------
+const DEFAULT_TEMPLATES={
+    world:{provinces:{type:'array',count:{min:6,max:8},itemTemplate:'province'}},
+    province:{name:{pool:['Yamashiro','Kawachi','Settsu','Izumi','Yamato','Owari','Mikawa','Totomi','Suruga','Kai']},capital:{type:'template',id:'city'},towns:{type:'array',count:{min:1,max:3},itemTemplate:'town'},villages:{type:'array',count:{min:2,max:4},itemTemplate:'village'},wildlands:{type:'array',count:{min:1,max:3},itemTemplate:'wildland'}},
+    city:{name:{pool:['Heian-kyo','Kamakura','Osaka','Edo','Nara']},type:{value:'city'},market:true,castle:true,npcs:{type:'array',count:{min:4,max:8},itemTemplate:'npc'}},
+    town:{name:{pool:['Uji','Sakai','Hakata','Kanazawa','Otsu']},type:{value:'town'},market:true,npcs:{type:'array',count:{min:2,max:5},itemTemplate:'npc'}},
+    village:{name:{pool:['Agano','Ina','Kiso','Yahagi','Shirakawa']},type:{value:'village'},market:false,npcs:{type:'array',count:{min:1,max:4},itemTemplate:'npc'}},
+    wildland:{terrain:{pool:['forest','hills','mountain','river','coast']},name:{value:''},type:{value:'wildland'},beasts:{type:'array',count:{min:1,max:3},itemTemplate:'animal'},resources:{type:'array',count:{min:2,max:4},itemTemplate:'raw_material'}},
+    npc:{givenName:{pool:['Takeshi','Kaito','Yuki','Akiko','Sakura','Ryo','Hana','Kenji']},familyName:{pool:['Fujiwara','Taira','Minamoto','Tachibana','Abe']},job:{pool:['farmer','merchant','samurai','monk','craftsman','bandit','noble']},personality:{pool:['brave','cowardly','greedy','kind','wise']},hp:{min:30,max:80},attack:{min:5,max:15},defense:{min:1,max:8},gold:{min:10,max:100},weapon:{type:'template',id:'weapon'},armor:{type:'template',id:'armor'},faction:{pool:['villager','samurai clan','bandit gang','merchant guild']}},
+    animal:{name:{pool:['Deer','Boar','Wolf','Fox','Hare','Bear']},category:{value:'wildlife'},hp:{min:15,max:45},attack:{min:2,max:10},defense:{min:0,max:2},loot:{type:'template',id:'animal_part'}},
+    animal_part:{name:{pool:['Meat','Hide','Bones','Antlers','Fur']},category:{value:'animal_part'},value:{min:2,max:10}},
+    raw_material:{name:{pool:['Herb','Mushroom','Wood','Stone','Clay','Berries']},category:{value:'raw_material'},value:{min:1,max:5}},
+    weapon:{name:{pool:['Katana','Wakizashi','Yari','Yumi','Kanabo']},category:{value:'weapon'},damage:{min:5,max:25},value:{min:30,max:200},quality:{pool:['rusty','iron','steel','masterwork']}},
+    armor:{name:{pool:['Do-maru','Harate','Kabuto','Kote','Suneate']},category:{value:'armor'},defense:{min:2,max:12},value:{min:25,max:180}},
+    consumable_processed:{name:{pool:['Rice Ball','Sake Flask','Dried Fish','Herbal Medicine']},category:{value:'consumable_processed'},effect:{pool:['restore hp 15','restore hp 25','restore stamina']},value:{min:5,max:20}},
+    tool:{name:{pool:['Fishing Rod','Pickaxe','Axe']},category:{value:'tool'},value:{min:10,max:40}},
+    quest:{title:{pool:['Slay the beast','Deliver goods','Escort VIP','Collect herbs','Hunt bandits']},description:{pool:['A nearby village needs help.','A merchant offers a reward.','Urgent request from the lord.']},rewardGold:{min:20,max:200},targetType:{pool:['animal','npc','raw_material']},completed:{value:false}}
 };
 
-function uuid() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-        const r = Math.random() * 16 | 0;
-        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
-}
+let templates=new Map(Object.entries(DEFAULT_TEMPLATES));
 
-let GAME_DATA = { items: [], locations: [], skills: [], dialogues: {}, events: [], npcTemplates: {} };
-
-async function loadJSON(path) {
-    const res = await fetch(path);
-    return await res.json();
-}
-
-async function loadAllData() {
-    GAME_DATA.items = await loadJSON('data/items.json');
-    GAME_DATA.locations = await loadJSON('data/locations.json');
-    GAME_DATA.skills = await loadJSON('data/skills.json');
-    GAME_DATA.dialogues = await loadJSON('data/dialogues.json');  // <--- this line
-    GAME_DATA.events = await loadJSON('data/events.json');
-    GAME_DATA.npcTemplates = await loadJSON('data/npc_templates.json');
-}
-
-async function dbGet(store, key) {
-    if (!db) return undefined;
-    const tx = db.transaction(store, 'readonly');
-    const obj = tx.objectStore(store);
-    return new Promise((resolve, reject) => {
-        const req = obj.get(key);
-        req.onsuccess = () => resolve(req.result);
-        req.onerror = () => reject(req.error);
-    });
-}
-async function dbPut(store, value) {
-    if (!db) return;
-    const tx = db.transaction(store, 'readwrite');
-    const obj = tx.objectStore(store);
-    obj.put(value);
-    await new Promise((resolve, reject) => { tx.oncomplete = resolve; tx.onerror = reject; });
-}
-async function dbGetAll(store) {
-    if (!db) return [];
-    const tx = db.transaction(store, 'readonly');
-    const obj = tx.objectStore(store);
-    return new Promise((resolve, reject) => {
-        const req = obj.getAll();
-        req.onsuccess = () => resolve(req.result || []);
-        req.onerror = () => reject(req.error);
-    });
-}
-async function dbGetAllFromIndex(store, index, key) {
-    if (!db) return [];
-    const tx = db.transaction(store, 'readonly');
-    const obj = tx.objectStore(store).index(index);
-    return new Promise((resolve, reject) => {
-        const req = obj.getAll(key);
-        req.onsuccess = () => resolve(req.result || []);
-        req.onerror = () => reject(req.error);
-    });
-}
-
-function openDB() {
-    return new Promise((resolve, reject) => {
-        const req = indexedDB.open(DB_NAME, DB_VERSION);
-        req.onupgradeneeded = (e) => {
-            const db = e.target.result;
-            if (!db.objectStoreNames.contains(STORES.playerState)) db.createObjectStore(STORES.playerState, { keyPath: 'id' });
-            if (!db.objectStoreNames.contains(STORES.npcs)) {
-                const store = db.createObjectStore(STORES.npcs, { keyPath: 'npcId' });
-                store.createIndex('location', 'location', { unique: false });
-                store.createIndex('alive', 'alive', { unique: false });
-            }
-            if (!db.objectStoreNames.contains(STORES.locations)) {
-                const store = db.createObjectStore(STORES.locations, { keyPath: 'locationId' });
-                store.createIndex('type', 'type', { unique: false });
-                store.createIndex('province', 'province', { unique: false });
-            }
-            if (!db.objectStoreNames.contains(STORES.items)) db.createObjectStore(STORES.items, { keyPath: 'itemId' });
-            if (!db.objectStoreNames.contains(STORES.quests)) db.createObjectStore(STORES.quests, { keyPath: 'questId' });
-            if (!db.objectStoreNames.contains(STORES.events)) db.createObjectStore(STORES.events, { keyPath: 'eventId' });
-            if (!db.objectStoreNames.contains(STORES.worldClock)) db.createObjectStore(STORES.worldClock, { keyPath: 'id' });
-            if (!db.objectStoreNames.contains(STORES.playerLog)) {
-                const store = db.createObjectStore(STORES.playerLog, { keyPath: 'logId', autoIncrement: true });
-                store.createIndex('turn', 'turn', { unique: false });
-            }
-            if (!db.objectStoreNames.contains(STORES.economy)) db.createObjectStore(STORES.economy, { keyPath: 'locationId' });
-            if (!db.objectStoreNames.contains(STORES.settlements)) db.createObjectStore(STORES.settlements, { keyPath: 'settlementId' });
-        };
-        req.onsuccess = () => resolve(req.result);
-        req.onerror = () => reject(req.error);
-    });
-}
-
-async function bootstrapWorld(db) {
-    const clock = await dbGet(STORES.worldClock, 'clock');
-    if (clock) return;
-    await dbPut(STORES.worldClock, { id: 'clock', year: 1380, month: 1, day: 1, hour: 5, season: 'spring', temperature: 8 });
-    for (const loc of GAME_DATA.locations) await dbPut(STORES.locations, loc);
-    for (const item of GAME_DATA.items) await dbPut(STORES.items, item);
-}
-
-let db;
-
-class GameMasterEngine {
-    constructor() {
-        this.templates = this.buildTemplateLibrary();
-        this.usedDialogue = new Map();
-    }
-
-    buildTemplateLibrary() {
-        return {
-            combat: {
-                opening: {
-                    aggressive: [ { text: "You surge forward, {weapon} raised high.", weight: 3 } ],
-                    defensive: [ { text: "You settle into a guarded stance.", weight: 3 } ]
-                },
-                hit: [ { text: "Your {weapon} finds flesh.", weight: 4 } ],
-                miss: [ { text: "{enemy} parries at the last instant.", weight: 3 } ],
-                enemyHit: [ { text: "{enemy}'s {enemyWeapon} catches you.", weight: 3 } ],
-                enemyMiss: [ { text: "You deflect {enemy}'s attack.", weight: 3 } ],
-                kill: [ { text: "Your final blow lands true.", weight: 3 } ],
-                yield: [ { text: "\"Wait! I yield!\"", weight: 3 } ],
-                flee: [ { text: "Panic overtakes {enemy}.", weight: 3 } ]
-            },
-            travel: {
-                start: [ { text: "You set out from {origin}.", weight: 3 } ],
-                progress: [ { text: "The {road} winds through {scenery}.", weight: 3 } ],
-                arrive: [ { text: "After {distance} ri, {destination} comes into view.", weight: 3 } ]
-            },
-            wilderness: {
-                forageSuccess: [ { text: "You find a patch of {foundItem}.", weight: 3 } ],
-                forageFail: [ { text: "You search the {terrain} but find nothing.", weight: 3 } ],
-                huntSuccess: [ { text: "A {animal} wanders into range.", weight: 3 } ],
-                huntFail: [ { text: "The {animal} bolts.", weight: 3 } ],
-                fishSuccess: [ { text: "You pull a gleaming {fish} from the water.", weight: 3 } ],
-                campSuccess: [ { text: "You build a sturdy camp.", weight: 3 } ],
-                campFail: [ { text: "The wind snuffs your fire.", weight: 2 } ]
-            },
-            social: {
-                greeting: [ { text: "\"Ah, a traveler. What brings you to {location}?\"", weight: 3 } ],
-                giftAccept: [ { text: "{npc}'s eyes widen. \"For me?\"", weight: 3 } ],
-                choreDone: [ { text: "\"You've helped more than you know.\"", weight: 3 } ],
-                insultReact: [ { text: "{npc}'s face hardens.", weight: 3 } ],
-                threatenReact: [ { text: "{npc} pales and offers {offering}.", weight: 3 } ]
-            },
-            town: {
-                market: [ { text: "The market square bustles with {crowdSize}.", weight: 3 } ],
-                inn: [ { text: "The inn is {innAtmosphere}.", weight: 3 } ],
-                shrine: [ { text: "Incense drifts through the shrine gate.", weight: 3 } ]
-            },
-            weather: {
-                rain: "Rain falls steadily, turning the {ground} to mud.",
-                snow: "Snowflakes drift down, muffling the world in white.",
-                clear: "The sky is clear.",
-                wind: "A strong wind blows."
-            },
-            seasonalDetail: {
-                spring: "Cherry blossoms drift on the breeze.",
-                summer: "Cicadas drone in the heat.",
-                autumn: "Red maple leaves carpet the path.",
-                winter: "Bare branches claw at a grey sky."
-            }
-        };
-    }
-
-    extractContext(actionData) {
-        return {
-            player: actionData.player || {},
-            npc: actionData.npc || {},
-            enemy: actionData.enemy || {},
-            weapon: actionData.weapon || 'bare hands',
-            enemyWeapon: actionData.enemyWeapon || 'blade',
-            terrain: actionData.terrain || 'earth',
-            ground: actionData.ground || 'ground',
-            season: actionData.season || 'spring',
-            weather: actionData.weather || 'clear',
-            timeOfDay: actionData.timeOfDay || 'morning',
-            sky: actionData.sky || 'bright',
-            skyColor: actionData.skyColor || 'blue',
-            road: actionData.road || 'dirt path',
-            origin: actionData.origin || 'your last stop',
-            destination: actionData.destination || 'your destination',
-            distance: actionData.distance || 'several',
-            landmark: actionData.landmark || 'ancient pine',
-            scenery: actionData.scenery || 'familiar countryside',
-            crowdSize: actionData.crowdSize || 'a modest crowd',
-            scent: actionData.scent || 'grilled fish',
-            innAtmosphere: actionData.innAtmosphere || 'warm and welcoming',
-            animal: actionData.animal || 'hare',
-            fish: actionData.fish || 'carp',
-            foundItem: actionData.foundItem || 'edible plant',
-            offering: actionData.offering || 'a small purse',
-            expression: actionData.expression || 'curiosity',
-            wilderness: actionData.wilderness || 'forest',
-            clan: actionData.clan || 'unknown',
-            impression: actionData.impression || 'Its rooftops cluster beneath the watchful mountains.'
-        };
-    }
-
-    selectTemplate(categoryArray, context) {
-        if (!categoryArray || categoryArray.length === 0) return '';
-        const totalWeight = categoryArray.reduce((sum, t) => sum + (t.weight || 1), 0);
-        let roll = Math.random() * totalWeight;
-        for (const tpl of categoryArray) {
-            roll -= (tpl.weight || 1);
-            if (roll <= 0) return this.fillTemplate(tpl.text, context);
+// Load external JSON for templates (GitHub raw URL)
+async function loadExternalTemplates(url){
+    try{
+        const res=await fetch(url);
+        if(!res.ok)return;
+        const data=await res.json();
+        if(data.templates){
+            Object.entries(data.templates).forEach(([id,fields])=>templates.set(id,fields));
         }
-        return this.fillTemplate(categoryArray[0].text, context);
+    }catch(e){console.warn('Failed to load external templates, using defaults.')}
+}
+
+// Template generation
+function generate(id,seed){
+    if(seed)rng=m32(seed);
+    const t=templates.get(id);
+    if(!t)throw new Error(`Template '${id}' not found`);
+    return build(t);
+}
+function build(fields){
+    const obj={};
+    for(const[k,v]of Object.entries(fields)){
+        if(v.pool)obj[k]=pick(v.pool);
+        else if(v.min!==undefined&&v.max!==undefined)obj[k]=randInt(v.min,v.max);
+        else if(v.value!==undefined)obj[k]=v.value;
+        else if(v.type==='template')obj[k]=generate(v.id);
+        else if(v.type==='array'){
+            const cnt=randInt(v.count.min,v.count.max);
+            const arr=[];for(let i=0;i<cnt;i++)arr.push(generate(v.itemTemplate));
+            obj[k]=arr;
+        }else if(v.type==='object')obj[k]=build(v.fields);
+        else obj[k]=null;
     }
+    return obj;
+}
 
-    fillTemplate(text, context) {
-        return text.replace(/\{(\w+)\}/g, (match, key) => context[key] !== undefined ? context[key] : match);
+// ---------- World Generation ----------
+class World{
+    constructor(){this.provinces=[]}
+    static async load(){
+        let data=await getI('world','world');
+        if(data){const w=new World();w.provinces=data.data.provinces;return w}
+        const w=new World();
+        w.provinces=generate('world').provinces;
+        w.provinces.forEach(p=>p.wildlands.forEach(wl=>wl.name=`${wl.terrain} of ${p.name}`));
+        w.assignIds();
+        await putI('world',{id:'world',data:{provinces:w.provinces}});
+        return w;
     }
+    assignIds(){let id=1;const walk=o=>{if(Array.isArray(o))o.forEach(walk);else if(o&&typeof o==='object'){if(!o._id)o._id=id++;Object.values(o).forEach(walk)}};walk(this.provinces)}
+    getLocById(id){for(const p of this.provinces)for(const l of[p.capital,...p.towns,...p.villages,...p.wildlands])if(l._id===id)return l;return null}
+    getProvinceLocs(idx){const p=this.provinces[idx];return{capital:p.capital,towns:p.towns,villages:p.villages,wildlands:p.wildlands}}
+}
 
-    generateNarration(actionType, actionData = {}) {
-        const ctx = this.extractContext(actionData);
-        switch (actionType) {
-            case 'combat_opening': return this.selectTemplate(this.templates.combat.opening[actionData.stance] || this.templates.combat.opening.defensive, ctx);
-            case 'combat_hit': return this.selectTemplate(this.templates.combat.hit, ctx);
-            case 'combat_miss': return this.selectTemplate(this.templates.combat.miss, ctx);
-            case 'combat_enemyHit': return this.selectTemplate(this.templates.combat.enemyHit, ctx);
-            case 'combat_enemyMiss': return this.selectTemplate(this.templates.combat.enemyMiss, ctx);
-            case 'combat_kill': return this.selectTemplate(this.templates.combat.kill, ctx);
-            case 'combat_yield': return this.selectTemplate(this.templates.combat.yield, ctx);
-            case 'combat_flee': return this.selectTemplate(this.templates.combat.flee, ctx);
-            case 'travel_start': return this.selectTemplate(this.templates.travel.start, ctx);
-            case 'travel_progress': return this.selectTemplate(this.templates.travel.progress, ctx);
-            case 'travel_arrive': return this.selectTemplate(this.templates.travel.arrive, ctx);
-            case 'wilderness_forage_success': return this.selectTemplate(this.templates.wilderness.forageSuccess, ctx);
-            case 'wilderness_forage_fail': return this.selectTemplate(this.templates.wilderness.forageFail, ctx);
-            case 'wilderness_hunt_success': return this.selectTemplate(this.templates.wilderness.huntSuccess, ctx);
-            case 'wilderness_hunt_fail': return this.selectTemplate(this.templates.wilderness.huntFail, ctx);
-            case 'wilderness_fish_success': return this.selectTemplate(this.templates.wilderness.fishSuccess, ctx);
-            case 'wilderness_camp_success': return this.selectTemplate(this.templates.wilderness.campSuccess, ctx);
-            case 'wilderness_camp_fail': return this.selectTemplate(this.templates.wilderness.campFail, ctx);
-            case 'social_greeting': return this.selectTemplate(this.templates.social.greeting, ctx);
-            case 'social_gift_accept': return this.selectTemplate(this.templates.social.giftAccept, ctx);
-            case 'social_chore_done': return this.selectTemplate(this.templates.social.choreDone, ctx);
-            case 'social_insult_react': return this.selectTemplate(this.templates.social.insultReact, ctx);
-            case 'social_threaten_react': return this.selectTemplate(this.templates.social.threatenReact, ctx);
-            case 'town_market': return this.selectTemplate(this.templates.town.market, ctx);
-            case 'town_inn': return this.selectTemplate(this.templates.town.inn, ctx);
-            case 'town_shrine': return this.selectTemplate(this.templates.town.shrine, ctx);
-            case 'weather_description': return this.fillTemplate(this.templates.weather[ctx.weather] || 'The sky is overcast.', ctx);
-            case 'seasonal_description': return this.fillTemplate(this.templates.seasonalDetail[ctx.season] || 'The seasons turn.', ctx);
-            default: return 'The world turns, indifferent to your gaze.';
-        }
-    }
-
-    generateNPCDialogue(npc, player, topic = 'greeting') {
-        const context = {
-            playerName: player.name || 'traveler',
-            playerAge: player.age,
-            playerGender: player.gender,
-            playerOrigin: player.origin,
-            playerReputation: player.reputation?.general || 0,
-            playerKillCount: player.killCount || 0,
-            playerMarried: !!player.spouseId,
-            playerChildrenCount: player.childrenIds ? player.childrenIds.length : 0,
-            playerWealth: player.wealth || 0,
-            playerBounty: player.bounty || 0,
-            playerFaction: player.clan || null,
-            season: WorldClock.getCurrentContext().season,
-            weather: GameState.currentWeather || 'clear',
-            timeOfDay: WorldClock.getCurrentContext().timeOfDay,
-            location: GameState.currentLocation?.name || 'this place',
-            npcName: npc.name,
-            npcProfession: npc.profession,
-            npcFaction: npc.faction,
-            relationship: npc.getRelationship(player.id)
-        };
-
-        const dialogueData = GAME_DATA.dialogues;
-        const category = dialogueData[topic] || dialogueData.greetings;
-        if (!category) return { text: '...', replies: [] };
-
-        const professionPool = category[npc.profession] || category.commoner || category.farmer;
-        if (!professionPool || professionPool.length === 0) return { text: '...', replies: [] };
-
-        const validTemplates = professionPool.filter(templateObj => {
-            if (typeof templateObj === 'string') return true;
-            if (!templateObj.condition) return true;
-            return this.evaluateCondition(templateObj.condition, context);
-        });
-
-        if (validTemplates.length === 0) return { text: '...', replies: [] };
-
-        const chosen = validTemplates[Math.floor(Math.random() * validTemplates.length)];
-        let line, replies = [];
-        if (typeof chosen === 'string') {
-            line = chosen;
-        } else {
-            const lines = chosen.lines;
-            line = lines[Math.floor(Math.random() * lines.length)];
-            replies = chosen.replies || [];
-        }
-
-        const filled = this.fillTemplate(line, context);
-
-        if (!this.usedDialogue.has(npc.npcId)) this.usedDialogue.set(npc.npcId, []);
-        const used = this.usedDialogue.get(npc.npcId);
-        used.push(filled);
-        if (used.length > 10) used.shift();
-
-        return { text: filled, replies };
-    }
-
-    evaluateCondition(condition, context) {
-        for (const [key, op] of Object.entries(condition)) {
-            const playerVal = context[key];
-            if (playerVal === undefined) return false;
-            if (typeof op === 'object') {
-                if (op.gt !== undefined && !(playerVal > op.gt)) return false;
-                if (op.gte !== undefined && !(playerVal >= op.gte)) return false;
-                if (op.lt !== undefined && !(playerVal < op.lt)) return false;
-                if (op.lte !== undefined && !(playerVal <= op.lte)) return false;
-                if (op.eq !== undefined && playerVal !== op.eq) return false;
-                if (op.neq !== undefined && playerVal === op.neq) return false;
-            } else {
-                if (playerVal !== op) return false;
-            }
-        }
-        return true;
+// ---------- Player Class ----------
+class Player{
+    constructor(){
+        this.name='Ronin';this.age=25;this.gender='male';
+        this.hp=100;this.maxHp=100;this.stamina=50;this.maxStamina=50;
+        this.attack=8;this.defense=3;this.gold=50;
+        this.equipment={weapon:null,armor:null};
+        this.inventory=[];this.quests=[];this.relationships=[];
+        this.currentLocId=null;this.socialClass='ronin';
+        this.skills={strength:5,agility:4,intelligence:3,charisma:3};
+        this.alive=true;this.spouse=null;this.children=[];
     }
 }
 
-const GME = new GameMasterEngine();
+let player=new Player();
+let currentEnemy=null,dialogueState=null,gameLog=[],world=null,autoSaveTimer;
 
-class WorldClockManager {
-    constructor() {
-        this.monthNames = ['Mutsuki','Kisaragi','Yayoi','Uzuki','Satsuki','Minazuki','Fumizuki','Hazuki','Nagatsuki','Kannazuki','Shimotsuki','Shiwasu'];
-        this.currentClock = null;
-    }
-    async loadClock() {
-        if (!db) return;
-        this.currentClock = await dbGet(STORES.worldClock, 'clock');
-        if (!this.currentClock) this.currentClock = { id: 'clock', year: 1380, month: 1, day: 1, hour: 5, season: 'spring', temperature: 8 };
-    }
-    async saveClock() { if (db) await dbPut(STORES.worldClock, this.currentClock); }
-    getSeason(month) {
-        const s = { spring: [1,2,3], summer: [4,5,6], autumn: [7,8,9], winter: [10,11,12] };
-        for (const [k, v] of Object.entries(s)) if (v.includes(month)) return k;
-        return 'spring';
-    }
-    getZodiacHour(hour) { const h = ['Rat','Ox','Tiger','Hare','Dragon','Serpent','Horse','Goat','Monkey','Rooster','Dog','Boar']; return h[Math.floor(hour/2)%12]; }
-    getTimeOfDay(hour) {
-        if (hour>=5 && hour<8) return 'dawn'; if (hour>=8 && hour<11) return 'morning';
-        if (hour>=11 && hour<13) return 'noon'; if (hour>=13 && hour<17) return 'afternoon';
-        if (hour>=17 && hour<19) return 'dusk'; return 'night';
-    }
-    calculateTemperature(provinceId, month, hour, weather) {
-        const base = { shimosa: { winter:3, spring:12, summer:26, autumn:16 }, hitachi: { winter:0, spring:10, summer:24, autumn:14 } };
-        const prov = base[provinceId] || base.shimosa;
-        const season = this.getSeason(month);
-        let temp = prov[season] || 15;
-        if (hour>=1 && hour<=4) temp -= 4; else if (hour>=11 && hour<=14) temp += 4;
-        if (weather==='rain') temp -= 3; if (weather==='snow') temp -= 8;
-        return Math.round(temp);
-    }
-    async advanceTime(minutes, playerLocation, weather = 'clear') {
-        if (!this.currentClock) await this.loadClock();
-        let totalMinutes = this.currentClock.hour*60 + this.currentClock.day*24*60 + (this.currentClock.month-1)*30*24*60;
-        totalMinutes += minutes;
-        const days = Math.floor(totalMinutes/(24*60));
-        this.currentClock.hour = Math.floor((totalMinutes%(24*60))/60);
-        this.currentClock.day = (days%30)+1;
-        this.currentClock.month = (Math.floor(days/30)%12)+1;
-        this.currentClock.year += Math.floor(days/360);
-        this.currentClock.season = this.getSeason(this.currentClock.month);
-        this.currentClock.temperature = this.calculateTemperature(playerLocation?.province||'shimosa', this.currentClock.month, this.currentClock.hour, weather);
-        await this.saveClock();
-        this.updateStatusBar();
-    }
-    getDisplayTime() {
-        const c = this.currentClock;
-        if (!c) return '';
-        return `Year ${c.year}, ${this.monthNames[c.month-1]} ${c.day}, Hour of the ${this.getZodiacHour(c.hour)}`;
-    }
-    updateStatusBar() {
-        document.getElementById('time-display').textContent = this.getDisplayTime();
-        document.getElementById('health-display').textContent = `${this.currentClock?.temperature||0}°C | ${this.currentClock?.season||''}`;
-    }
-    getCurrentContext() {
-        const c = this.currentClock || { year:1380, month:1, day:1, hour:5, season:'spring', temperature:8 };
-        return { ...c, timeOfDay: this.getTimeOfDay(c.hour), zodiacHour: this.getZodiacHour(c.hour) };
-    }
+// ---------- UI Helpers ----------
+function addLog(m){gameLog.push(m);if(gameLog.length>120)gameLog.shift();renderLog()}
+function renderLog(){document.getElementById('logArea').innerHTML=gameLog.slice(-30).map(m=>`<div>${m}</div>`).join('')}
+function updateUI(){
+    const loc=world.getLocById(player.currentLocId);
+    document.getElementById('locDisplay').textContent=loc?`${loc.name} (${loc.type})`:'—';
+    document.getElementById('goldDisplay').textContent=player.gold;
+    renderPlayer();renderEnemy();renderDialogue();renderInv();renderQuests();renderRels();renderActions();
 }
-const WorldClock = new WorldClockManager();
-
-const TurnEngine = {
-    async performAction(actionType, actionData = {}) {
-        const player = GameState.player;
-        const loc = GameState.currentLocation;
-        const weather = GameState.currentWeather || 'clear';
-        let timeCost = {
-            walk_settlement:15, browse_market:20, dialogue:10, forage:60, hunt:90, fish:75,
-            craft_small:60, craft_medium:180, craft_large:480, combat_round:1, travel_1_ri:90, rest_short:30, chore:45
-        }[actionType] || 15;
-        if (actionData.timeOverride) timeCost = actionData.timeOverride;
-        await WorldClock.advanceTime(timeCost, loc, weather);
-        if (player) player.updateSurvival(timeCost, actionType);
-        return { success: true };
+function renderPlayer(){
+    const c=document.getElementById('playerCard');
+    const wp=player.equipment.weapon?player.equipment.weapon.name:'Fists';
+    const ar=player.equipment.armor?player.equipment.armor.name:'Cloth';
+    c.innerHTML=`<strong>${player.name}</strong>, ${player.age}yr, ${player.socialClass}<br>❤️ HP ${player.hp}/${player.maxHp} | ⚡ Stam ${player.stamina}/${player.maxStamina}<br>⚔️ Atk ${player.attack} | 🛡️ Def ${player.defense}<br>🗡️ ${wp} | 🛡️ ${ar}`;
+}
+function renderEnemy(){
+    const c=document.getElementById('enemyCard');
+    if(!currentEnemy){c.style.display='none';return}
+    c.style.display='block';
+    const n=currentEnemy.name||`${currentEnemy.givenName} ${currentEnemy.familyName}`;
+    c.innerHTML=`<strong>${n}</strong> (${currentEnemy.category||currentEnemy.job})<br>❤️ HP ${currentEnemy.hp}/${currentEnemy.maxHp}`;
+}
+function renderDialogue(){
+    const c=document.getElementById('dialogueCard');
+    if(!dialogueState){c.style.display='none';return}
+    c.style.display='block';
+    c.innerHTML=`<strong>${dialogueState.npc.givenName} ${dialogueState.npc.familyName}</strong>: "${dialogueState.text}"`;
+    const d=document.createElement('div');d.className='dialog-options';
+    dialogueState.options.forEach(o=>{const b=document.createElement('button');b.textContent=o.label;b.onclick=o.action;d.appendChild(b)});
+    c.appendChild(d);
+}
+function renderInv(){
+    const l=document.getElementById('invList');
+    l.innerHTML=player.inventory.length?player.inventory.map((it,i)=>`<div class="list-item"><span>${it.name} [${it.category}]</span><span>${(it.category==='weapon'||it.category==='armor')?`<button onclick="GE.equip(${i})">Equip</button>`:''}${it.category==='consumable_processed'?`<button onclick="GE.use(${i})">Use</button>`:''}<button onclick="GE.drop(${i})">Drop</button></span></div>`).join(''):'<div style="color:var(--dim)">Empty</div>';
+}
+function renderQuests(){document.getElementById('questList').innerHTML=player.quests.length?player.quests.map(q=>`<div>📜 ${q.title} (${q.completed?'done':'active'})</div>`).join(''):'None'}
+function renderRels(){document.getElementById('relList').innerHTML=player.relationships.length?player.relationships.map(r=>`<div>${r.name} (${r.faction}) ❤️${r.affection}</div>`).join(''):'None'}
+function renderActions(){
+    const b=document.getElementById('actionBar');let h='';
+    if(player.alive){
+        h+='<button onclick="GE.travel()">🚶 Travel</button>';
+        const loc=world.getLocById(player.currentLocId);
+        if(loc&&loc.market)h+='<button onclick="GE.market()">🏪 Market</button>';
+        if(loc&&loc.npcs&&loc.npcs.length)h+='<button onclick="GE.talk()">🗣️ Talk</button>';
+        if(loc&&loc.type==='wildland'){h+='<button onclick="GE.forage()">🌿 Forage</button><button onclick="GE.hunt()">🏹 Hunt</button>'}
+        if(currentEnemy){h+='<button onclick="GE.attack()">⚔️ Attack</button><button onclick="GE.defend()">🛡️ Defend</button><button onclick="GE.flee()">🏃 Flee</button>'}
+        if(player.spouse&&player.children.length<3&&player.spouse.age<45)h+='<button onclick="GE.baby()">👶 Child</button>';
+        h+='<button onclick="GE.save()">💾 Save</button>';
+    }else{
+        h+='<button onclick="GE.load()">🔄 Load</button><button onclick="GE.newGame()">🆕 New</button>';
+        if(player.children.length)h+='<button onclick="GE.playChild()">👤 Play Child</button>';
     }
-};
+    b.innerHTML=h;
+}
 
-const GameState = {
-    player: null,
-    currentLocation: null,
-    currentWeather: 'clear',
-    activeEvents: [],
-    log(msg) {
-        const el = document.getElementById('log-panel');
-        if (el) { el.innerHTML += `\n${msg}`; el.scrollTop = el.scrollHeight; }
+// ---------- GAME ENGINE ----------
+const GE={
+    travel(){
+        if(!player.alive)return;
+        const m=document.getElementById('travelModal');m.classList.add('active');
+        const c=document.getElementById('travelContent');
+        let h='<h3>Provinces</h3>';
+        world.provinces.forEach((p,i)=>h+=`<button onclick="GE.pickProv(${i})">${p.name}</button> `);
+        c.innerHTML=h;
     },
-    setPlayer(p) { this.player = p; },
-    async getItemDef(itemId) {
-        if (!db) return { weight:1, name:itemId };
-        return await dbGet(STORES.items, itemId) || { weight:1, name:itemId };
-    }
-};
-
-const SKILL_CATEGORIES = {};
-function buildSkillCategories() {
-    for (const s of GAME_DATA.skills) {
-        if (!SKILL_CATEGORIES[s.category]) SKILL_CATEGORIES[s.category] = { name: s.categoryName, kanji: s.categoryKanji, skills: [] };
-        SKILL_CATEGORIES[s.category].skills.push(s.key);
-    }
-}
-
-class PlayerCharacter {
-    constructor(data = {}) {
-        this.id = data.id || uuid();
-        this.name = data.name || 'Traveler';
-        this.age = data.age || 20;
-        this.gender = data.gender || 'male';
-        this.origin = data.origin || 'wanderer';
-        this.birthYear = data.birthYear || (1380 - this.age);
-        this.birthMonth = data.birthMonth || 1;
-        this.isAlive = true;
-        this.wealth = data.wealth || 50;
-        this.hunger = data.hunger || 80;
-        this.thirst = data.thirst || 90;
-        this.fatigue = data.fatigue || 10;
-        this.health = data.health || 100;
-        this.skills = {};
-        GAME_DATA.skills.forEach(s => this.skills[s.key] = data.skills?.[s.key] || 0);
-        this.inventory = data.inventory || [];
-        this.equipped = data.equipped || { weapon: null, carryItem: null };
-        this.reputation = data.reputation || { local: {}, clan: {}, general: 0 };
-        this.injuries = data.injuries || [];
-        this.locationId = data.locationId || 'shimosa_kogane';
-        this.activeShelter = data.activeShelter || false;
-        this.followers = data.followers || [];
-        this.spouseId = data.spouseId || null;
-        this.childrenIds = data.childrenIds || [];
-        this.bounty = data.bounty || 0;
-        this.killCount = data.killCount || 0;
-    }
-    getMaxCarry() {
-        const carry = this.equipped.carryItem;
-        if (carry === 'item_small_bag') return 25;
-        if (carry === 'item_shoulder_pack') return 40;
-        if (carry === 'item_horse') return 80;
-        return 10;
-    }
-    getCurrentWeight() {
-        return this.inventory.reduce((sum, i) => sum + (i.weight || 1) * (i.quantity || 1), 0);
-    }
-    isOverEncumbered() { return this.getCurrentWeight() > this.getMaxCarry(); }
-    getSpeedModifier() {
-        let mod = 1.0;
-        if (this.equipped.carryItem === 'item_horse') mod = 1.5;
-        if (this.isOverEncumbered()) mod *= 0.7;
-        if (this.fatigue > 70) mod *= 0.8;
-        return Math.max(0.2, mod);
-    }
-    updateSurvival(minutes) {
-        this.hunger = Math.max(0, this.hunger - 0.05 * minutes);
-        this.thirst = Math.max(0, this.thirst - 0.06 * minutes);
-        this.fatigue = Math.min(100, this.fatigue + 0.03 * minutes);
-        if (this.hunger <= 0) this.adjustHealth(-2);
-        if (this.thirst <= 0) this.adjustHealth(-3);
-    }
-    adjustHealth(amount) {
-        this.health = Math.max(0, Math.min(100, this.health + amount));
-        if (this.health <= 0) this.die('starvation or wounds');
-    }
-    die(cause) { this.isAlive = false; this.deathCause = cause; GameState.log(`\n===== YOU HAVE DIED: ${cause} =====`); }
-    addItem(itemId, quantity = 1) {
-        const existing = this.inventory.find(i => i.itemId === itemId);
-        if (existing) existing.quantity += quantity;
-        else this.inventory.push({ itemId, quantity, weight: 1 });
-    }
-    removeItem(itemId, quantity = 1) {
-        const idx = this.inventory.findIndex(i => i.itemId === itemId);
-        if (idx === -1) return false;
-        if (this.inventory[idx].quantity <= quantity) this.inventory.splice(idx, 1);
-        else this.inventory[idx].quantity -= quantity;
-        return true;
-    }
-    hasItem(itemId, quantity = 1) {
-        const i = this.inventory.find(i => i.itemId === itemId);
-        return i && i.quantity >= quantity;
-    }
-    getSkillRank(skill) { return this.skills[skill] || 0; }
-    canUseSkill(skill, minRank = 1) { return this.getSkillRank(skill) >= minRank; }
-    toJSON() { return { ...this, skills: {...this.skills}, inventory: [...this.inventory], followers: [...this.followers] }; }
-    static fromJSON(data) {
-        const p = new PlayerCharacter(data);
-        Object.assign(p, data);
-        return p;
-    }
-}
-
-async function loadLocation(locId) {
-    return await dbGet(STORES.locations, locId);
-}
-    
-// ========== UI SCREENS ==========
-function showTitleScreen() {
-    document.getElementById('main-content').innerHTML = `
-        <div style="text-align:center; padding:40px;">
-            <h1 style="font-size:2.2em; color:var(--accent);">侍 MUROMACHI</h1>
-            <h2 style="color:var(--gold);">Path of the Eight Provinces</h2>
-            <p style="font-style:italic; margin-bottom:30px;">"The low may overthrow the high. The sword finds every neck."</p>
-            <button onclick="startNewGame()" style="width:200px; padding:12px; font-size:16px;">🌅 New Game</button>
-            <button onclick="showLoadScreen()" style="width:200px; padding:12px;">📜 Load Game</button>
-        </div>`;
-    document.getElementById('action-panel').innerHTML = '';
-}
-
-async function startNewGame() {
-    const main = document.getElementById('main-content');
-    main.innerHTML = `
-        <h2>⚔️ Character Creation</h2>
-        <div class="flex-col">
-            <label>Name: <input type="text" id="char-name" maxlength="30"></label>
-            <label>Age: <input type="number" id="char-age" value="20" min="12" max="70"></label>
-            <label>Gender: <select id="char-gender"><option value="male">Male</option><option value="female">Female</option></select></label>
-            <label>Origin: <select id="char-origin"><option value="farmer">Farmer</option><option value="merchant">Merchant</option><option value="wanderer">Wanderer</option></select></label>
-            <div id="skill-selection"><h3>Choose up to 5 skills</h3></div>
-            <button onclick="finalizeCharacter()">Begin Journey</button>
-        </div>`;
-    const container = document.getElementById('skill-selection');
-    for (const [catKey, cat] of Object.entries(SKILL_CATEGORIES)) {
-        const div = document.createElement('div');
-        div.innerHTML = `<strong>${cat.name} (${cat.kanji})</strong><br>` + cat.skills.map(s => `<label><input type="checkbox" class="skill-check" value="${s}"> ${s}</label><br>`).join('');
-        container.appendChild(div);
-    }
-    document.querySelectorAll('.skill-check').forEach(cb => {
-        cb.addEventListener('change', () => {
-            const selected = [...document.querySelectorAll('.skill-check:checked')].map(c => c.value);
-            if (selected.length > 5) { cb.checked = false; alert('Max 5 skills'); }
-        });
-    });
-}
-
-async function finalizeCharacter() {
-    const name = document.getElementById('char-name').value || 'Traveler';
-    const age = parseInt(document.getElementById('char-age').value) || 20;
-    const gender = document.getElementById('char-gender').value;
-    const origin = document.getElementById('char-origin').value;
-    const selectedSkills = [...document.querySelectorAll('.skill-check:checked')].map(c => c.value);
-    if (selectedSkills.length === 0) { alert('Pick at least one skill.'); return; }
-    const skills = {};
-    GAME_DATA.skills.forEach(s => skills[s.key] = 0);
-    selectedSkills.forEach(s => skills[s] = 2);
-    const player = new PlayerCharacter({ name, age, gender, origin, skills, locationId: 'shimosa_kogane' });
-    GameState.setPlayer(player);
-    GameState.currentLocation = await loadLocation('shimosa_kogane');
-    await dbPut(STORES.playerState, { id: 'player', data: player.toJSON() });
-    localStorage.setItem('sessionPointer', JSON.stringify({ currentPlayerId: player.id, lastSaveTimestamp: Date.now() }));
-    showGameScreen();
-}
-
-function showGameScreen() {
-    const p = GameState.player;
-    const loc = GameState.currentLocation;
-    if (!p || !loc) return showTitleScreen();
-    document.getElementById('main-content').innerHTML = `
-        <h2>${loc.name} <span style="font-size:0.6em;">(${loc.type})</span></h2>
-        <p>${loc.description||''}</p>
-        <div>💰 ${p.wealth} mon | ❤️ ${p.health}/100 | 🍚 ${Math.round(p.hunger)}% | 💧 ${Math.round(p.thirst)}% | 😴 ${Math.round(p.fatigue)}%</div>
-    `;
-    document.getElementById('action-panel').innerHTML = `
-        <button onclick="actionTravel()">🗺️ Travel</button>
-        <button onclick="actionExplore()">🌲 Explore</button>
-        <button onclick="actionRest()">💤 Rest</button>
-        <button onclick="savePlayer()">💾 Save</button>
-        <button onclick="actionVisitMarket()">🏪 Market</button>
-        <button onclick="actionSeePeople()">👥 People</button>
-        <button onclick="actionInventory()">🎒 Inventory</button>
-        <button onclick="actionSkillTree()">📊 Skills</button>
-        <button onclick="actionFollowers()">👥 Followers</button>
-        <button onclick="actionQuestLog()">📜 Quests</button>
-        <button onclick="actionCrafting()">🔨 Craft</button>
-    `;
-    document.getElementById('location-display').textContent = loc.name;
-    WorldClock.updateStatusBar();
-}
-
-async function actionTravel() {
-    const loc = GameState.currentLocation;
-    const all = await dbGetAll(STORES.locations);
-    const connections = all.filter(l => loc.connectedLocations?.includes(l.locationId));
-    let html = '<h3>Travel</h3>';
-    connections.forEach(dest => html += `<button onclick="executeTravel('${dest.locationId}')">${dest.name}</button><br>`);
-    document.getElementById('main-content').innerHTML += html;
-}
-
-async function executeTravel(destId) {
-    const dest = await loadLocation(destId);
-    if (!dest) return;
-    GameState.log(`You travel to ${dest.name}.`);
-    GameState.currentLocation = dest;
-    GameState.player.locationId = destId;
-    await TurnEngine.performAction('travel_1_ri');
-    showGameScreen();
-}
-
-async function actionExplore() {
-    GameState.log('You explore the wilderness.');
-    await TurnEngine.performAction('forage');
-    showGameScreen();
-}
-
-async function actionRest() {
-    GameState.player.fatigue = Math.max(0, GameState.player.fatigue - 20);
-    GameState.log('You rest.');
-    await TurnEngine.performAction('rest_short');
-    showGameScreen();
-}
-
-async function savePlayer() {
-    await dbPut(STORES.playerState, { id: 'player', data: GameState.player.toJSON() });
-    GameState.log('Game saved.');
-}
-
-async function showLoadScreen() {
-    const data = await dbGet(STORES.playerState, 'player');
-    if (!data) { alert('No saved game.'); return; }
-    const p = PlayerCharacter.fromJSON(data.data);
-    GameState.setPlayer(p);
-    GameState.currentLocation = await loadLocation(p.locationId);
-    showGameScreen();
-}
-
-// ========== NPC SYSTEM ==========
-class NPC {
-    constructor(data = {}) {
-        this.npcId = data.npcId || uuid();
-        this.name = data.name || this.generateRandomName(data.gender || 'male');
-        this.age = data.age || (Math.floor(Math.random() * 40) + 18);
-        this.gender = data.gender || (Math.random() < 0.6 ? 'male' : 'female');
-        this.profession = data.profession || 'farmer';
-        this.category = data.category || 'commoner';
-        this.faction = data.faction || null;
-        this.locationId = data.locationId || 'shimosa_kogane';
-        this.alive = data.alive !== undefined ? data.alive : true;
-        this.birthYear = data.birthYear || (1380 - this.age);
-        this.birthMonth = data.birthMonth || (Math.floor(Math.random() * 12) + 1);
-        this.relationships = data.relationships || {};
-        this.inventory = data.inventory || [];
-        this.wealth = data.wealth !== undefined ? data.wealth : (5 + Math.floor(Math.random() * 30));
-        this.health = data.health || 100;
-        this.combatSkill = data.combatSkill || this.deriveCombatSkill();
-        this.equippedWeapon = data.equippedWeapon || null;
-        this.hired = data.hired || false;
-        this.employerId = data.employerId || null;
-        this.hireMode = data.hireMode || null;
-        this.wage = data.wage || 0;
-        this.isCaptive = data.isCaptive || false;
-        this.captorId = data.captorId || null;
-        this.captureDate = data.captureDate || null;
-        this.aggression = data.aggression || (0.3 + Math.random() * 0.4);
-        this.fear = data.fear || (0.3 + Math.random() * 0.4);
-        this.greed = data.greed || (0.3 + Math.random() * 0.4);
-        this.loyalty = data.loyalty || (0.3 + Math.random() * 0.4);
-    }
-    generateRandomName(gender) {
-        const fam = ['Abe','Akiyama','Chiba','Date','Fujii','Honda','Ishida','Kobayashi','Matsuda','Miura','Nakamura','Satake','Takeda','Uesugi','Yamada'];
-        const givenM = ['Ichirō','Jirō','Saburō','Shirō','Gorō','Tarō','Kenji','Shinji','Yūki','Takeo'];
-        const givenF = ['Hanako','Yuki','Kaede','Midori','Sachiko','Akemi','Reiko','Chieko','Harue','Miyuki'];
-        const famName = fam[Math.floor(Math.random() * fam.length)];
-        const given = (gender === 'female' ? givenF : givenM)[Math.floor(Math.random() * givenM.length)];
-        return famName + ' ' + given;
-    }
-    deriveCombatSkill() {
-        const prof = this.profession;
-        if (prof === 'samurai') return 6 + Math.floor(Math.random() * 4);
-        if (prof === 'ronin') return 5 + Math.floor(Math.random() * 5);
-        if (prof === 'ashigaru') return 4 + Math.floor(Math.random() * 4);
-        if (prof === 'bandit') return 3 + Math.floor(Math.random() * 4);
-        return Math.floor(Math.random() * 4);
-    }
-    adjustRelationship(npcId, amount) {
-        if (!this.relationships[npcId]) this.relationships[npcId] = 0;
-        this.relationships[npcId] = Math.max(-100, Math.min(100, this.relationships[npcId] + amount));
-    }
-    getRelationship(npcId) { return this.relationships[npcId] || 0; }
-    toJSON() { return { ...this, generateRandomName: undefined }; }
-    static fromJSON(data) { const n = new NPC(data); Object.assign(n, data); return n; }
-}
-
-async function saveNPC(npc) { await dbPut(STORES.npcs, npc.toJSON()); }
-async function loadNPC(npcId) { const data = await dbGet(STORES.npcs, npcId); return data ? NPC.fromJSON(data) : null; }
-async function loadNPCsAtLocation(locationId) {
-    const all = await dbGetAllFromIndex(STORES.npcs, 'location', locationId);
-    return all.map(d => NPC.fromJSON(d));
-}
-async function generateNPCsForLocation(locationId, count = 3) {
-    const existing = await loadNPCsAtLocation(locationId);
-    if (existing.length >= count) return existing;
-    const needed = count - existing.length;
-    const loc = await loadLocation(locationId);
-    for (let i = 0; i < needed; i++) {
-        const npc = new NPC({
-            locationId,
-            profession: (loc.type === 'town' || loc.type === 'city') ? ['merchant','blacksmith','samurai','monk'][Math.floor(Math.random()*4)] : 'farmer',
-            faction: loc.province === 'shimosa' ? 'Chiba' : null
-        });
-        await saveNPC(npc);
-    }
-    return await loadNPCsAtLocation(locationId);
-}
-
-// ========== ECONOMY & MARKET ==========
-const MARKET_GOODS = {};
-function buildMarketGoods() {
-    for (const item of GAME_DATA.items) {
-        if (item.category !== 'weapon' && item.category !== 'tool') continue;
-        MARKET_GOODS[item.itemId.replace('item_', '')] = { name: item.name, category: item.category, weight: item.weight, basePrice: item.baseValue };
-    }
-}
-
-const EconomyEngine = {
-    priceCache: {},
-    async getPrice(locationId, goodKey) {
-        const cacheKey = `${locationId}_${goodKey}`;
-        if (this.priceCache[cacheKey] !== undefined) return this.priceCache[cacheKey];
-        const econData = await dbGet(STORES.economy, locationId);
-        if (econData?.goods?.[goodKey]) {
-            const g = econData.goods[goodKey];
-            const price = Math.max(1, Math.round(g.basePrice * (1 + g.demand * 0.5 - g.supply * 0.001)));
-            this.priceCache[cacheKey] = price;
-            return price;
-        }
-        const base = MARKET_GOODS[goodKey]?.basePrice || 5;
-        this.priceCache[cacheKey] = base;
-        return base;
+    pickProv(i){
+        const l=world.getProvinceLocs(i);const c=document.getElementById('travelContent');
+        let h=`<h3>${world.provinces[i].name}</h3>`;
+        h+=`<button onclick="GE.goLoc(${l.capital._id})">🏙️ ${l.capital.name}</button><br>`;
+        l.towns.forEach(t=>h+=`<button onclick="GE.goLoc(${t._id})">${t.name}</button> `);
+        l.villages.forEach(v=>h+=`<button onclick="GE.goLoc(${v._id})">${v.name}</button> `);
+        l.wildlands.forEach(w=>h+=`<button onclick="GE.goLoc(${w._id})">${w.name}</button> `);
+        h+='<br><button onclick="GE.travel()">Back</button>';
+        c.innerHTML=h;
     },
-    async getSupply(locationId, goodKey) {
-        const econData = await dbGet(STORES.economy, locationId);
-        return econData?.goods?.[goodKey]?.supply ?? 100;
+    goLoc(id){
+        document.getElementById('travelModal').classList.remove('active');
+        player.currentLocId=id;const loc=world.getLocById(id);addLog(`🚶 Arrived at ${loc.name}.`);
+        if(loc.type==='wildland'&&rand()<0.5){const b=pick(loc.beasts);if(b){addLog(`⚠️ A ${b.name} attacks!`);GE.startFight(b)}}
+        updateUI();
     },
-    async updatePrices(locationId) {
-        let econData = await dbGet(STORES.economy, locationId);
-        if (!econData) {
-            econData = { locationId, goods: {} };
-            for (const [key, def] of Object.entries(MARKET_GOODS)) {
-                econData.goods[key] = { basePrice: def.basePrice, supply: 100 + Math.floor(Math.random()*200), demand: 0.5 + Math.random()*0.5 };
-            }
-        }
-        for (const [key] of Object.entries(MARKET_GOODS)) {
-            if (!econData.goods[key]) econData.goods[key] = { basePrice: MARKET_GOODS[key].basePrice, supply: 100 + Math.floor(Math.random()*200), demand: 0.5 + Math.random()*0.5 };
-            const g = econData.goods[key];
-            g.supply += Math.floor(Math.random()*10 - 5);
-            g.demand += (Math.random()*0.1 - 0.05);
-            g.supply = Math.max(5, Math.min(500, g.supply));
-            g.demand = Math.max(0.1, Math.min(2.0, g.demand));
-        }
-        await dbPut(STORES.economy, econData);
-        for (const k of Object.keys(this.priceCache)) if (k.startsWith(locationId + '_')) delete this.priceCache[k];
-    }
-};
-
-async function initializeAllEconomies() {
-    const allLocs = await dbGetAll(STORES.locations);
-    const settlements = allLocs.filter(l => l.type === 'town' || l.type === 'city' || l.type === 'village');
-    for (const loc of settlements) await EconomyEngine.updatePrices(loc.locationId);
-}
-
-async function actionVisitMarket() {
-    const loc = GameState.currentLocation;
-    if (!loc || loc.type === 'wilderness') { GameState.log('No market here.'); return; }
-    await EconomyEngine.updatePrices(loc.locationId);
-    let html = `<h3>Market of ${loc.name}</h3><div>💰 ${GameState.player.wealth} mon</div>`;
-    for (const [key, def] of Object.entries(MARKET_GOODS)) {
-        const price = await EconomyEngine.getPrice(loc.locationId, key);
-        const supply = await EconomyEngine.getSupply(loc.locationId, key);
-        html += `<div>${def.name}: ${price} mon (${supply}) <button onclick="buyGood('${key}')">Buy</button> <button onclick="sellGood('${key}')">Sell</button></div>`;
-    }
-    document.getElementById('main-content').innerHTML += html;
-    document.getElementById('action-panel').innerHTML = '<button onclick="showGameScreen()">Back</button>';
-    await TurnEngine.performAction('browse_market');
-}
-
-async function buyGood(goodKey) {
-    const player = GameState.player;
-    const locId = GameState.currentLocation?.locationId;
-    const price = await EconomyEngine.getPrice(locId, goodKey);
-    if (player.wealth < price) { alert('Not enough mon.'); return; }
-    if (player.getCurrentWeight() + (MARKET_GOODS[goodKey]?.weight || 1) > player.getMaxCarry()) { alert('Overburdened.'); return; }
-    player.wealth -= price;
-    player.addItem('item_' + goodKey, 1);
-    const econData = await dbGet(STORES.economy, locId);
-    if (econData?.goods?.[goodKey]) {
-        econData.goods[goodKey].supply = Math.max(0, econData.goods[goodKey].supply - 1);
-        await dbPut(STORES.economy, econData);
-    }
-    GameState.log(`Bought ${MARKET_GOODS[goodKey].name}.`);
-    await savePlayer();
-    actionVisitMarket();
-}
-
-async function sellGood(goodKey) {
-    const player = GameState.player;
-    const locId = GameState.currentLocation?.locationId;
-    const itemId = 'item_' + goodKey;
-    if (!player.hasItem(itemId, 1)) { alert('You do not have this item.'); return; }
-    const price = await EconomyEngine.getPrice(locId, goodKey);
-    player.removeItem(itemId, 1);
-    player.wealth += Math.floor(price * 0.7);
-    const econData = await dbGet(STORES.economy, locId);
-    if (econData?.goods?.[goodKey]) {
-        econData.goods[goodKey].supply += 1;
-        await dbPut(STORES.economy, econData);
-    }
-    GameState.log(`Sold ${MARKET_GOODS[goodKey].name}.`);
-    await savePlayer();
-    actionVisitMarket();
-}
-
-// ========== COMBAT SYSTEM ==========
-const COMBAT_STANCES = {
-    aggressive: { attackMod: 1.3, defenseMod: 0.6, damageMod: 1.4 },
-    defensive: { attackMod: 0.7, defenseMod: 1.5, damageMod: 0.8 },
-    evasive: { attackMod: 0.8, defenseMod: 1.3, damageMod: 0.9 },
-    cautious: { attackMod: 0.9, defenseMod: 1.1, damageMod: 0.95 }
-};
-
-function getWeaponSkill(weaponId) {
-    if (weaponId === 'item_katana') return 'kenjutsu';
-    if (weaponId === 'item_yari') return 'sojutsu';
-    if (weaponId === 'item_bow') return 'kyujutsu';
-    return 'jujutsu';
-}
-
-const CombatEngine = {
-    active: null,
-    async start(player, enemy, location) {
-        this.active = { player, enemy, location, round: 0, log: [], playerMorale: 80 + Math.floor(Math.random()*20), enemyMorale: 80 + Math.floor(Math.random()*20), status: 'ongoing' };
-        GameState.log(`⚔️ Combat begins: ${player.name} vs ${enemy.name}`);
-        this.showUI();
+    market(){
+        const loc=world.getLocById(player.currentLocId);if(!loc||!loc.market)return;
+        const m=document.getElementById('marketModal');m.classList.add('active');
+        const c=document.getElementById('marketContent');c.innerHTML='<h3>Market</h3><div id="mItems"></div>';
+        const items=[],types=['weapon','armor','consumable_processed','tool','raw_material'];
+        for(let i=0;i<randInt(4,6);i++)items.push(generate(pick(types)));
+        window._mitems=items;
+        document.getElementById('mItems').innerHTML=items.map((it,i)=>`<div class="list-item"><span>${it.name} [${it.category}] - ${it.value}g</span><button onclick="GE.buy(${i})">Buy</button></div>`).join('');
     },
-    showUI() {
-        const c = this.active;
-        document.getElementById('main-content').innerHTML = `
-            <h2>⚔️ Combat</h2>
-            <div>You: ❤️ ${c.player.health} | Enemy: ❤️ ${c.enemy.health}</div>
-            <div id="combat-log">${c.log.join('<br>')}</div>
-        `;
-        document.getElementById('action-panel').innerHTML = `
-            <button onclick="CombatEngine.playerAction('aggressive')">Aggressive</button>
-            <button onclick="CombatEngine.playerAction('defensive')">Defensive</button>
-            <button onclick="CombatEngine.playerAction('evasive')">Evasive</button>
-            <button onclick="CombatEngine.playerAction('cautious')">Cautious</button>
-        `;
+    buy(i){
+        const it=window._mitems[i];if(!it||player.gold<it.value){addLog('Not enough gold.');return}
+        player.gold-=it.value;player.inventory.push(it);addLog(`Bought ${it.name}.`);
+        document.getElementById('mItems').innerHTML=window._mitems.map((it,j)=>`<div class="list-item"><span>${it.name} [${it.category}] - ${it.value}g</span><button onclick="GE.buy(${j})">Buy</button></div>`).join('');
+        updateUI();
     },
-    async playerAction(stance) {
-        const c = this.active;
-        const playerSkill = c.player.getSkillRank(getWeaponSkill(c.player.equipped.weapon)) * 5;
-        const enemySkill = c.enemy.combatSkill * 5;
-        const s = COMBAT_STANCES[stance];
-        if (Math.random() * 100 + playerSkill * s.attackMod > 50 + enemySkill * s.defenseMod) {
-            const dmg = Math.round((8 + Math.random()*12 + playerSkill/2) * s.damageMod);
-            c.enemy.health -= dmg;
-            c.log.push(GME.generateNarration('combat_hit', { enemy: c.enemy.name, weapon: c.player.equipped.weapon || 'fists' }));
-        } else c.log.push(GME.generateNarration('combat_miss', { enemy: c.enemy.name }));
-        if (c.enemy.health > 0 && Math.random() * 100 + enemySkill > 50 + playerSkill * s.defenseMod) {
-            const dmg = 6 + Math.floor(Math.random()*14) + Math.floor(c.enemy.combatSkill/2);
-            c.player.health -= dmg;
-            c.log.push(GME.generateNarration('combat_enemyHit', { enemy: c.enemy.name }));
-        } else if (c.enemy.health > 0) c.log.push(GME.generateNarration('combat_enemyMiss', { enemy: c.enemy.name }));
-        if (c.player.health <= 0) { c.player.die('combat'); this.endCombat('player_dead'); return; }
-        if (c.enemy.health <= 0) {
-            c.enemy.alive = false;
-            c.log.push(GME.generateNarration('combat_kill', { enemy: c.enemy.name, ground: 'earth' }));
-            c.player.killCount = (c.player.killCount || 0) + 1;
-            if (c.enemy.wealth > 0) { c.player.wealth += c.enemy.wealth; c.enemy.wealth = 0; }
-            for (const inv of c.enemy.inventory) c.player.addItem(inv.itemId, inv.quantity);
-            c.enemy.inventory = [];
-            this.endCombat('enemy_dead');
-            return;
-        }
-        await saveNPC(c.enemy);
-        await savePlayer();
-        this.showUI();
-    },
-    endCombat(result) {
-        GameState.log('Combat ended: ' + result);
-        this.active = null;
-        showGameScreen();
-    }
+    equip(i){const it=player.inventory[i];if(!it||(it.category!=='weapon'&&it.category!=='armor'))return;const slot=it.category;if(player.equipment[slot])player.inventory.push(player.equipment[slot]);player.equipment[slot]=it;player.inventory.splice(i,1);if(slot==='weapon')player.attack+=it.damage||0;else player.defense+=it.defense||0;addLog(`Equipped ${it.name}.`);updateUI()},
+    use(i){const it=player.inventory[i];if(!it||it.category!=='consumable_processed')return;if(it.effect.includes('hp')){player.hp=Math.min(player.maxHp,player.hp+parseInt(it.effect.split(' ')[2])||15)}else{player.stamina=Math.min(player.maxStamina,player.stamina+20)}player.inventory.splice(i,1);addLog(`Used ${it.name}.`);updateUI()},
+    drop(i){const it=player.inventory.splice(i,1)[0];addLog(`Dropped ${it.name}.`);updateUI()},
+    talk(){const loc=world.getLocById(player.currentLocId);if(!loc||!loc.npcs.length)return;const npc=pick(loc.npcs);dialogueState={npc,text:`Greetings, I am ${npc.givenName} ${npc.familyName}, a ${npc.job}.`,options:[{label:'Quest',action:()=>GE.quest(npc)},{label:'Trade',action:()=>GE.market()},{label:'Fight',action:()=>{dialogueState=null;GE.startFight(npc)}},{label:'Leave',action:()=>{dialogueState=null;updateUI()}}]};updateUI()},
+    quest(npc){const q=generate('quest');q.giver=`${npc.givenName} ${npc.familyName}`;dialogueState={npc,text:`${q.title}. ${q.description}. Reward: ${q.rewardGold}g. Accept?`,options:[{label:'Accept',action:()=>{player.quests.push(q);addLog('Quest accepted.');dialogueState=null;updateUI()}},{label:'Decline',action:()=>{dialogueState=null;updateUI()}}]};updateUI()},
+    startFight(enemy){currentEnemy=JSON.parse(JSON.stringify(enemy));currentEnemy.maxHp=currentEnemy.hp||30;addLog(`⚔️ Fight!`);updateUI()},
+    attack(){if(!currentEnemy)return;let d=Math.max(1,player.attack-(currentEnemy.defense||0)+randInt(-2,3));currentEnemy.hp-=d;addLog(`You deal ${d} dmg.`);if(currentEnemy.hp<=0){GE.enemyDown();return}GE.enemyTurn();updateUI()},
+    defend(){player.defense+=4;addLog('Braced.');GE.enemyTurn();player.defense-=4;updateUI()},
+    flee(){if(rand()<0.5){addLog('Fled.');currentEnemy=null}else{addLog('Failed!');GE.enemyTurn()}updateUI()},
+    enemyTurn(){if(!currentEnemy)return;let d=Math.max(1,(currentEnemy.attack||5)-player.defense+randInt(-2,2));player.hp-=d;addLog(`${currentEnemy.name||currentEnemy.givenName} hits for ${d}.`);if(player.hp<=0){player.hp=0;GE.die()}updateUI()},
+    enemyDown(){const e=currentEnemy;addLog(`💀 ${e.name||e.givenName} slain.`);player.gold+=e.gold||0;if(e.loot){player.inventory.push(e.loot);addLog(`🎁 ${e.loot.name}`)}player.quests.forEach(q=>{if(q.completed)return;if((q.targetType==='animal'&&e.category==='wildlife')||(q.targetType==='npc'&&e.job)||(q.targetType==='raw_material'&&e.category==='animal_part')){q.completed=true;player.gold+=q.rewardGold;addLog(`🏆 Quest done: ${q.title}!`)}});currentEnemy=null;updateUI()},
+    die(){addLog('💀 You died.');player.alive=false;currentEnemy=null;document.getElementById('deathModal').classList.add('active');updateUI()},
+    forage(){const loc=world.getLocById(player.currentLocId);if(!loc||loc.type!=='wildland')return;if(loc.resources.length){player.inventory.push(pick(loc.resources));addLog('🌿 Foraged.');}else addLog('Nothing.');updateUI()},
+    hunt(){const loc=world.getLocById(player.currentLocId);if(!loc||loc.type!=='wildland')return;if(loc.beasts.length){GE.startFight(pick(loc.beasts));}else addLog('No animals.');},
+    baby(){if(rand()<0.3){const n=`${pick(['Fujiwara','Taira','Minamoto'])} ${player.gender==='male'?pick(['Taro','Jiro']):pick(['Hana','Yuki'])}`;player.children.push({name:n,gender:rand()<0.5?'male':'female',age:0,skills:{strength:randInt(2,4),agility:randInt(2,4),intelligence:randInt(2,4),charisma:randInt(2,4)}});addLog(`👶 ${n} born!`)}else addLog('No child.');updateUI()},
+    playChild(){if(!player.children.length)return;const c=player.children.pop();const np=new Player();np.name=c.name;np.gender=c.gender;np.age=18;np.skills=c.skills;np.currentLocId=player.currentLocId;np.gold=Math.floor(player.gold/2);player=np;addLog(`👤 Playing as ${c.name}.`);document.getElementById('deathModal').classList.remove('active');updateUI()},
+    async save(){await putI('player',{id:'player',data:JSON.parse(JSON.stringify(player))});addLog('💾 Saved.')},
+    async load(){const d=await getI('player','player');if(d){player=Object.assign(new Player(),d);player.alive=true;addLog('📂 Loaded.');updateUI();document.getElementById('deathModal').classList.remove('active')}else addLog('No save.')},
+    newGame(){location.reload()}
 };
-    
-// ========== NPC INTERACTION & DIALOGUE ==========
-async function talkToNPC(npcId) {
-    const player = GameState.player;
-    const npc = await loadNPC(npcId);
-    if (!npc || !npc.alive) return;
+window.GE=GE;
 
-    const result = GME.generateNPCDialogue(npc, player, 'greeting');
-    const dialogue = result.text;
-    const replies = result.replies || [];
-
-    npc.adjustRelationship(player.id, 1);
-    await saveNPC(npc);
-
-    const main = document.getElementById('main-content');
-    let replyHTML = '';
-    if (replies.length > 0) {
-        replyHTML = '<div style="margin-top:8px;">';
-        replies.forEach((reply) => {
-            const escapedText = reply.text.replace(/'/g, "\\'");
-            replyHTML += `<button onclick="handleReply('${npcId}', '${reply.action}', '${escapedText}')">${reply.text}</button> `;
-        });
-        replyHTML += '</div>';
-    }
-
-    main.innerHTML += `<div class="panel" style="margin-top:10px;">
-        <strong>${npc.name} (${npc.profession}):</strong>
-        <p style="font-style:italic; margin:8px 0;">"${dialogue}"</p>
-        ${replyHTML}
-    </div>`;
-
-    document.getElementById('log-panel').innerHTML += `\n[${npc.name}]: "${dialogue}"`;
-    await TurnEngine.performAction('dialogue');
-}
-
-async function handleReply(npcId, action, replyText) {
-    const player = GameState.player;
-    const npc = await loadNPC(npcId);
-    if (!npc) return;
-
-    GameState.log(`You: ${replyText}`);
-
-    let reaction = '';
-    switch (action) {
-        case 'reassure':
-            npc.adjustRelationship(player.id, 5);
-            reaction = `"Thank you. That puts my mind at ease."`;
-            break;
-        case 'intimidate':
-            npc.adjustRelationship(player.id, -10);
-            reaction = `"There's no need for threats. I meant no harm."`;
-            break;
-        case 'offer_help':
-            npc.adjustRelationship(player.id, 8);
-            reaction = `"Truly? You would help? The kami have sent you!"`;
-            break;
-        case 'insult':
-            npc.adjustRelationship(player.id, -15);
-            reaction = `"How rude! I'll remember this."`;
-            break;
-        case 'neutral':
-            reaction = `"Very well. Safe travels."`;
-            break;
-        case 'flirt':
-            npc.adjustRelationship(player.id, 10);
-            reaction = `"Oh! I... I don't know what to say."`;
-            break;
-        case 'decline_flirt':
-            npc.adjustRelationship(player.id, -5);
-            reaction = `"I see. Well, it was worth asking."`;
-            break;
-        default:
-            reaction = `"I see."`;
-    }
-
-    document.getElementById('log-panel').innerHTML += `\n[${npc.name}]: "${reaction}"`;
-    document.getElementById('main-content').innerHTML += `<div class="panel"><strong>${npc.name}:</strong> "${reaction}"</div>`;
-    await saveNPC(npc);
-}
-
-async function actionSeePeople() {
-    const npcs = await generateNPCsForLocation(GameState.currentLocation.locationId, 3);
-    let html = '<h3>People</h3><ul>';
-    for (const n of npcs) html += `<li>${n.name} (${n.profession}) <button onclick="talkToNPC('${n.npcId}')">Talk</button></li>`;
-    html += '</ul>';
-    document.getElementById('main-content').innerHTML += html;
-    document.getElementById('action-panel').innerHTML = '<button onclick="showGameScreen()">Back</button>';
-}
-
-async function actionInventory() {
-    const inv = GameState.player.inventory;
-    let html = '<h3>Inventory</h3><ul>';
-    for (const i of inv) html += `<li>${i.itemId} x${i.quantity}</li>`;
-    html += `</ul><p>Weight: ${GameState.player.getCurrentWeight()}/${GameState.player.getMaxCarry()}</p>`;
-    document.getElementById('main-content').innerHTML += html;
-}
-
-function actionSkillTree() {
-    let html = '<h3>Skills</h3>';
-    for (const [cat, data] of Object.entries(SKILL_CATEGORIES)) {
-        html += `<strong>${data.name}</strong><br>${data.skills.map(s => `${s}: ${GameState.player.getSkillRank(s)}`).join(', ')}<br>`;
-    }
-    document.getElementById('main-content').innerHTML += html;
-}
-
-async function actionFollowers() {
-    const f = GameState.player.followers;
-    let html = '<h3>Followers</h3>';
-    for (const id of f) {
-        const npc = await loadNPC(id);
-        html += npc ? `<div>${npc.name} (${npc.profession})</div>` : '<div>Unknown</div>';
-    }
-    document.getElementById('main-content').innerHTML += html;
-}
-
-async function actionQuestLog() {
-    document.getElementById('main-content').innerHTML += '<h3>Quest Log</h3><p>No quests implemented yet.</p>';
-}
-
-// ========== CRAFTING ==========
-const CRAFTING_RECIPES = {
-    forge_axe: { name: 'Forge Axe', skill: 'kaji', minRank: 2, materials: { item_iron_ingot: 1, item_charcoal_bundle: 1 }, product: 'item_axe', time: 240 },
-    forge_hoe: { name: 'Forge Hoe', skill: 'kaji', minRank: 1, materials: { item_iron_ingot: 1, item_charcoal_bundle: 1 }, product: 'item_hoe', time: 180 },
-    brew_sake: { name: 'Brew Sake', skill: 'sake_zukuri', minRank: 3, materials: { item_rice_bag: 2 }, product: 'item_sake_flask', time: 1440 }
-};
-
-async function actionCrafting() {
-    let html = '<h3>Crafting</h3>';
-    for (const [id, rec] of Object.entries(CRAFTING_RECIPES)) {
-        const can = GameState.player.canUseSkill(rec.skill, rec.minRank) && Object.entries(rec.materials).every(([m,q]) => GameState.player.hasItem(m, q));
-        html += `<div>${rec.name} <button onclick="craftItem('${id}')" ${!can ? 'disabled' : ''}>Craft</button></div>`;
-    }
-    document.getElementById('main-content').innerHTML += html;
-    document.getElementById('action-panel').innerHTML = '<button onclick="showGameScreen()">Back</button>';
-}
-
-async function craftItem(recipeId) {
-    const rec = CRAFTING_RECIPES[recipeId];
-    if (!GameState.player.canUseSkill(rec.skill, rec.minRank)) { alert('Lack skill.'); return; }
-    for (const [m, q] of Object.entries(rec.materials)) {
-        if (!GameState.player.hasItem(m, q)) { alert('Missing materials.'); return; }
-        GameState.player.removeItem(m, q);
-    }
-    GameState.player.addItem(rec.product, 1);
-    GameState.log(`Crafted ${rec.name}.`);
-    await TurnEngine.performAction('craft_medium', { timeOverride: rec.time });
-    await savePlayer();
-    actionCrafting();
-}
-
-// ========== SETTLEMENTS ==========
-class PlayerSettlement {
-    constructor(data = {}) {
-        this.settlementId = data.settlementId || uuid();
-        this.name = data.name || 'New Mura';
-        this.founderId = data.founderId || GameState.player?.id;
-        this.locationId = data.locationId || null;
-        this.province = data.province || 'shimosa';
-        this.residents = data.residents || [];
-        this.buildings = data.buildings || [];
-        this.resources = data.resources || { food: 20, timber: 5, stone: 3, gold: 0 };
-        this.morale = data.morale || 60;
-        this.taxRate = data.taxRate || 0.1;
-    }
-    toJSON() { return { ...this }; }
-    static fromJSON(d) { return new PlayerSettlement(d); }
-}
-
-async function saveSettlement(s) { await dbPut(STORES.settlements, s.toJSON()); }
-async function loadSettlement(id) { const d = await dbGet(STORES.settlements, id); return d ? PlayerSettlement.fromJSON(d) : null; }
-async function getPlayerSettlements(playerId) {
-    const all = await dbGetAll(STORES.settlements);
-    return all.filter(s => s.founderId === playerId).map(s => PlayerSettlement.fromJSON(s));
-}
-
-async function actionFoundSettlement() {
-    if (GameState.player.followers.length < 3) { alert('Need 3 followers.'); return; }
-    const name = prompt('Settlement name:');
-    if (!name) return;
-    const settlement = new PlayerSettlement({ name, locationId: GameState.currentLocation.locationId, province: GameState.currentLocation.province });
-    for (let i = 0; i < 3; i++) {
-        const npcId = GameState.player.followers.shift();
-        const npc = await loadNPC(npcId);
-        if (npc) { npc.locationId = settlement.settlementId; npc.hired = false; await saveNPC(npc); settlement.residents.push(npcId); }
-    }
-    GameState.player.followers = GameState.player.followers.filter(id => id);
-    await saveSettlement(settlement);
-    GameState.log(`Founded ${name}!`);
-    showGameScreen();
-}
-
-async function actionManageSettlement() {
-    const settlements = await getPlayerSettlements(GameState.player.id);
-    if (settlements.length === 0) { alert('No settlement.'); return; }
-    const s = settlements[0];
-    document.getElementById('main-content').innerHTML += `
-        <h3>${s.name}</h3>
-        <p>Pop: ${s.residents.length}</p>
-        <p>Food: ${s.resources.food} | Gold: ${s.resources.gold}</p>
-        <button onclick="collectTaxes('${s.settlementId}')">Collect Tax</button>
-    `;
-}
-
-async function collectTaxes(sid) {
-    const s = await loadSettlement(sid);
-    const tax = Math.floor(s.resources.gold * s.taxRate);
-    s.resources.gold -= tax;
-    GameState.player.wealth += tax;
-    await saveSettlement(s);
-    GameState.log(`Collected ${tax} mon tax.`);
-    showGameScreen();
-}
-
-// ========== DYNASTY ==========
-async function proposeMarriage(npcId) {
-    const npc = await loadNPC(npcId);
-    if (!npc || GameState.player.spouseId) return;
-    npc.spouseId = GameState.player.id;
-    GameState.player.spouseId = npcId;
-    await saveNPC(npc);
-    await savePlayer();
-    GameState.log(`Married ${npc.name}.`);
-}
-
-// ========== EVENTS & INITIALIZATION ==========
-async function generateWorldEvents() {
-    if (!GAME_DATA.events.length) return;
-    const event = GAME_DATA.events[Math.floor(Math.random() * GAME_DATA.events.length)];
-    GameState.log(`[Event] ${event.description}`);
-    GameState.activeEvents.push(event);
-}
-
-// ========== BOOTSTRAP ==========
-async function initGame() {
-    await loadAllData();
-    buildSkillCategories();
-    buildMarketGoods();
-    db = await openDB();
-    await bootstrapWorld(db);
-    await WorldClock.loadClock();
-    WorldClock.updateStatusBar();
-    const session = localStorage.getItem('sessionPointer');
-    if (session) {
-        const data = await dbGet(STORES.playerState, 'player');
-        if (data) {
-            GameState.setPlayer(PlayerCharacter.fromJSON(data.data));
-            GameState.currentLocation = await loadLocation(GameState.player.locationId);
-            showGameScreen();
-            return;
-        }
-    }
-    showTitleScreen();
-}
-window.onload = async function() {
-    try { await initGame(); }
-    catch(e) { document.getElementById('main-content').innerHTML = '<h2 style="color:red;">Startup Error</h2><pre>' + e.message + '\n' + e.stack + '</pre>'; }
-};
-
+// ---------- Init ----------
+(async function(){
+    await initS();
+    // Try to load external templates (user can set this URL to their GitHub JSON)
+    await loadExternalTemplates('https://raw.githubusercontent.com/yourusername/yourrepo/main/templates.json');
+    world=await World.load();
+    const saved=await getI('player','player');
+    if(saved){player=Object.assign(new Player(),saved);addLog('📂 Game loaded.')}
+    else{player.currentLocId=world.provinces[0].capital._id;addLog('⚔️ New life begins.')}
+    updateUI();
+    window.addEventListener('beforeunload',()=>GE.save());
+})();
+})();
 </script>
 </body>
 </html>
