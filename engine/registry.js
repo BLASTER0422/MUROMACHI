@@ -1,22 +1,23 @@
 window.Registry={
 
-data:{},
+templates:{},
+world:{},
+events:{},
 
-add(id,obj){
+register(
+type,
+data
+){
 
-this.data[id]=obj;
+this[
+type
+]=
+data;
 
-},
-
-get(id){
-
-return this.data[id];
-
-},
-
-all(){
-
-return this.data;
+console.log(
+"Registered",
+type
+);
 
 }
 
