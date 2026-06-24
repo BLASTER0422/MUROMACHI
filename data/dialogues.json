@@ -419,7 +419,6 @@
       "\"The shrine maiden heard the voice of the kami in a dream. She's been silent ever since.\""
     ]
   },
-  ,
   "profession_specific": {
     "blacksmith": [
       "\"This steel is from the Satake mines. Harder than anything you'll find in the south.\"",
@@ -718,11 +717,10 @@
         "\"The pilgrims are singing your praises. They said you were a guardian angel.\"",
         "\"The map is complete. The cartographer says he'll name a road after you.\"",
         "\"I've never felt safer on the road. Thank you, friend.\""
-      ]
-    }
-  }
-,
-  "combat": {
+        ]
+        }
+      },
+    "combat": {
     "taunt": [
       "\"You picked the wrong opponent, fool.\"",
       "\"I've cut down stronger men before breakfast.\"",
