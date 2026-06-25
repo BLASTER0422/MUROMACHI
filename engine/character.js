@@ -1,4 +1,3 @@
-```javascript
 window.CharacterEngine = {
 
 classes:[],
@@ -7,12 +6,12 @@ async init(){
 
 try{
 
-const r =
+let r =
 await fetch(
 "./json/classes/starting_classes.json"
 );
 
-const data =
+let data =
 await r.json();
 
 this.classes =
@@ -20,8 +19,6 @@ data.classes;
 
 }
 catch(e){
-
-console.log(e);
 
 this.classes=[];
 
@@ -31,26 +28,22 @@ this.classes=[];
 
 async create(){
 
-let selected = {
+let c = {
 
 id:"commoner",
 
 name:"Commoner",
 
-gold:5,
-
-honor:0,
-
-spawn:"village",
-
-items:[]
+gold:5
 
 };
 
-if(this.classes.length){
+if(
+this.classes.length
+){
 
-let msg =
-"Choose Class\n\n";
+let text =
+"Choose Class\n";
 
 for(
 let i=0;
@@ -58,90 +51,75 @@ i<this.classes.length;
 i++
 ){
 
-msg +=
+text +=
+"\n"
++
 (
 i+1
 )
 +
-". "
+" "
 +
-this.classes[i].name
-+
-"\n";
+this.classes[i].name;
 
 }
 
-const chosen =
+let pick =
 parseInt(
-prompt(msg)
+prompt(text)
 );
 
 if(
-chosen
+pick
 &&
 this.classes[
-chosen-1
+pick-1
 ]
 ){
 
-selected =
+c =
 this.classes[
-chosen-1
+pick-1
 ];
 
 }
 
 }
 
-const name =
-prompt(
-"Name"
-)
-||
-"Traveler";
+PlayerEngine.player={
 
-const age =
+name:
+prompt("Name")
+||
+"Traveler",
+
+age:
 parseInt(
-prompt(
-"Age"
-)
+prompt("Age")
 ||
 18
-);
+),
 
-const gender =
+gender:
 prompt(
 "Gender"
 )
 ||
-"Unknown";
+"Unknown",
 
-PlayerEngine.player={
+socialClass:
+c.name,
 
-name:name,
+gold:
+c.gold,
 
-age:age,
-
-gender:gender,
-
-socialClass:selected.name,
-
-class:selected.id,
-
-gold:selected.gold,
-
-honor:selected.honor,
-
-inventory:selected.items,
-
-spawn:selected.spawn,
-
-spouse:null,
-
-children:[],
-
-clan:getClan(
-selected.id
+clan:
+(
+c.id==="samurai"
+?
+"Ashikaga"
+:
+"None"
 )
 
 };
@@ -151,48 +129,4 @@ await PlayerEngine.save();
 }
 
 };
-
-function getClan(cls){
-
-if(
-cls==="commoner"
-||
-cls==="merchant"
-||
-cls==="monk"
-){
-
-return "None";
-
-}
-
-if(
-cls==="ronin"
-){
-
-return "Ronin";
-
-}
-
-const clans=[
-
-"Ashikaga",
-
-"Hojo",
-
-"Date",
-
-"Takeda"
-
-];
-
-return clans[
-Math.floor(
-Math.random()
-*
-clans.length
-)
-];
-
-}
 ```
