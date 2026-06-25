@@ -1,5 +1,5 @@
 ```javascript
-window.PlayerEngine={
+window.PlayerEngine = {
 
 player:null,
 
@@ -7,14 +7,12 @@ async init(){
 
 try{
 
-const save=
-localStorage.getItem(
-"player"
-);
+const save =
+localStorage.getItem("player");
 
 if(save){
 
-this.player=
+this.player =
 JSON.parse(save);
 
 }
@@ -29,11 +27,9 @@ await CharacterEngine.create();
 
 this.render();
 
-document
-.getElementById(
+document.getElementById(
 "status"
-)
-.innerHTML=
+).innerHTML =
 "✅ Godlike Engine Online";
 
 }
@@ -41,11 +37,9 @@ catch(e){
 
 console.log(e);
 
-document
-.getElementById(
+document.getElementById(
 "status"
-)
-.innerHTML=
+).innerHTML =
 "❌ Failed";
 
 }
@@ -55,75 +49,77 @@ document
 async save(){
 
 localStorage.setItem(
-
 "player",
-
 JSON.stringify(
 this.player
 )
-
 );
 
 },
 
 render(){
 
-if(!this.player)
+if(!this.player){
 return;
+}
+
+let html = "";
+
+html += "<h2>🏯 Character</h2>";
+
+html += "Name: "
++ this.player.name
++ "<br><br>";
+
+html += "Age: "
++ this.player.age
++ "<br><br>";
+
+html += "Gender: "
++ this.player.gender
++ "<br><br>";
+
+html += "Social Class: "
++ this.player.socialClass
++ "<br><br>";
+
+html += "Clan: "
++ this.player.clan
++ "<br><br>";
+
+html += "Gold: "
++ this.player.gold
++ "<br><br>";
+
+html += "Honor: "
++ this.player.honor
++ "<br><br>";
+
+html += "Spouse: "
++ (
+this.player.spouse
+||
+"None"
+);
+
+html += "<br><br>";
+
+html += "Children: "
++
+(
+this.player.children
+?
+this.player.children.length
+:
+0
+);
 
 document
 .getElementById(
 "player"
 )
-.innerHTML=
-
-`
-<h2>🏯 Character</h2>
-
-Name:
-${this.player.name}
-
-<br><br>
-
-Age:
-${this.player.age}
-
-<br><br>
-
-Gender:
-${this.player.gender}
-
-<br><br>
-
-Social Class:
-${this.player.socialClass}
-
-<br><br>
-
-Clan:
-${this.player.clan}
-
-<br><br>
-
-Gold:
-${this.player.gold}
-
-<br><br>
-
-Honor:
-${this.player.honor}
-
-<br><br>
-
-Spouse:
-${this.player.spouse||"None"}
-
-<br><br>
-
-Children:
-${this.player.children.length}
-
-`;
+.innerHTML =
+html;
 
 }
 
