@@ -13,37 +13,44 @@ create(){
 if(
 !window.PlayerEngine
 )
-
 return;
 
+/*
+Only skip if character already exists
+*/
+
 if(
+
 PlayerEngine.player
 &&
 PlayerEngine.player.name
-)
+&&
+PlayerEngine.player.name!==""
+
+){
 
 return;
+
+}
 
 let name=
 
 prompt(
-"Character Name"
+"Enter Character Name"
+);
+
+if(
+!name
 )
-
-||
-
-"Traveler";
+name="Traveler";
 
 let age=
 
 Number(
 
 prompt(
-"Age"
-)
-
+"Enter Age")
 ||
-
 16
 
 );
@@ -51,11 +58,9 @@ prompt(
 let gender=
 
 prompt(
-"Gender"
+"Enter Gender"
 )
-
 ||
-
 "male";
 
 let clan=
@@ -63,8 +68,7 @@ let clan=
 FactionEngine
 .pick();
 
-PlayerEngine
-.create({
+PlayerEngine.create({
 
 name,
 
@@ -76,13 +80,24 @@ clan,
 
 reputation:0,
 
-gold:100
+gold:100,
+
+family:{
+parents:[],
+spouse:null,
+children:[]
+},
+
+army:[],
+
+settlements:[]
 
 });
 
 alert(
 
 "Welcome "+
+
 name+
 
 "\nClan: "+
@@ -90,6 +105,8 @@ name+
 clan
 
 );
+
+PlayerEngine.save();
 
 }
 
