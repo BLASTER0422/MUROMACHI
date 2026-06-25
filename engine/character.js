@@ -1,74 +1,112 @@
 window.CharacterEngine={
 
-ready:false,
+classes:[],
 
 async init(){
 
-this.ready=true;
+try{
+
+const r=
+await fetch(
+"./json/classes/starting_classes.json"
+);
+
+const data=
+await r.json();
+
+this.classes=
+data.classes;
+
+console.log(
+"Classes Loaded"
+);
+
+}
+catch(e){
+
+console.log(
+"Class Load Failed",
+e
+);
+
+this.classes=[];
+
+}
 
 },
 
 create(){
 
 if(
-!window.PlayerEngine
+window.PlayerEngine.player
 )
 return;
 
-/*
-Only skip if character already exists
-*/
+const name=
+prompt(
+"Character Name"
+)
+||
+"Traveler";
 
-if(
+const age=
+parseInt(
 
-PlayerEngine.player
-&&
-PlayerEngine.player.name
-&&
-PlayerEngine.player.name!==""
+prompt(
+"Age"
+)
 
-){
+||
+18
 
-return;
+);
+
+const gender=
+prompt(
+"Gender"
+)
+||
+"Unknown";
+
+let text=
+"Choose Class\n\n";
+
+this.classes
+.forEach(
+
+(c,i)=>{
+
+text+=
+`${i+1}. ${c.name}\n`;
 
 }
 
-let name=
+);
 
-prompt(
-"Enter Character Name"
+let choice=
+
+parseInt(
+prompt(text)
 );
 
 if(
-!name
-)
-name="Traveler";
-
-let age=
-
-Number(
-
-prompt(
-"Enter Age")
+isNaN(choice)
 ||
-16
-
-);
-
-let gender=
-
-prompt(
-"Enter Gender"
-)
+choice<1
 ||
-"male";
+choice>
+this.classes.length
+)
 
-let clan=
+choice=1;
 
-FactionEngine
-.pick();
+const cls=
 
-PlayerEngine.create({
+this.classes[
+choice-1
+];
+
+PlayerEngine.player={
 
 name,
 
@@ -76,37 +114,55 @@ age,
 
 gender,
 
-clan,
+class:
 
-reputation:0,
+cls.id,
 
-gold:100,
+socialClass:
+
+cls.name,
+
+gold:
+
+cls.gold,
+
+honor:
+
+cls.honor,
+
+inventory:
+
+[
+...cls.items
+],
+
+spawn:
+
+cls.spawn,
 
 family:{
-parents:[],
+
 spouse:null,
+
 children:[]
-},
 
-army:[],
+}
 
-settlements:[]
+};
 
-});
+PlayerEngine.save();
 
 alert(
 
-"Welcome "+
+`Welcome ${name}
 
-name+
+Class:
+${cls.name}
 
-"\nClan: "+
-
-clan
+Spawn:
+${cls.spawn}`
 
 );
-
-PlayerEngine.save();
 
 }
 
