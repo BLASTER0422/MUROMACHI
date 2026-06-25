@@ -1,5 +1,5 @@
 ```javascript
-window.CharacterEngine={
+window.CharacterEngine = {
 
 classes:[],
 
@@ -7,15 +7,15 @@ async init(){
 
 try{
 
-const r=
+const r =
 await fetch(
 "./json/classes/starting_classes.json"
 );
 
-const data=
+const data =
 await r.json();
 
-this.classes=
+this.classes =
 data.classes;
 
 }
@@ -31,78 +31,90 @@ this.classes=[];
 
 async create(){
 
-const name=
-prompt(
-"Enter Name"
-)
-||
-"Traveler";
+let selected = {
 
-const age=
-parseInt(
+id:"commoner",
 
-prompt(
-"Enter Age"
-)
+name:"Commoner",
 
-||
-18
+gold:5,
 
-);
+honor:0,
 
-const gender=
-prompt(
-"Enter Gender"
-)
-||
-"Unknown";
+spawn:"village",
 
-let selected=
-this.classes[0];
+items:[]
+
+};
 
 if(this.classes.length){
 
-let text=
+let msg =
 "Choose Class\n\n";
 
-this.classes.forEach(
+for(
+let i=0;
+i<this.classes.length;
+i++
+){
 
-(c,i)=>{
-
-text+=
-(i+1)
+msg +=
+(
+i+1
+)
 +
 ". "
 +
-c.name
+this.classes[i].name
 +
 "\n";
 
 }
 
-);
-
-const choice=
+const chosen =
 parseInt(
-prompt(text)
+prompt(msg)
 );
 
 if(
-choice
+chosen
 &&
 this.classes[
-choice-1
+chosen-1
 ]
 ){
 
-selected=
+selected =
 this.classes[
-choice-1
+chosen-1
 ];
 
 }
 
 }
+
+const name =
+prompt(
+"Name"
+)
+||
+"Traveler";
+
+const age =
+parseInt(
+prompt(
+"Age"
+)
+||
+18
+);
+
+const gender =
+prompt(
+"Gender"
+)
+||
+"Unknown";
 
 PlayerEngine.player={
 
@@ -112,30 +124,23 @@ age:age,
 
 gender:gender,
 
-socialClass:
-selected.name,
+socialClass:selected.name,
 
-class:
-selected.id,
+class:selected.id,
 
-gold:
-selected.gold,
+gold:selected.gold,
 
-honor:
-selected.honor,
+honor:selected.honor,
 
-inventory:
-selected.items,
+inventory:selected.items,
 
-spawn:
-selected.spawn,
+spawn:selected.spawn,
 
 spouse:null,
 
 children:[],
 
-clan:
-chooseClan(
+clan:getClan(
 selected.id
 )
 
@@ -147,29 +152,27 @@ await PlayerEngine.save();
 
 };
 
-function chooseClan(type){
+function getClan(cls){
 
 if(
-
-type==="commoner"
-
+cls==="commoner"
 ||
-
-type==="merchant"
-
+cls==="merchant"
 ||
-
-type==="monk"
-
-)
+cls==="monk"
+){
 
 return "None";
 
+}
+
 if(
-type==="ronin"
-)
+cls==="ronin"
+){
 
 return "Ronin";
+
+}
 
 const clans=[
 
@@ -177,9 +180,9 @@ const clans=[
 
 "Hojo",
 
-"Takeda",
+"Date",
 
-"Date"
+"Takeda"
 
 ];
 
