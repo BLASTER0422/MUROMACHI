@@ -1,20 +1,24 @@
 (async()=>{
 
 const status=
-document.getElementById(
+
+document
+.getElementById(
 "status"
 );
 
 status.innerHTML=
-"Loading Engine...";
+"Loading Engine";
 
 async function load(src){
 
 return new Promise(
+
 (resolve,reject)=>{
 
 const s=
-document.createElement(
+document
+.createElement(
 "script"
 );
 
@@ -25,12 +29,12 @@ s.onload=
 resolve;
 
 s.onerror=
-()=>reject(
-"Failed to load "+src
-);
+reject;
 
-document.body.appendChild(
+document.body
+.appendChild(
 s
+
 );
 
 });
@@ -39,92 +43,39 @@ s
 
 try{
 
-await load(
-"./engine/loader.js"
-);
+await load("./engine/loader.js");
 
-await load(
-"./engine/registry.js"
-);
+await load("./engine/registry.js");
 
-await load(
-"./engine/storage.js"
-);
+await load("./engine/storage.js");
 
-await load(
-"./engine/simulation.js"
-);
+await load("./engine/simulation.js");
 
-await load(
-"./engine/world.js"
-);
+await load("./engine/world.js");
 
-await load(
-"./engine/player.js"
-);
+await load("./engine/player.js");
 
-await load(
-"./engine/family.js"
-);
+await load("./engine/family.js");
 
-await load(
-"./engine/faction.js"
-);
+await load("./engine/faction.js");
 
-await load(
-"./engine/character.js"
-);
+await load("./engine/character.js");
 
-if(
-window.StorageEngine
-){
+await load("./engine/ui.js");
 
-await StorageEngine
-.init();
+await StorageEngine.init();
 
-}
+await WorldEngine.init();
 
-if(
-window.WorldEngine
-){
+await PlayerEngine.init();
 
-await WorldEngine
-.init();
+await FactionEngine.init();
 
-}
+await CharacterEngine.init();
 
-if(
-window.PlayerEngine
-){
+CharacterEngine.create();
 
-await PlayerEngine
-.init();
-
-PlayerEngine
-.load();
-
-}
-
-if(
-window.FactionEngine
-){
-
-await FactionEngine
-.init();
-
-}
-
-if(
-window.CharacterEngine
-){
-
-await CharacterEngine
-.init();
-
-CharacterEngine
-.create();
-
-}
+UIEngine.render();
 
 status.innerHTML=
 
@@ -137,9 +88,7 @@ status.innerHTML=
 
 "❌ Failed";
 
-console.log(
-e
-);
+console.log(e);
 
 }
 
