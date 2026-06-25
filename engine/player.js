@@ -6,7 +6,23 @@ async init(){
 
 try{
 
-let r=
+const saved=
+localStorage.getItem(
+"player"
+);
+
+if(saved){
+
+this.player=
+JSON.parse(
+saved
+);
+
+return;
+
+}
+
+const r=
 await fetch(
 "./templates/player.json"
 );
@@ -14,16 +30,10 @@ await fetch(
 this.player=
 await r.json();
 
-console.log(
-"Player Ready"
-);
-
 }
 catch(e){
 
-console.log(
-e
-);
+console.log(e);
 
 }
 
@@ -40,21 +50,11 @@ this.player={
 id:
 crypto.randomUUID(),
 
-birthYear:
-WorldEngine.world.year,
-
 alive:true
 
 };
 
-localStorage.setItem(
-
-"player",
-
-JSON.stringify(
-this.player
-
-);
+this.save();
 
 return this.player;
 
@@ -68,7 +68,6 @@ localStorage.setItem(
 
 JSON.stringify(
 this.player
-
 )
 
 );
@@ -77,20 +76,19 @@ this.player
 
 load(){
 
-let p=
-
-localStorage
-.getItem(
+const p=
+localStorage.getItem(
 "player"
 );
 
-if(p)
+if(p){
 
 this.player=
-
 JSON.parse(
 p
 );
+
+}
 
 }
 
