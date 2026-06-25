@@ -1,4 +1,3 @@
-```javascript
 window.PlayerEngine = {
 player:null,
 
