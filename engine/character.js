@@ -16,9 +16,7 @@ const data=
 await r.json();
 
 this.classes=
-data.classes
-||
-[];
+data.classes;
 
 }
 catch(e){
@@ -35,23 +33,26 @@ async create(){
 
 const name=
 prompt(
-"Name"
+"Enter Name"
 )
 ||
 "Traveler";
 
 const age=
 parseInt(
+
 prompt(
-"Age"
+"Enter Age"
 )
+
 ||
 18
+
 );
 
 const gender=
 prompt(
-"Gender"
+"Enter Gender"
 )
 ||
 "Unknown";
@@ -59,45 +60,57 @@ prompt(
 let selected=
 this.classes[0];
 
-if(
-this.classes.length
-){
+if(this.classes.length){
 
-let msg=
+let text=
 "Choose Class\n\n";
 
-this.classes
-.forEach(
+this.classes.forEach(
+
 (c,i)=>{
 
-msg+=
-`${i+1}. ${c.name}\n`;
+text+=
+(i+1)
++
+". "
++
+c.name
++
+"\n";
 
-});
+}
 
-let pick=
+);
+
+const choice=
 parseInt(
-prompt(msg)
+prompt(text)
 );
 
 if(
-!isNaN(pick)
+choice
 &&
-this.classes[pick-1]
-)
+this.classes[
+choice-1
+]
+){
 
 selected=
-this.classes[pick-1];
+this.classes[
+choice-1
+];
+
+}
 
 }
 
 PlayerEngine.player={
 
-name,
+name:name,
 
-age,
+age:age,
 
-gender,
+gender:gender,
 
 socialClass:
 selected.name,
@@ -122,33 +135,40 @@ spouse:null,
 children:[],
 
 clan:
-getClan(
+chooseClan(
 selected.id
 )
 
 };
 
-await PlayerEngine
-.save();
+await PlayerEngine.save();
 
 }
 
 };
 
-function getClan(cls){
+function chooseClan(type){
 
 if(
-cls==="commoner"
+
+type==="commoner"
+
 ||
-cls==="merchant"
+
+type==="merchant"
+
 ||
-cls==="monk"
+
+type==="monk"
+
 )
+
 return "None";
 
 if(
-cls==="ronin"
+type==="ronin"
 )
+
 return "Ronin";
 
 const clans=[
@@ -157,9 +177,9 @@ const clans=[
 
 "Hojo",
 
-"Date",
+"Takeda",
 
-"Takeda"
+"Date"
 
 ];
 
