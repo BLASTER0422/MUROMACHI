@@ -15,7 +15,9 @@ const data=
 await r.json();
 
 this.classes=
-data.classes;
+data.classes
+||
+[];
 
 console.log(
 "Classes Loaded"
@@ -25,7 +27,6 @@ console.log(
 catch(e){
 
 console.log(
-"Class Load Failed",
 e
 );
 
@@ -35,40 +36,61 @@ this.classes=[];
 
 },
 
-create(){
+async create(){
 
 if(
-window.PlayerEngine.player
+!window.PlayerEngine
+)
+return;
+
+if(
+PlayerEngine.player
+&&
+PlayerEngine.player.name
 )
 return;
 
 const name=
+
 prompt(
-"Character Name"
+"Enter Name"
 )
+
 ||
 "Traveler";
 
 const age=
+
 parseInt(
 
 prompt(
-"Age"
-)
+"Enter Age")
 
 ||
+
 18
 
 );
 
 const gender=
+
 prompt(
-"Gender"
+"Enter Gender"
 )
+
 ||
+
 "Unknown";
 
-let text=
+let selected=
+null;
+
+if(
+this.classes.length
+){
+
+let msg=
+
 "Choose Class\n\n";
 
 this.classes
@@ -76,35 +98,55 @@ this.classes
 
 (c,i)=>{
 
-text+=
+msg+=
 `${i+1}. ${c.name}\n`;
 
 }
 
 );
 
-let choice=
+let pick=
 
 parseInt(
-prompt(text)
+prompt(msg)
 );
 
 if(
-isNaN(choice)
-||
-choice<1
-||
-choice>
-this.classes.length
+isNaN(pick)
 )
+pick=1;
 
-choice=1;
-
-const cls=
+selected=
 
 this.classes[
-choice-1
-];
+pick-1
+]
+
+||
+
+this.classes[0];
+
+}
+
+else{
+
+selected={
+
+id:"commoner",
+
+name:"Commoner",
+
+gold:5,
+
+honor:0,
+
+spawn:"village",
+
+items:[]
+
+};
+
+}
 
 PlayerEngine.player={
 
@@ -114,56 +156,71 @@ age,
 
 gender,
 
-class:
+clan:
 
-cls.id,
-
-socialClass:
-
-cls.name,
+pickClan(),
 
 gold:
 
-cls.gold,
+selected.gold,
+
+class:
+
+selected.id,
+
+socialClass:
+
+selected.name,
 
 honor:
 
-cls.honor,
+selected.honor,
 
 inventory:
 
-[
-...cls.items
-],
+selected.items,
 
 spawn:
 
-cls.spawn,
-
-family:{
+selected.spawn,
 
 spouse:null,
 
 children:[]
 
+};
+
+await PlayerEngine.save();
+
 }
 
 };
 
-PlayerEngine.save();
+function pickClan(){
 
-alert(
+const clans=[
 
-`Welcome ${name}
+"Ashikaga",
 
-Class:
-${cls.name}
+"Takeda",
 
-Spawn:
-${cls.spawn}`
+"Date",
 
-);
+"Hojo",
+
+"Tokugawa",
+
+"None"
+
+];
+
+return clans[
+Math.floor(
+Math.random()
+*
+clans.length
+)
+
+];
 
 }
-
-};
