@@ -19,16 +19,10 @@ data.classes
 ||
 [];
 
-console.log(
-"Classes Loaded"
-);
-
 }
 catch(e){
 
-console.log(
-e
-);
+console.log(e);
 
 this.classes=[];
 
@@ -39,11 +33,6 @@ this.classes=[];
 async create(){
 
 if(
-!window.PlayerEngine
-)
-return;
-
-if(
 PlayerEngine.player
 &&
 PlayerEngine.player.name
@@ -51,51 +40,34 @@ PlayerEngine.player.name
 return;
 
 const name=
-
 prompt(
 "Enter Name"
 )
-
 ||
 "Traveler";
 
 const age=
-
 parseInt(
-
 prompt(
-"Enter Age")
-
+"Enter Age"
+)
 ||
-
 18
-
 );
 
 const gender=
-
 prompt(
 "Enter Gender"
 )
-
 ||
-
 "Unknown";
 
-let selected=
-null;
-
-if(
-this.classes.length
-){
+let selected=null;
 
 let msg=
-
 "Choose Class\n\n";
 
-this.classes
-.forEach(
-
+this.classes.forEach(
 (c,i)=>{
 
 msg+=
@@ -105,48 +77,26 @@ msg+=
 
 );
 
-let pick=
-
+let choice=
 parseInt(
 prompt(msg)
 );
 
 if(
-isNaN(pick)
+isNaN(choice)
+||
+choice<1
+||
+choice>
+this.classes.length
 )
-pick=1;
+
+choice=1;
 
 selected=
-
 this.classes[
-pick-1
-]
-
-||
-
-this.classes[0];
-
-}
-
-else{
-
-selected={
-
-id:"commoner",
-
-name:"Commoner",
-
-gold:5,
-
-honor:0,
-
-spawn:"village",
-
-items:[]
-
-};
-
-}
+choice-1
+];
 
 PlayerEngine.player={
 
@@ -156,14 +106,6 @@ age,
 
 gender,
 
-clan:
-
-pickClan(),
-
-gold:
-
-selected.gold,
-
 class:
 
 selected.id,
@@ -171,6 +113,10 @@ selected.id,
 socialClass:
 
 selected.name,
+
+gold:
+
+selected.gold,
 
 honor:
 
@@ -186,7 +132,15 @@ selected.spawn,
 
 spouse:null,
 
-children:[]
+children:[],
+
+childrenCount:0,
+
+clan:
+
+assignClan(
+selected.id
+)
 
 };
 
@@ -196,7 +150,27 @@ await PlayerEngine.save();
 
 };
 
-function pickClan(){
+function assignClan(cls){
+
+if(
+cls==="commoner"
+||
+cls==="merchant"
+||
+cls==="monk"
+){
+
+return "None";
+
+}
+
+if(
+cls==="ronin"
+){
+
+return "Former Retainer";
+
+}
 
 const clans=[
 
@@ -204,13 +178,11 @@ const clans=[
 
 "Takeda",
 
-"Date",
-
 "Hojo",
 
-"Tokugawa",
+"Date",
 
-"None"
+"Tokugawa"
 
 ];
 
