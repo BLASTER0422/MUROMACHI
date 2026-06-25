@@ -8,33 +8,33 @@ async init(){
 try{
 
 const save=
-localStorage
-.getItem(
+localStorage.getItem(
 "player"
 );
 
 if(save){
 
 this.player=
-JSON.parse(
-save
-);
+JSON.parse(save);
 
 }
 
-if(
-!this.player
-){
+if(!this.player){
 
-await CharacterEngine
-.init();
+await CharacterEngine.init();
 
-await CharacterEngine
-.create();
+await CharacterEngine.create();
 
 }
 
 this.render();
+
+document
+.getElementById(
+"status"
+)
+.innerHTML=
+"✅ Godlike Engine Online";
 
 }
 catch(e){
@@ -46,7 +46,6 @@ document
 "status"
 )
 .innerHTML=
-
 "❌ Failed";
 
 }
@@ -55,8 +54,7 @@ document
 
 async save(){
 
-localStorage
-.setItem(
+localStorage.setItem(
 
 "player",
 
@@ -70,20 +68,16 @@ this.player
 
 render(){
 
-if(
-!this.player
-)
+if(!this.player)
 return;
 
 document
 .getElementById(
 "player"
 )
-
 .innerHTML=
 
 `
-
 <h2>🏯 Character</h2>
 
 Name:
@@ -127,13 +121,7 @@ ${this.player.spouse||"None"}
 <br><br>
 
 Children:
-${
-this.player.children
-?
-this.player.children.length
-:
-0
-}
+${this.player.children.length}
 
 `;
 
