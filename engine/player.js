@@ -1,12 +1,15 @@
+```javascript
 window.PlayerEngine={
 
 player:null,
 
 async init(){
 
-const save=
+try{
 
-localStorage.getItem(
+const save=
+localStorage
+.getItem(
 "player"
 );
 
@@ -19,7 +22,12 @@ save
 
 }
 
-else{
+if(
+!this.player
+){
+
+await CharacterEngine
+.init();
 
 await CharacterEngine
 .create();
@@ -28,11 +36,27 @@ await CharacterEngine
 
 this.render();
 
+}
+catch(e){
+
+console.log(e);
+
+document
+.getElementById(
+"status"
+)
+.innerHTML=
+
+"❌ Failed";
+
+}
+
 },
 
 async save(){
 
-localStorage.setItem(
+localStorage
+.setItem(
 
 "player",
 
@@ -60,11 +84,7 @@ document
 
 `
 
-<h2>
-
-🏯 Character
-
-</h2>
+<h2>🏯 Character</h2>
 
 Name:
 ${this.player.name}
@@ -102,17 +122,17 @@ ${this.player.honor}
 <br><br>
 
 Spouse:
-${
-this.player.spouse
-||
-"None"
-}
+${this.player.spouse||"None"}
 
 <br><br>
 
 Children:
 ${
-this.player.childrenCount
+this.player.children
+?
+this.player.children.length
+:
+0
 }
 
 `;
@@ -120,3 +140,4 @@ this.player.childrenCount
 }
 
 };
+```
