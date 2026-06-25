@@ -4,63 +4,33 @@ player:null,
 
 async init(){
 
-try{
+const save=
 
-const saved=
 localStorage.getItem(
 "player"
 );
 
-if(saved){
+if(save){
 
 this.player=
 JSON.parse(
-saved
+save
 );
 
-return;
+}
+
+else{
+
+await CharacterEngine
+.create();
 
 }
 
-const r=
-await fetch(
-"./templates/player.json"
-);
-
-this.player=
-await r.json();
-
-}
-catch(e){
-
-console.log(e);
-
-}
+this.render();
 
 },
 
-create(data){
-
-this.player={
-
-...this.player,
-
-...data,
-
-id:
-crypto.randomUUID(),
-
-alive:true
-
-};
-
-this.save();
-
-return this.player;
-
-},
-
-save(){
+async save(){
 
 localStorage.setItem(
 
@@ -74,21 +44,78 @@ this.player
 
 },
 
-load(){
+render(){
 
-const p=
-localStorage.getItem(
+if(
+!this.player
+)
+return;
+
+document
+.getElementById(
 "player"
-);
+)
 
-if(p){
+.innerHTML=
 
-this.player=
-JSON.parse(
-p
-);
+`
 
+<h2>
+
+🏯 Character
+
+</h2>
+
+Name:
+${this.player.name}
+
+<br><br>
+
+Age:
+${this.player.age}
+
+<br><br>
+
+Gender:
+${this.player.gender}
+
+<br><br>
+
+Social Class:
+${this.player.socialClass}
+
+<br><br>
+
+Clan:
+${this.player.clan}
+
+<br><br>
+
+Gold:
+${this.player.gold}
+
+<br><br>
+
+Honor:
+${this.player.honor}
+
+<br><br>
+
+Spouse:
+${
+this.player.spouse
+||
+"None"
 }
+
+<br><br>
+
+Children:
+${
+this.player.childrenCount
+}
+
+`;
 
 }
 
